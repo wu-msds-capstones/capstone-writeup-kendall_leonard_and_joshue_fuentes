@@ -1,5 +1,5 @@
 ---
-title: "Marvel Modeling 3"
+title: "MCU Modeling"
 author: "Joshue Fuentes"
 date: "2025-07-29"
 output: html_document
