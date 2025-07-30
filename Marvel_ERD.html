@@ -1,25 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <title>Marvel ERD</title>
-  <script type="module">
-    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
-    mermaid.initialize({ startOnLoad: true });
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+
   <style>
     body {
       margin: 0;
-      padding: 2rem;
-      background: white;
-    }
-    .mermaid {
       font-family: sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ccc;
+    }
+
+    #zoom-controls {
+      display: flex;
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+
+    #zoom-controls button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #aaa;
+      background: #eee;
+      cursor: pointer;
+    }
+
+    #diagram-container {
+      height: 80vh;
+      overflow: auto;
+    }
+
+    #diagram-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   </style>
 </head>
 <body>
-  <div class="mermaid">
+
+  <header>
+    <h2>Entity Relationship Diagram</h2>
+  </header>
+
+  <div id="zoom-controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="diagram-container">
+    <div id="diagram-wrapper"></div>
+  </div>
+
+  <script type="text/plain" id="mermaid-container">
+%%{init: {'theme': 'default', 'flowchart': {'htmlLabels': true}, 'er': { 'useMaxWidth': false }}}%%
 erDiagram
     marvel_heroes {
         int character_id PK
@@ -194,12 +236,57 @@ erDiagram
     themes ||--o{ comic_themes : present_in
     comics ||--o{ comic_threats : faces
     threat_level ||--o{ comic_threats : level
-    comics ||--o{ comic_series : part_of
+    comics ||--o| comic_series : part_of
     comics ||--o| locations : set_in
     comics ||--o| major_event : involves
     marvel_heroes }|--|| character_ethnicities : identifies_as
-    marvel_heroes }|--|| species : belongs_to 
+    marvel_heroes }|--|| species : belongs_to
+  </script>
 
-  </div>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+
+    const def = document.getElementById("mermaid-container").textContent;
+    const { svg } = await mermaid.render("erd", def);
+
+    const wrapper = document.getElementById("diagram-wrapper");
+    wrapper.innerHTML = svg;
+
+    // ⛔ REMOVE Mermaid’s built-in header <text> tag
+    const headerText = wrapper.querySelector('svg text');
+    if (headerText && headerText.textContent.trim() === 'Entity Relationship Diagram') {
+      headerText.parentNode.removeChild(headerText);
+    }
+
+    // Enable zoom + pan
+    window.panZoomInstance = svgPanZoom(wrapper.querySelector("svg"), {
+      zoomEnabled: true,
+      panEnabled: true,
+      controlIconsEnabled: false,
+      fit: true,
+      center: true,
+      minZoom: 0.1,
+      maxZoom: 10
+    });
+  </script>
+
+  <script>
+    function zoomIn() {
+      if (window.panZoomInstance) window.panZoomInstance.zoomIn();
+    }
+
+    function zoomOut() {
+      if (window.panZoomInstance) window.panZoomInstance.zoomOut();
+    }
+
+    function resetZoom() {
+      if (window.panZoomInstance) {
+        window.panZoomInstance.resetZoom();
+        window.panZoomInstance.center();
+        window.panZoomInstance.fit();
+      }
+    }
+  </script>
+
 </body>
 </html>
