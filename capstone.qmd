@@ -8,9 +8,8 @@ bibliography: references.bib
 title-block-banner: true
 format: 
   html:
-    theme:
-      light: lightly
-      dark: darkly
+    theme: darkly
+    font-family: Century Schoolbook
 ---
 
 {{< include _01_intro.qmd >}}
@@ -20,3 +19,4 @@ format:
 {{< include _05_results.qmd >}}
 {{< include _06_conclusions.qmd >}}
 {{< include _07_references.qmd >}}
+{{< include _08_appendix.qmd >}}

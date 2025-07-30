@@ -15,9 +15,13 @@ While our project uses publicly available data, we considered several ethical co
 Additionally, we excluded fan-edited wikis or Reddit data due to concerns about data quality, consent, and citation. Only official or structured third-party sources (IMDb, Marvel.com, Rotten Tomatoes) were used.
 
 ## Organization
-## Entity Relationship Diagram
+
+### Entity Relationship Diagram
+
+To support the complexity of our classification and prediction tasks, we designed a comprehensive relational database schema that captures character traits, comic metadata, adaptation linkages, and auxiliary attributes across over 20 interrelated tables. The schema integrates many-to-many bridge tables and normalized dimensions to preserve data integrity and analytic flexibility. Below, we provide an interactive entity-relationship diagram (ERD) that visualizes the structure of our database, allowing readers to explore table-level details dynamically.
+
+
 <iframe src="Marvel_ERD.html" width="100%" height="800px" style="border: none;"></iframe>
 
-
-
 ## Dictionaries
+To provide further clarity on the structure and contents of our database, we include brief data dictionaries for a subset of central tables that play a critical role in our analysis—particularly those related to characters, comics, and MCU adaptations. These summaries define key variables and their relationships, supporting the reader’s understanding of the modeling pipeline. For a complete listing of auxiliary tables, including bridge and lookup dimensions (e.g., comic_themes, hero_to_alias, and locations), see the extended documentation in the Appendix.
