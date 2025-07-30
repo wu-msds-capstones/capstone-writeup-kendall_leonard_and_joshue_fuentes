@@ -1,5 +1,5 @@
 # Data
-
+## Sources
 The data for this project originates from three primary sources: the official Marvel website (Marvel.com), Rotten Tomatoes, and IMDb. While several additional sources were considered during the early stages of the project, they were ultimately dismissed due to inconsistent formatting, limited access, or unreliable metadata. These decisions are discussed in more detail in the Limitations section.
 
 Because our objective is to identify which Marvel characters and storylines are most likely to succeed when adapted into the Marvel Cinematic Universe (MCU), we first had to define what “success” means. Initially, we considered using box office revenue as a proxy. However, this metric is not available for Marvel TV shows, especially those hosted on streaming platforms like Disney+. As a result, we pivoted to using aggregated ratings from Rotten Tomatoes, which measure how well both critics and general audiences received a particular movie or show. Ratings allow for comparisons across both film and television and offer a more complete picture of how adaptations are received.
@@ -14,3 +14,190 @@ While our project uses publicly available data, we considered several ethical co
 
 Additionally, we excluded fan-edited wikis or Reddit data due to concerns about data quality, consent, and citation. Only official or structured third-party sources (IMDb, Marvel.com, Rotten Tomatoes) were used.
 
+## Organization
+## Entity Relationship Diagram
+
+
+```{mermaid}
+erDiagram
+    marvel_heroes {
+        int character_id PK
+        string civilian_name
+        boolean comedy
+        string sex
+        boolean in_movie
+        int ethnicity_id FK
+        int species_id FK
+    }
+
+    character_ethnicities {
+        int ethnicity_id PK
+        string ethnicity_label
+    }
+
+    species {
+        int species_id PK
+        string description
+    }
+
+    hero_aliases {
+        int alias_id PK
+        string alias_name
+    }
+
+    hero_to_alias {
+        int character_id FK
+        int alias_id FK
+    }
+
+    powers {
+        int power_id PK
+        string description
+    }
+
+    power_type {
+        int power_type_id PK
+        string description
+    }
+
+    character_power_type {
+        int character_id FK
+        int power_type_id FK
+    }
+
+    hero_powers {
+        int character_id FK
+        int power_id FK
+    }
+
+    teams {
+        int team_id PK
+        string description
+    }
+
+    characters_in_teams {
+        int character_id FK
+        int team_id FK
+    }
+
+    marvel_ratings {
+        int media_id PK
+        string title
+        string type
+        float critic_score
+        float audience_score
+        date release_date
+    }
+
+    characters_in_movies {
+        int character_id FK
+        int movie_id FK
+    }
+
+    comics {
+        int comic_id PK
+        int series_id FK
+        string comic_title
+        date release_date
+        int page_count
+        string rating
+        float price
+        string description
+        int threat_id FK
+        boolean used_in_movie
+        boolean movie_based
+        boolean mentor
+        boolean impactful_moment
+        boolean comedy
+        boolean cultural
+        int location_id FK
+        boolean romance
+        boolean origin_story
+        int major_event FK
+        string comic_url
+    }
+
+    comic_series {
+        int series_id PK
+        string series_name
+    }
+
+    comic_characters {
+        int comic_id FK
+        int character_id FK
+    }
+
+    comic_to_creator {
+        int comic_id FK
+        int creator_id FK
+    }
+
+    creators {
+        int creator_id PK
+        string creator_name
+    }
+
+    comic_to_movie {
+        int comic_id FK
+        int movie_id FK
+    }
+
+    comic_themes {
+        int comic_id FK
+        int theme_id FK
+    }
+
+    comic_threats {
+        int comic_id FK
+        int threat_id FK
+    }
+
+    themes {
+        int theme_id PK
+        string description
+    }
+
+    threat_level {
+        int threat_id PK
+        string description
+    }
+
+    locations {
+        int location_id PK
+        string description
+    }
+
+    major_event {
+        int event_id PK
+        string description
+    }
+
+    %% Relationships
+    marvel_heroes ||--o{ character_power_type : has
+    power_type ||--o{ character_power_type : classifies
+    marvel_heroes ||--o{ hero_powers : uses
+    powers ||--o{ hero_powers : is
+    marvel_heroes ||--o{ hero_to_alias : has
+    hero_aliases ||--o{ hero_to_alias : includes
+    marvel_heroes ||--o{ characters_in_teams : member
+    teams ||--o{ characters_in_teams : consists_of
+    marvel_heroes ||--o{ characters_in_movies : featured_in
+    marvel_ratings ||--o{ characters_in_movies : includes
+    marvel_heroes ||--o{ comic_characters : appears_in
+    comics ||--o{ comic_characters : features
+    comics ||--o{ comic_to_creator : created_by
+    creators ||--o{ comic_to_creator : contributes
+    comics ||--o{ comic_to_movie : adapted_to
+    marvel_ratings ||--o{ comic_to_movie : based_on
+    comics ||--o{ comic_themes : explores
+    themes ||--o{ comic_themes : present_in
+    comics ||--o{ comic_threats : faces
+    threat_level ||--o{ comic_threats : level
+    comics ||--o{ comic_series : part_of
+    comics ||--o| locations : set_in
+    comics ||--o| major_event : involves
+    marvel_heroes }|--|| character_ethnicities : identifies_as
+    marvel_heroes }|--|| species : belongs_to 
+```
+
+## Dictionaries

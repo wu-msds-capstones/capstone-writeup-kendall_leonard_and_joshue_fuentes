@@ -1,9 +1,9 @@
 ---
-title: "Avengers"
-subtitle: Subtitle
+title: "Data Assembled: A Heroic Struggle"
+subtitle: An Analysis and Classification of Marvel Comics and Media
 authors:
-  - Bob
-  - Jane
+  - Joshue Fuentes
+  - Kendall Leonard
 bibliography: references.bib
 title-block-banner: true
 format: 
