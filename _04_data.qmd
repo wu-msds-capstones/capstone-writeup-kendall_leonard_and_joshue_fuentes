@@ -27,3 +27,45 @@ To support the complexity of our classification and prediction tasks, we designe
 To provide further clarity on the structure and contents of our database, we include brief data dictionaries for a subset of central tables that play a critical role in our analysis—particularly those related to characters, comics, and MCU adaptations. These summaries define key variables and their relationships, supporting the reader’s understanding of the modeling pipeline. For a complete listing of auxiliary tables, including bridge and lookup dimensions (e.g., comic_themes, hero_to_alias, and locations), see the extended documentation in the Appendix.
 
 Dictionaries coming soon
+
+<div class="accordion">
+
+  <details>
+    <summary><span class="icon">ℹ</span> <strong>comics</strong></summary>
+    <p>This table contains information about the comics collected from Marvel.com, including title, release date, and a unique identifier to connect to other tables.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+         <tr><td>comic_id</td><td>Comic ID</td><td>Unique identifier for each comic (primary key).</td></tr>
+      <tr><td>series_id</td><td>Series ID</td><td>Foreign key to <code>comic_series</code> table, indicating which series the comic belongs to.</td></tr>
+      <tr><td>comic_title</td><td>Title</td><td>Title of the comic issue.</td></tr>
+      <tr><td>release_date</td><td>Release Date</td><td>Date the comic was released.</td></tr>
+      <tr><td>page_count</td><td>Page Count</td><td>Total number of pages in the comic.</td></tr>
+      <tr><td>rating</td><td>Rating</td><td>Comic rating (e.g., All Ages, Teen).</td></tr>
+      <tr><td>price</td><td>Price</td><td>Retail price of the comic issue.</td></tr>
+      <tr><td>description</td><td>Description</td><td>Textual summary of the comic’s content.</td></tr>
+      <tr><td>threat_id</td><td>Threat ID</td><td>Foreign key to <code>threat_level</code>; derived from description keywords.</td></tr>
+      <tr><td>used_in_movie</td><td>Used in Movie</td><td>Indicates if this comic was directly referenced or used in an MCU movie.</td></tr>
+      <tr><td>movie_based</td><td>Movie-Based</td><td>Whether the comic itself is based on an MCU movie.</td></tr>
+      <tr><td>mentor</td><td>Mentor Present</td><td>Boolean indicating presence of a mentor character, inferred from description.</td></tr>
+      <tr><td>impactful_moment</td><td>Impactful Moment</td><td>Boolean flag for key emotional or plot moments in the description.</td></tr>
+      <tr><td>comedy</td><td>Comedy</td><td>Boolean flag for comedic tone or humor-related keywords in description.</td></tr>
+      <tr><td>cultural</td><td>Cultural</td><td>Boolean flag for cultural themes (e.g., holidays, traditions) found in description.</td></tr>
+      <tr><td>location_id</td><td>Location ID</td><td>Foreign key to <code>locations</code> table; place where the comic is set.</td></tr>
+      <tr><td>romance</td><td>Romance</td><td>Boolean flag for romance-related elements in the description.</td></tr>
+      <tr><td>origin_story</td><td>Origin Story</td><td>Boolean flag for origin story content based on description keywords.</td></tr>
+      <tr><td>major_event</td><td>Major Event</td><td>Foreign key to <code>major_event</code> table; high-level event associated with comic.</td></tr>
+      <tr><td>comic_url</td><td>Comic URL</td><td>URL to the comic’s official Marvel.com page or source.</td></tr>
+
+      </tbody>
+    </table>
+  </details>
+
+</div>
