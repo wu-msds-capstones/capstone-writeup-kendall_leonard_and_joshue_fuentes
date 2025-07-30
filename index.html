@@ -60,7 +60,7 @@ div.csl-indent {
 <link href="site_libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 
 
-<meta name="citation_title" content="Avengers">
+<meta name="citation_title" content="Data Assembled: A Heroic Struggle">
 <meta name="citation_author" content="Kendall Leonard &amp;amp; Joshue Fuentes-Ventura">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=A guide to backward paper writing for the data sciences;,citation_abstract=Summary In this perspective, we outline a set of best practices for the planning, writing, and revision of scientific papers and other forms of professional communication in the data sciences. We propose a backward approach that begins with clearly identifying the scientific and professional goals motivating the work, followed by a purposeful mapping from those goals to each section of a paper. This approach is motivated by the conviction that manuscript writing can be more effective, efficient, creative, and even enjoyable—particularly for early-career researchers—when the overarching goals of the paper and its individual components are clearly mapped out.;,citation_author=Jon Zelner;,citation_author=Kelly Broen;,citation_author=Ella August;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2666389921003068;,citation_issue=3;,citation_doi=10.1016/j.patter.2021.100423;,citation_issn=2666-3899;,citation_volume=3;,citation_journal_title=Patterns;">
@@ -234,7 +234,7 @@ div.csl-indent {
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">MCU Adaptation Analysis</h1>
-            <p class="subtitle lead">Subtitle</p>
+            <p class="subtitle lead">An Analysis and Classification of Marvel Comics and Media</p>
           </div>
 
     
@@ -246,8 +246,8 @@ div.csl-indent {
                 <div>
             <div class="quarto-title-meta-heading">Authors</div>
             <div class="quarto-title-meta-contents">
-                        <p>Bob </p>
-                        <p>Jane </p>
+                        <p>Joshue Fuentes </p>
+                        <p>Kendall Leonard </p>
                       </div>
           </div>
                 
@@ -272,12 +272,18 @@ div.csl-indent {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  <li><a href="#organization" id="toc-organization" class="nav-link" data-scroll-target="#organization">Organization</a></li>
+  <li><a href="#entity-relationship-diagram" id="toc-entity-relationship-diagram" class="nav-link" data-scroll-target="#entity-relationship-diagram">Entity Relationship Diagram</a></li>
+  <li><a href="#dictionaries" id="toc-dictionaries" class="nav-link" data-scroll-target="#dictionaries">Dictionaries</a></li>
+  </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="mcu_modeling-preview.html"><i class="bi bi-journal-code"></i>mcu_modeling.Rmd</a></li></ul></div></nav>
+</nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -313,9 +319,27 @@ div.csl-indent {
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>The data for this project originates from three primary sources: the official Marvel website (Marvel.com), Rotten Tomatoes, and IMDb. While several additional sources were considered during the early stages of the project, they were ultimately dismissed due to inconsistent formatting, limited access, or unreliable metadata. These decisions are discussed in more detail in the Limitations section. Because our objective is to identify which Marvel characters and storylines are most likely to succeed when adapted into the Marvel Cinematic Universe (MCU), we first had to define what “success” means. Initially, we considered using box office revenue as a proxy. However, this metric is not available for Marvel TV shows, especially those hosted on streaming platforms like Disney+. As a result, we pivoted to using aggregated ratings from Rotten Tomatoes, which measure how well both critics and general audiences received a particular movie or show. Ratings allow for comparisons across both film and television and offer a more complete picture of how adaptations are received. Rotten Tomatoes was selected as our primary source for critical and audience response data. It offers public access to both critic and audience scores, and it includes a verified audience score that draws only from users who purchased tickets. While all review aggregators are subject to response bias (e.g., users are more likely to leave reviews when they are extremely satisfied or dissatisfied), Rotten Tomatoes mitigates this through its aggregation methodology and verification features. Its inclusion of both theatrical and streaming content, combined with the availability of consistent data for all MCU productions, made it an ideal fit for this project. Marvel.com served as the primary source for comic and character data. As the official home of Marvel’s online catalog, the site includes comprehensive information about characters, issues, story arcs, powers, and team affiliations. Although Marvel does offer a public developer API, it has not been actively maintained since 2014. Many endpoints were broken or returned incomplete or incorrect data, forcing us to shift to a custom web scraping approach. While Marvel.com contains additional data we were unable to capture due to time and software constraints, we focused on the characters and comics components as they directly relate to our project’s central research question. IMDb was used to identify which comic characters had already appeared in the MCU. We scraped cast and character listings for every MCU movie and TV show to create an in_movie flag, linking comic metadata to real-world adaptation outcomes. This allowed us to connect character popularity and storyline complexity with on-screen representation—an essential component of our success metric.</p>
+<section id="sources" class="level2">
+<h2 class="anchored" data-anchor-id="sources">Sources</h2>
+<p>The data for this project originates from three primary sources: the official Marvel website (Marvel.com), Rotten Tomatoes, and IMDb. While several additional sources were considered during the early stages of the project, they were ultimately dismissed due to inconsistent formatting, limited access, or unreliable metadata. These decisions are discussed in more detail in the Limitations section.</p>
+<p>Because our objective is to identify which Marvel characters and storylines are most likely to succeed when adapted into the Marvel Cinematic Universe (MCU), we first had to define what “success” means. Initially, we considered using box office revenue as a proxy. However, this metric is not available for Marvel TV shows, especially those hosted on streaming platforms like Disney+. As a result, we pivoted to using aggregated ratings from Rotten Tomatoes, which measure how well both critics and general audiences received a particular movie or show. Ratings allow for comparisons across both film and television and offer a more complete picture of how adaptations are received.</p>
+<p>Rotten Tomatoes was selected as our primary source for critical and audience response data. It offers public access to both critic and audience scores, and it includes a verified audience score that draws only from users who purchased tickets. While all review aggregators are subject to response bias (e.g., users are more likely to leave reviews when they are extremely satisfied or dissatisfied), Rotten Tomatoes mitigates this through its aggregation methodology and verification features. Its inclusion of both theatrical and streaming content, combined with the availability of consistent data for all MCU productions, made it an ideal fit for this project.</p>
+<p>Marvel.com served as the primary source for comic and character data. As the official home of Marvel’s online catalog, the site includes comprehensive information about characters, issues, story arcs, powers, and team affiliations. Although Marvel does offer a public developer API, it has not been actively maintained since 2014. Many endpoints were broken or returned incomplete or incorrect data, forcing us to shift to a custom web scraping approach. While Marvel.com contains additional data we were unable to capture due to time and software constraints, we focused on the characters and comics components as they directly relate to our project’s central research question.</p>
+<p>IMDb was used to identify which comic characters had already appeared in the MCU. We scraped cast and character listings for every MCU movie and TV show to create an in_movie flag, linking comic metadata to real-world adaptation outcomes. This allowed us to connect character popularity and storyline complexity with on-screen representation—an essential component of our success metric.</p>
 <p>While our project uses publicly available data, we considered several ethical concerns. First, character metadata may reflect historical biases in comic publishing—e.g., underrepresentation of women and BIPOC characters—which could skew model outputs. We chose not to use race or gender as predictors in our adaptation models to avoid reinforcing such biases.</p>
 <p>Additionally, we excluded fan-edited wikis or Reddit data due to concerns about data quality, consent, and citation. Only official or structured third-party sources (IMDb, Marvel.com, Rotten Tomatoes) were used.</p>
+</section>
+<section id="organization" class="level2">
+<h2 class="anchored" data-anchor-id="organization">Organization</h2>
+</section>
+<section id="entity-relationship-diagram" class="level2">
+<h2 class="anchored" data-anchor-id="entity-relationship-diagram">Entity Relationship Diagram</h2>
+<iframe src="Marvel_ERD.html" width="100%" height="800px" style="border: none;">
+</iframe>
+</section>
+<section id="dictionaries" class="level2">
+<h2 class="anchored" data-anchor-id="dictionaries">Dictionaries</h2>
+</section>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
