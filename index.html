@@ -21,26 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -280,7 +261,16 @@ div.csl-indent {
   <li><a href="#what-we-aim-to-do" id="toc-what-we-aim-to-do" class="nav-link" data-scroll-target="#what-we-aim-to-do">What We Aim to Do</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <ul class="collapse">
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection">Data Collection</a>
+  <ul class="collapse">
+  <li><a href="#comic-metadata-marvel.com" id="toc-comic-metadata-marvel.com" class="nav-link" data-scroll-target="#comic-metadata-marvel.com">Comic Metadata (Marvel.com):</a></li>
+  <li><a href="#character-metadata-marvel.com-and-kaggle" id="toc-character-metadata-marvel.com-and-kaggle" class="nav-link" data-scroll-target="#character-metadata-marvel.com-and-kaggle">Character Metadata (Marvel.com and Kaggle):</a></li>
+  <li><a href="#imdb-adaptation-links" id="toc-imdb-adaptation-links" class="nav-link" data-scroll-target="#imdb-adaptation-links">IMDb Adaptation Links:</a></li>
+  </ul></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  </ul></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
   <ul class="collapse">
   <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
@@ -346,6 +336,26 @@ div.csl-indent {
 </section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
+<section id="data-collection" class="level2">
+<h2 class="anchored" data-anchor-id="data-collection">Data Collection</h2>
+<p>To gather data from our three primary sources, we developed a set of custom web scraping tools and performed minimal use of structured APIs. ### Cinematic Ratings (Rotten Tomatoes): We developed a scraper using Python’s BeautifulSoup and requests libraries to extract critic and audience scores from Rotten Tomatoes. The tool processed a curated list of MCU movies and shows, formatting each title for URL compatibility and accounting for exceptions such as punctuation or naming variations (e.g., Spider-Man: Homecoming or The Avengers). The scraper navigated to each title’s page and extracted three key metrics: the Tomatometer (critic score), the Popcornmeter (audience score), and the Verified Audience Score. These were stored in a structured CSV with columns for title, type (movie or TV show), release_year, critic_score, audience_score, and verified_score.</p>
+<section id="comic-metadata-marvel.com" class="level3">
+<h3 class="anchored" data-anchor-id="comic-metadata-marvel.com">Comic Metadata (Marvel.com):</h3>
+<p>To retrieve information about comic issues, we first scraped all comic series listed on Marvel.com. From there, we navigated into each series’ archive and collected issue-level information, including title, release_year, description, and characters_appearing. Due to inconsistent formatting across issue pages, we relied heavily on keyword-based classification to derive structured fields such as team-ups, themes, threat levels, and major events. These derived attributes were created using curated keyword lists and regular expressions and were stored in a table called comics, which included both raw and engineered columns.</p>
+</section>
+<section id="character-metadata-marvel.com-and-kaggle" class="level3">
+<h3 class="anchored" data-anchor-id="character-metadata-marvel.com-and-kaggle">Character Metadata (Marvel.com and Kaggle):</h3>
+<p>We initially relied on a Kaggle dataset provided by Professor Jed Rembold, which contained basic character information including name, powers, and gender. However, as we explored the comics data, we found that many characters were missing. To improve coverage, we scraped the Marvel.com character archive, visiting individual character pages to extract fields such as civilian_name, aliases, power_descriptions, and group_affiliations. These fields were not always standardized, so we used pattern matching and keyword detection to identify powers and team memberships. All characters were assigned a unique ID and stored in the characters table.</p>
+</section>
+<section id="imdb-adaptation-links" class="level3">
+<h3 class="anchored" data-anchor-id="imdb-adaptation-links">IMDb Adaptation Links:</h3>
+<p>To determine which comic characters had appeared in the MCU, we scraped full cast lists from IMDb pages for every MCU movie and television show. We matched scraped character names to our master character list and created a binary flag (in_movie) for each match. This indicator was essential for tying comic traits (e.g., popularity, powers, story arc depth) to real-world adaptation outcomes.</p>
+</section>
+</section>
+<section id="analysis" class="level2">
+<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<p>Because analysis is still in progress, this section is incomplete</p>
+</section>
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
@@ -371,25 +381,24 @@ div.csl-indent {
 <section id="dictionaries" class="level2">
 <h2 class="anchored" data-anchor-id="dictionaries">Dictionaries</h2>
 <p>To provide further clarity on the structure and contents of our database, we include brief data dictionaries for a subset of central tables that play a critical role in our analysis—particularly those related to characters, comics, and MCU adaptations. These summaries define key variables and their relationships, supporting the reader’s understanding of the modeling pipeline. For a complete listing of auxiliary tables, including bridge and lookup dimensions (e.g., comic_themes, hero_to_alias, and locations), see the extended documentation in the Appendix.</p>
+<p>Dictionaries coming soon</p>
 </section>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
+<p>Coming soon</p>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
+<p>Coming Soon</p>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
-<div id="refs" role="list">
-
-</div>
+<p>Coming soon :::{#refs} :::</p>
 </section>
 <section id="appendix" class="level1">
 <h1>Appendix</h1>
-<div id="refs" role="list">
-
-</div>
+<p>coming soon :::{#refs} :::</p>
 </section>
 
 </main>

@@ -1,1 +1,19 @@
 # Methods
+
+
+## Data Collection
+To gather data from our three primary sources, we developed a set of custom web scraping tools and performed minimal use of structured APIs.
+### Cinematic Ratings (Rotten Tomatoes):
+We developed a scraper using Python’s BeautifulSoup and requests libraries to extract critic and audience scores from Rotten Tomatoes. The tool processed a curated list of MCU movies and shows, formatting each title for URL compatibility and accounting for exceptions such as punctuation or naming variations (e.g., Spider-Man: Homecoming or The Avengers). The scraper navigated to each title’s page and extracted three key metrics: the Tomatometer (critic score), the Popcornmeter (audience score), and the Verified Audience Score. These were stored in a structured CSV with columns for title, type (movie or TV show), release_year, critic_score, audience_score, and verified_score.
+
+### Comic Metadata (Marvel.com):
+To retrieve information about comic issues, we first scraped all comic series listed on Marvel.com. From there, we navigated into each series’ archive and collected issue-level information, including title, release_year, description, and characters_appearing. Due to inconsistent formatting across issue pages, we relied heavily on keyword-based classification to derive structured fields such as team-ups, themes, threat levels, and major events. These derived attributes were created using curated keyword lists and regular expressions and were stored in a table called comics, which included both raw and engineered columns.
+
+### Character Metadata (Marvel.com and Kaggle):
+We initially relied on a Kaggle dataset provided by Professor Jed Rembold, which contained basic character information including name, powers, and gender. However, as we explored the comics data, we found that many characters were missing. To improve coverage, we scraped the Marvel.com character archive, visiting individual character pages to extract fields such as civilian_name, aliases, power_descriptions, and group_affiliations. These fields were not always standardized, so we used pattern matching and keyword detection to identify powers and team memberships. All characters were assigned a unique ID and stored in the characters table.
+
+### IMDb Adaptation Links:
+To determine which comic characters had appeared in the MCU, we scraped full cast lists from IMDb pages for every MCU movie and television show. We matched scraped character names to our master character list and created a binary flag (in_movie) for each match. This indicator was essential for tying comic traits (e.g., popularity, powers, story arc depth) to real-world adaptation outcomes.
+
+## Analysis
+Because analysis is still in progress, this section is incomplete

@@ -25,3 +25,5 @@ To support the complexity of our classification and prediction tasks, we designe
 
 ## Dictionaries
 To provide further clarity on the structure and contents of our database, we include brief data dictionaries for a subset of central tables that play a critical role in our analysis—particularly those related to characters, comics, and MCU adaptations. These summaries define key variables and their relationships, supporting the reader’s understanding of the modeling pipeline. For a complete listing of auxiliary tables, including bridge and lookup dimensions (e.g., comic_themes, hero_to_alias, and locations), see the extended documentation in the Appendix.
+
+Dictionaries coming soon
