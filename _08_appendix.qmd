@@ -86,6 +86,144 @@ This section contains supplemetary information that was deemed important to incl
   </table>
 </details>
 
+<details class="accordion">
+  <summary><span class="icon">ℹ</span> character_ethnicities</summary>
+  <p>This table contains a variety of character ethnicities and unique ids</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ethnicity_id</td><td>Ethnicity ID</td><td>Primary key; unique identifier for ethnicities.</td></tr>
+      <tr><td>ethnicity_label</td><td>Ethnicity Label</td><td>An ethnic group EX: Indigenous / Native</td></tr>
+    </tbody>
+  </table>
+</details>
+
+TO BE CHANGED TABLES: 
+<details class="accordion">
+  <summary><span class="icon">ℹ</span> character_ethnicities</summary>
+  <p>This table contains a variety of character ethnicities and unique ids</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ethnicity_id</td><td>Ethnicity ID</td><td>Primary key; unique identifier for ethnicities.</td></tr>
+      <tr><td>ethnicity_label</td><td>Ethnicity Label</td><td>An ethnic group EX: Indigenous / Native</td></tr>
+    </tbody>
+  </table>
+</details>
+<details class="accordion">
+  <summary><span class="icon">ℹ</span> character_ethnicities</summary>
+  <p>This table contains a variety of character ethnicities and unique ids</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ethnicity_id</td><td>Ethnicity ID</td><td>Primary key; unique identifier for ethnicities.</td></tr>
+      <tr><td>ethnicity_label</td><td>Ethnicity Label</td><td>An ethnic group EX: Indigenous / Native</td></tr>
+    </tbody>
+  </table>
+</details>
+<details class="accordion">
+  <summary><span class="icon">ℹ</span> character_ethnicities</summary>
+  <p>This table contains a variety of character ethnicities and unique ids</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ethnicity_id</td><td>Ethnicity ID</td><td>Primary key; unique identifier for ethnicities.</td></tr>
+      <tr><td>ethnicity_label</td><td>Ethnicity Label</td><td>An ethnic group EX: Indigenous / Native</td></tr>
+    </tbody>
+  </table>
+</details>
+<details class="accordion">
+  <summary><span class="icon">ℹ</span> character_ethnicities</summary>
+  <p>This table contains a variety of character ethnicities and unique ids</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ethnicity_id</td><td>Ethnicity ID</td><td>Primary key; unique identifier for ethnicities.</td></tr>
+      <tr><td>ethnicity_label</td><td>Ethnicity Label</td><td>An ethnic group EX: Indigenous / Native</td></tr>
+    </tbody>
+  </table>
+</details>
+<details class="accordion">
+  <summary><span class="icon">ℹ</span> character_ethnicities</summary>
+  <p>This table contains a variety of character ethnicities and unique ids</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ethnicity_id</td><td>Ethnicity ID</td><td>Primary key; unique identifier for ethnicities.</td></tr>
+      <tr><td>ethnicity_label</td><td>Ethnicity Label</td><td>An ethnic group EX: Indigenous / Native</td></tr>
+    </tbody>
+  </table>
+</details>
+<details class="accordion">
+  <summary><span class="icon">ℹ</span> character_ethnicities</summary>
+  <p>This table contains a variety of character ethnicities and unique ids</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ethnicity_id</td><td>Ethnicity ID</td><td>Primary key; unique identifier for ethnicities.</td></tr>
+      <tr><td>ethnicity_label</td><td>Ethnicity Label</td><td>An ethnic group EX: Indigenous / Native</td></tr>
+    </tbody>
+  </table>
+</details>
+<details class="accordion">
+  <summary><span class="icon">ℹ</span> character_ethnicities</summary>
+  <p>This table contains a variety of character ethnicities and unique ids</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ethnicity_id</td><td>Ethnicity ID</td><td>Primary key; unique identifier for ethnicities.</td></tr>
+      <tr><td>ethnicity_label</td><td>Ethnicity Label</td><td>An ethnic group EX: Indigenous / Native</td></tr>
+    </tbody>
+  </table>
+</details>
 
 </div>
 
