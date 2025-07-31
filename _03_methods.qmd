@@ -3,6 +3,7 @@
 
 ## Data Collection
 To gather data from our three primary sources, we developed a set of custom web scraping tools and performed minimal use of structured APIs.
+
 ### Cinematic Ratings (Rotten Tomatoes):
 We developed a scraper using Python’s BeautifulSoup and requests libraries to extract critic and audience scores from Rotten Tomatoes. The tool processed a curated list of MCU movies and shows, formatting each title for URL compatibility and accounting for exceptions such as punctuation or naming variations (e.g., Spider-Man: Homecoming or The Avengers). The scraper navigated to each title’s page and extracted three key metrics: the Tomatometer (critic score), the Popcornmeter (audience score), and the Verified Audience Score. These were stored in a structured CSV with columns for title, type (movie or TV show), release_year, critic_score, audience_score, and verified_score.
 
