@@ -2,4 +2,18 @@
 
 ## Exploratory Data Analysis
 
+```{r}
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+library(tidyverse)
+marvel_ratings<-read_csv("marvel_ratings.csv")
+ggplot(marvel_ratings, aes(x=release_date, y = audience_score))+
+  geom_line()+
+  theme_minimal()+
+  labs(title = "We're Not Crazy: Marvel's Just Not the Same",
+       subtitle = "Marvel Media's Audience Score Over Time",
+       x = "Release Date of Media",
+       y = "Rotten Tomatoes Audience Score",
+       caption = "Data Source: Rotten Tomatoes")
+```
+
 ## Model Building
