@@ -260,14 +260,20 @@ erDiagram
 
     // Enable zoom + pan
     window.panZoomInstance = svgPanZoom(wrapper.querySelector("svg"), {
-      zoomEnabled: true,
-      panEnabled: true,
-      controlIconsEnabled: false,
-      fit: true,
-      center: true,
-      minZoom: 0.1,
-      maxZoom: 10
-    });
+  zoomEnabled: true,
+  panEnabled: true,
+  controlIconsEnabled: false,
+  minZoom: 0.1,
+  maxZoom: 10
+});
+
+// Set initial zoom level (1 is default, increase for closer)
+window.panZoomInstance.zoom(4);  // try 0.6 to 0.8 for a good overview
+
+// Set initial pan position (x, y)
+window.panZoomInstance.pan({ x: -1850, y: 70 });
+
+
   </script>
 
   <script>
