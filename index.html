@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.7.32" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+
+<title>Data Assembled: A Heroic Struggle</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<!-- htmldependencies:E3FAD763 -->
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background: #ED1D24;
+      }
+</style>
+
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <div id="quarto-toc-target"></div>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default toc-left">
+  <div class="quarto-title-banner">
+    <div class="quarto-title column-body">
+      <h1 class="title">Data Assembled: A Heroic Struggle</h1>
+            <p class="subtitle lead">An Analysis and Classification of Marvel Comics and Media</p>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+        
+        <div class="quarto-title-meta">
+
+                <div>
+            <div class="quarto-title-meta-heading">Authors</div>
+            <div class="quarto-title-meta-contents">
+                        <p>Joshue Fuentes </p>
+                        <p>Kendall Leonard </p>
+                      </div>
+          </div>
+                
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      </div>
+    </div>
+
+
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header>
+
+  
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+  <li><a href="#background" id="toc-background">Background</a>
+  <ul>
+  <li><a href="#a-proven-fieldwith-one-big-blind-spot" id="toc-a-proven-fieldwith-one-big-blind-spot">A Proven Field—With One Big Blind Spot</a>
+  <ul>
+  <li><a href="#what-the-research-misses" id="toc-what-the-research-misses">What the Research Misses</a></li>
+  <li><a href="#medium-matters-why-comics-and-movies-work-differently" id="toc-medium-matters-why-comics-and-movies-work-differently">Medium Matters: Why Comics and Movies Work Differently</a></li>
+  <li><a href="#when-it-worksand-why" id="toc-when-it-worksand-why">When It Works—and Why</a></li>
+  <li><a href="#what-we-aim-to-do" id="toc-what-we-aim-to-do">What We Aim to Do</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#methods" id="toc-methods">Methods</a>
+  <ul>
+  <li><a href="#data-collection" id="toc-data-collection">Data Collection</a>
+  <ul>
+  <li><a href="#cinematic-ratings-rotten-tomatoes" id="toc-cinematic-ratings-rotten-tomatoes">Cinematic Ratings (Rotten Tomatoes):</a></li>
+  <li><a href="#comic-metadata-marvel.com" id="toc-comic-metadata-marvel.com">Comic Metadata (Marvel.com):</a></li>
+  <li><a href="#character-metadata-marvel.com-and-kaggle" id="toc-character-metadata-marvel.com-and-kaggle">Character Metadata (Marvel.com and Kaggle):</a></li>
+  <li><a href="#imdb-adaptation-links" id="toc-imdb-adaptation-links">IMDb Adaptation Links:</a></li>
+  </ul></li>
+  <li><a href="#analysis" id="toc-analysis">Analysis</a>
+  <ul>
+  <li><a href="#comics" id="toc-comics">Comics</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#data" id="toc-data">Data</a>
+  <ul>
+  <li><a href="#sources" id="toc-sources">Sources</a></li>
+  <li><a href="#organization" id="toc-organization">Organization</a>
+  <ul>
+  <li><a href="#entity-relationship-diagram" id="toc-entity-relationship-diagram">Entity Relationship Diagram</a></li>
+  </ul></li>
+  <li><a href="#dictionaries" id="toc-dictionaries">Dictionaries</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results">Results</a>
+  <ul>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis">Exploratory Data Analysis</a></li>
+  <li><a href="#model-building" id="toc-model-building">Model Building</a></li>
+  </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions">Conclusions</a></li>
+  <li><a href="#references" id="toc-references">References</a></li>
+  <li><a href="#appendix" id="toc-appendix">Appendix</a>
+  <ul>
+  <li><a href="#full-data-dictionary" id="toc-full-data-dictionary">Full Data Dictionary</a></li>
+  </ul></li>
+  </ul>
+</nav>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>The Marvel Cinematic Universe (MCU) is a superhero movie franchise that exploded onto the scene in 2008 and has become one of the most successful film franchises in history, grossing over $31 billion worldwide since its launch onto the silver screen. It transformed comic book adaptations into mainstream cinematic events and brought once-niche characters into the cultural spotlight. Yet, despite commercial success, many longtime fans have begun to question if the magic and creative spark that defined the franchise’s earlier phases will return. As lifelong readers of Marvel comics and avid viewers of every movie and series we could get our hands on, we’ve noticed a growing disconnect between the storytelling that made the comics compelling and the recent direction the MCU has taken–particularly as it expands into more obscure characters and increasingly fragmented narratives.</p>
+<p>The origin story of the project began with a simple but persistent question: why do some characters and storylines translate seamlessly to the screen while others, despite having rich and beloved source material, fail to resonate? The success of Guardians of the Galaxy (2014), for instance, seemed unlikely—these were not traditionally popular comic characters. Yet the films captured the heart of their story and became massive critical and commercial successes. Conversely, several characters with decades of deep, character-driven arcs have been introduced in the MCU in ways that feel shallow or disconnected from their origins. But, we know it’s possible to introduce these beloved characters in a stunning fashion. One standout example of a successful adaptation is Captain America: The Winter Soldier (2014), which not only delivered on the excitement and emotional weight of the comic arc but also functioned as a tight, character-focused political thriller. Moments like that, where source material is respected and elevated, are increasingly rare.</p>
+<p>Our aim is not to predict box office hits or speculate on the next breakout character. Instead, we are interested in understanding the comic-specific storytelling elements—such as character development, power dynamics, team interactions, and narrative structure—that contribute to the success of adaptations. This leads to our central research question: <strong>How do specific aspects of comic metadata (such as issue counts, character popularity, story arcs, team-ups, and power levels) influence the likelihood of a Marvel character or storyline achieving commercial and critical success when adapted into the MCU?</strong> Ultimately, our goal is to provide insight into how future adaptations might remain faithful to the core of their source material while also creating high-quality films and series that appeal to both longtime fans and new audiences.</p>
+</section>
+<section id="background" class="level1">
+<h1>Background</h1>
+<section id="a-proven-fieldwith-one-big-blind-spot" class="level2">
+<h2>A Proven Field—With One Big Blind Spot</h2>
+<p>Over the past decade, researchers have gotten really good at predicting how a movie will perform. Using machine learning and statistical modeling, dozens of studies have tackled the challenge of forecasting box office revenue, critical scores, and audience reception. A major survey by Ahmad et al. looked at 36 of these studies and found that most use some combination of regression and classification methods—especially multiple linear regression and support vector machines (SVMs)—to make their predictions (Ahmad et al. 249). Across these models, the most common features tend to include cast composition, the number of theaters, and genre. Standard evaluation metrics like root mean square error (RMSE) and mean absolute percentage error (MAPE) help measure just how close their predictions come to reality.</p>
+<p>And they are not just close—they’re often impressively accurate. More recent research has leaned into ensemble methods and hybrid models. Random forests, boosting algorithms, even LSTM networks for sentiment analysis are being combined to squeeze every last ounce of insight out of the data. One model hit over 91% accuracy by combining ensemble methods with audience sentiment (Ruwantha &amp; Kumara 142). Another used XGBoost to predict <em>Rotten Tomatoes</em> critic scores with a mean absolute error of around 8.6 (Smith 1). These tools work well—particularly when the goal is to predict how a completed movie will be received once it is already in theaters or on a streaming platform.</p>
+<p>But here’s the thing: almost none of this research looks <strong>before</strong> a movie gets made. These models are great at predicting the success of a film that already exists. What they do <em>not</em> do is help decision-makers figure out what to adapt in the first place. There are hundreds of characters in the Marvel universe. How do you choose which ones are worth building an entire movie or show around? That’s a completely different kind of question—and one that the current research does not really answer.</p>
+<section id="what-the-research-misses" class="level3">
+<h3>What the Research Misses</h3>
+<p>Some studies have shown you can predict <em>IMDb</em> ratings with decent consistency—around 70%—without needing to know the director or lead actor (Bristi et al. 338). That’s interesting, because it suggests that audience response might have more to do with story-level features than individual star power. But even then, those models do not reach into the source material. They focus on traits of the movie itself: runtime, genre, release month. None of them attempt to predict which characters or storylines are most likely to succeed <em>if</em> they were adapted from the comics.</p>
+<p>That’s where our project comes in. We are interested in moving <em>upstream</em>—before production, before casting, before anything gets greenlit. We want to know: <strong>What can we learn from the comics themselves that might help predict adaptation success?</strong> That means going beyond surface-level traits and digging into character dynamics, story arcs, power types, team memberships, and more.</p>
+<p>With so much money and attention invested in superhero adaptations—and with the MCU already deep into its second tier of character IP—it feels like a huge missed opportunity not to use the data that already exists. Marvel has decades of storytelling to draw from, but so far there is no real framework for using comic metadata to guide adaptation decisions.</p>
+</section>
+<section id="medium-matters-why-comics-and-movies-work-differently" class="level3">
+<h3>Medium Matters: Why Comics and Movies Work Differently</h3>
+<p>Part of the challenge here is that comics and film are completely different storytelling formats. In comics, there is no budget for visual effects. Stories can stretch across hundreds of issues. Characters can evolve slowly, shift across moral spectrums, die, come back, join teams, leave them, and get reinvented over time. Themes can coexist at multiple levels—personal drama, political allegory, cosmic-scale conflict—all on the same page.</p>
+<p>Movies and TV shows, on the other hand, are limited by runtime, budget, and audience attention. You cannot fit a decade of emotional development into a two-hour runtime without losing something. Visuals cost money. Relationships and arcs need to be compressed. And you need to make stories that work for both longtime fans and people walking in cold.</p>
+<p>That compression often leads to misfires. Studios tend to prioritize flashy powers, iconic costumes, or names that sound cinematic, but overlook the deeper character work that made those heroes resonate in the first place. This is how you end up with adaptations that <em>look</em> right—but <em>feel</em> wrong. Characters might have the same names and abilities, but they lack the emotional weight or narrative grounding that the comics spent years building.</p>
+</section>
+<section id="when-it-worksand-why" class="level3">
+<h3>When It Works—and Why</h3>
+<p>And yet, some MCU adaptations have absolutely nailed it. <em>Iron Man</em> grounded Tony Stark’s comic history in a powerful story about technology, guilt, and growth. <em>Thor</em> leaned into its mythological family drama while making it emotionally accessible. <em>Captain America: The Winter Soldier</em> took Cold War paranoia and turned it into a compelling political thriller with character at its core.</p>
+<p>These movies worked because they understood the structure and heart of the comics—not just their surface features. They translated the story faithfully but thoughtfully into a different medium. That is the kind of success we are trying to model.</p>
+</section>
+<section id="what-we-aim-to-do" class="level3">
+<h3>What We Aim to Do</h3>
+<p>Our goal is to take the storytelling elements that comics handle so well—things like character relationships, power progression, team dynamics, and theme recurrence—and analyze them systematically. Which of these traits show up again and again in successful adaptations? Which ones seem harder to translate? And which might be warning signs that a character is better left on the page?</p>
+<p>By building a structured, data-driven framework for answering these questions, we hope to shed light on why some characters become breakout hits while others fizzle out. More importantly, we want to offer studios and fans alike a roadmap for what makes a strong, faithful, and successful adaptation—one that respects the source material and resonates on screen.</p>
+</section>
+</section>
+</section>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<section id="data-collection" class="level2">
+<h2>Data Collection</h2>
+<p>To gather data from our three primary sources, we developed a set of custom web scraping tools and performed minimal use of structured APIs.</p>
+<section id="cinematic-ratings-rotten-tomatoes" class="level3">
+<h3>Cinematic Ratings (Rotten Tomatoes):</h3>
+<p>We developed a scraper using Python’s BeautifulSoup and requests libraries to extract critic and audience scores from Rotten Tomatoes. The tool processed a curated list of MCU movies and shows, formatting each title for URL compatibility and accounting for exceptions such as punctuation or naming variations (e.g., Spider-Man: Homecoming or The Avengers). The scraper navigated to each title’s page and extracted three key metrics: the Tomatometer (critic score), the Popcornmeter (audience score), and the Verified Audience Score. These were stored in a structured CSV with columns for title, type (movie or TV show), release_year, critic_score, audience_score, and verified_score.</p>
+</section>
+<section id="comic-metadata-marvel.com" class="level3">
+<h3>Comic Metadata (Marvel.com):</h3>
+<p>To retrieve information about comic issues, we first scraped all comic series listed on Marvel.com. From there, we navigated into each series’ archive and collected issue-level information, including title, release_year, description, and characters_appearing. Due to inconsistent formatting across issue pages, we relied heavily on keyword-based classification to derive structured fields such as team-ups, themes, threat levels, and major events. These derived attributes were created using curated keyword lists and regular expressions and were stored in a table called comics, which included both raw and engineered columns.</p>
+</section>
+<section id="character-metadata-marvel.com-and-kaggle" class="level3">
+<h3>Character Metadata (Marvel.com and Kaggle):</h3>
+<p>We initially relied on a Kaggle dataset provided by Professor Jed Rembold, which contained basic character information including name, powers, and gender. However, as we explored the comics data, we found that many characters were missing. To improve coverage, we scraped the Marvel.com character archive, visiting individual character pages to extract fields such as civilian_name, aliases, power_descriptions, and group_affiliations. These fields were not always standardized, so we used pattern matching and keyword detection to identify powers and team memberships. All characters were assigned a unique ID and stored in the characters table.</p>
+</section>
+<section id="imdb-adaptation-links" class="level3">
+<h3>IMDb Adaptation Links:</h3>
+<p>To determine which comic characters had appeared in the MCU, we scraped full cast lists from IMDb pages for every MCU movie and television show. We matched scraped character names to our master character list and created a binary flag (in_movie) for each match. This indicator was essential for tying comic traits (e.g., popularity, powers, story arc depth) to real-world adaptation outcomes.</p>
+</section>
+</section>
+<section id="analysis" class="level2">
+<h2>Analysis</h2>
+<p>Because analysis is still in progress, this section is incomplete.</p>
+<section id="comics" class="level3">
+<h3>Comics</h3>
+<p>To begin analysis of the comics,</p>
+</section>
+</section>
+</section>
+<section id="data" class="level1">
+<h1>Data</h1>
+<section id="sources" class="level2">
+<h2>Sources</h2>
+<p>The data for this project originates from three primary sources: the official Marvel website (Marvel.com), Rotten Tomatoes, and IMDb. While several additional sources were considered during the early stages of the project, they were ultimately dismissed due to inconsistent formatting, limited access, or unreliable metadata. These decisions are discussed in more detail in the Limitations section.</p>
+<p>Because our objective is to identify which Marvel characters and storylines are most likely to succeed when adapted into the Marvel Cinematic Universe (MCU), we first had to define what “success” means. Initially, we considered using box office revenue as a proxy. However, this metric is not available for Marvel TV shows, especially those hosted on streaming platforms like Disney+. As a result, we pivoted to using aggregated ratings from Rotten Tomatoes, which measure how well both critics and general audiences received a particular movie or show. Ratings allow for comparisons across both film and television and offer a more complete picture of how adaptations are received.</p>
+<p>Rotten Tomatoes was selected as our primary source for critical and audience response data. It offers public access to both critic and audience scores, and it includes a verified audience score that draws only from users who purchased tickets. While all review aggregators are subject to response bias (e.g., users are more likely to leave reviews when they are extremely satisfied or dissatisfied), Rotten Tomatoes mitigates this through its aggregation methodology and verification features. Its inclusion of both theatrical and streaming content, combined with the availability of consistent data for all MCU productions, made it an ideal fit for this project.</p>
+<p>Marvel.com served as the primary source for comic and character data. As the official home of Marvel’s online catalog, the site includes comprehensive information about characters, issues, story arcs, powers, and team affiliations. Although Marvel does offer a public developer API, it has not been actively maintained since 2014. Many endpoints were broken or returned incomplete or incorrect data, forcing us to shift to a custom web scraping approach. While Marvel.com contains additional data we were unable to capture due to time and software constraints, we focused on the characters and comics components as they directly relate to our project’s central research question.</p>
+<p>IMDb was used to identify which comic characters had already appeared in the MCU. We scraped cast and character listings for every MCU movie and TV show to create an in_movie flag, linking comic metadata to real-world adaptation outcomes. This allowed us to connect character popularity and storyline complexity with on-screen representation—an essential component of our success metric.</p>
+<p>While our project uses publicly available data, we considered several ethical concerns. First, character metadata may reflect historical biases in comic publishing—e.g., underrepresentation of women and BIPOC characters—which could skew model outputs. We chose not to use race or gender as predictors in our adaptation models to avoid reinforcing such biases.</p>
+<p>Additionally, we excluded fan-edited wikis or Reddit data due to concerns about data quality, consent, and citation. Only official or structured third-party sources (IMDb, Marvel.com, Rotten Tomatoes) were used.</p>
+</section>
+<section id="organization" class="level2">
+<h2>Organization</h2>
+<section id="entity-relationship-diagram" class="level3">
+<h3>Entity Relationship Diagram</h3>
+<p>To support the complexity of our classification and prediction tasks, we designed a comprehensive relational database schema that captures character traits, comic metadata, adaptation linkages, and auxiliary attributes across over 20 interrelated tables. The schema integrates many-to-many bridge tables and normalized dimensions to preserve data integrity and analytic flexibility. Below, we provide an interactive entity-relationship diagram (ERD) that visualizes the structure of our database, allowing readers to explore table-level details dynamically.</p>
+<iframe src="Marvel_ERD.html" width="100%" height="800px" style="border: none;">
+</iframe>
+</section>
+</section>
+<section id="dictionaries" class="level2">
+<h2>Dictionaries</h2>
+<p>To provide further clarity on the structure and contents of our database, we include brief data dictionaries for a subset of central tables that play a critical role in our analysis—particularly those related to characters, comics, and MCU adaptations. These summaries define key variables and their relationships, supporting the reader’s understanding of the modeling pipeline. For a complete listing of auxiliary tables, including bridge and lookup dimensions (e.g., comic_themes, hero_to_alias, and locations), see the extended documentation in the Appendix.</p>
+<p>Dictionaries coming soon</p>
+<div class="accordion">
+<details>
+<summary>
+<span class="icon">ℹ</span> comics
+</summary>
+<p>
+This table contains information about the comics collected from Marvel.com, including title, release date, and a unique identifier to connect to other tables.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+comic_id
+</td>
+<td>
+Comic ID
+</td>
+<td>
+Unique identifier for each comic (primary key).
+</td>
+</tr>
+<tr>
+<td>
+series_id
+</td>
+<td>
+Series ID
+</td>
+<td>
+Foreign key to <code>comic_series</code> table, indicating which series the comic belongs to.
+</td>
+</tr>
+<tr>
+<td>
+comic_title
+</td>
+<td>
+Title
+</td>
+<td>
+Title of the comic issue.
+</td>
+</tr>
+<tr>
+<td>
+release_date
+</td>
+<td>
+Release Date
+</td>
+<td>
+Date the comic was released.
+</td>
+</tr>
+<tr>
+<td>
+page_count
+</td>
+<td>
+Page Count
+</td>
+<td>
+Total number of pages in the comic.
+</td>
+</tr>
+<tr>
+<td>
+rating
+</td>
+<td>
+Rating
+</td>
+<td>
+Comic rating (e.g., All Ages, Teen).
+</td>
+</tr>
+<tr>
+<td>
+price
+</td>
+<td>
+Price
+</td>
+<td>
+Retail price of the comic issue.
+</td>
+</tr>
+<tr>
+<td>
+description
+</td>
+<td>
+Description
+</td>
+<td>
+Textual summary of the comic’s content.
+</td>
+</tr>
+<tr>
+<td>
+threat_id
+</td>
+<td>
+Threat ID
+</td>
+<td>
+Foreign key to <code>threat_level</code>; derived from description keywords.
+</td>
+</tr>
+<tr>
+<td>
+used_in_movie
+</td>
+<td>
+Used in Movie
+</td>
+<td>
+Indicates if this comic was directly referenced or used in an MCU movie.
+</td>
+</tr>
+<tr>
+<td>
+movie_based
+</td>
+<td>
+Movie-Based
+</td>
+<td>
+Whether the comic itself is based on an MCU movie.
+</td>
+</tr>
+<tr>
+<td>
+mentor
+</td>
+<td>
+Mentor Present
+</td>
+<td>
+Boolean indicating presence of a mentor character, inferred from description.
+</td>
+</tr>
+<tr>
+<td>
+impactful_moment
+</td>
+<td>
+Impactful Moment
+</td>
+<td>
+Boolean flag for key emotional or plot moments in the description.
+</td>
+</tr>
+<tr>
+<td>
+comedy
+</td>
+<td>
+Comedy
+</td>
+<td>
+Boolean flag for comedic tone or humor-related keywords in description.
+</td>
+</tr>
+<tr>
+<td>
+cultural
+</td>
+<td>
+Cultural
+</td>
+<td>
+Boolean flag for cultural themes (e.g., holidays, traditions) found in description.
+</td>
+</tr>
+<tr>
+<td>
+location_id
+</td>
+<td>
+Location ID
+</td>
+<td>
+Foreign key to <code>locations</code> table; place where the comic is set.
+</td>
+</tr>
+<tr>
+<td>
+romance
+</td>
+<td>
+Romance
+</td>
+<td>
+Boolean flag for romance-related elements in the description.
+</td>
+</tr>
+<tr>
+<td>
+origin_story
+</td>
+<td>
+Origin Story
+</td>
+<td>
+Boolean flag for origin story content based on description keywords.
+</td>
+</tr>
+<tr>
+<td>
+major_event
+</td>
+<td>
+Major Event
+</td>
+<td>
+Foreign key to <code>major_event</code> table; high-level event associated with comic.
+</td>
+</tr>
+<tr>
+<td>
+comic_url
+</td>
+<td>
+Comic URL
+</td>
+<td>
+URL to the comic’s official Marvel.com page or source.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> marvel_heroes
+</summary>
+<p>
+This table contains key attributes for Marvel characters, including names, demographic traits, and adaptation indicators. It links to ethnicity and species reference tables.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+character_id
+</td>
+<td>
+Character ID
+</td>
+<td>
+Unique identifier for the character (primary key).
+</td>
+</tr>
+<tr>
+<td>
+civilian_name
+</td>
+<td>
+Civilian Name
+</td>
+<td>
+Canonical civilian name of the character (e.g., Peter Parker).
+</td>
+</tr>
+<tr>
+<td>
+comedy
+</td>
+<td>
+Comic Relief
+</td>
+<td>
+Boolean flag indicating if the character is associated with humor or comic relief roles.
+</td>
+</tr>
+<tr>
+<td>
+sex
+</td>
+<td>
+Sex
+</td>
+<td>
+Character’s sex as presented in canonical sources (e.g., Male, Female, Non-binary).
+</td>
+</tr>
+<tr>
+<td>
+in_movie
+</td>
+<td>
+In Movie
+</td>
+<td>
+Indicates whether the character has appeared in the MCU or other film adaptations.
+</td>
+</tr>
+<tr>
+<td>
+ethnicity_id
+</td>
+<td>
+Ethnicity
+</td>
+<td>
+Foreign key to <code>character_ethnicities</code> table representing character’s cultural background.
+</td>
+</tr>
+<tr>
+<td>
+species_id
+</td>
+<td>
+Species
+</td>
+<td>
+Foreign key to <code>species</code> table indicating the character’s biological or origin classification.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> marvel_ratings
+</summary>
+<p>
+This table contains critic and audience ratings for Marvel movies and TV shows, along with metadata such as type and release date.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+media_id
+</td>
+<td>
+Media ID
+</td>
+<td>
+Primary key; unique identifier for the movie or show.
+</td>
+</tr>
+<tr>
+<td>
+title
+</td>
+<td>
+Title
+</td>
+<td>
+Name of the Marvel movie or television series.
+</td>
+</tr>
+<tr>
+<td>
+type
+</td>
+<td>
+Type
+</td>
+<td>
+Format of the media (e.g., Movie, TV Show, Mini-Series).
+</td>
+</tr>
+<tr>
+<td>
+critic_score
+</td>
+<td>
+Critic Score
+</td>
+<td>
+Aggregated critic score (e.g., from Rotten Tomatoes).
+</td>
+</tr>
+<tr>
+<td>
+audience_score
+</td>
+<td>
+Audience Score
+</td>
+<td>
+Aggregated audience score (e.g., from Rotten Tomatoes or IMDb).
+</td>
+</tr>
+<tr>
+<td>
+release_date
+</td>
+<td>
+Release Date
+</td>
+<td>
+Date the media was first released to the public.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+</div>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<section id="exploratory-data-analysis" class="level2">
+<h2>Exploratory Data Analysis</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="capstone_files/figure-html/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="capstone_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672" /></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>![] Caption test</p>
+</section>
+<section id="model-building" class="level2">
+<h2>Model Building</h2>
+</section>
+</section>
+<section id="conclusions" class="level1">
+<h1>Conclusions</h1>
+<p>Coming Soon</p>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<p>Coming soon</p>
+<div id="refs" role="list">
+
+</div>
+</section>
+<section id="appendix" class="level1">
+<h1>Appendix</h1>
+<p>This section contains supplemetary information that was deemed important to include but too bulky to include in the main paper.</p>
+<section id="full-data-dictionary" class="level2">
+<h2>Full Data Dictionary</h2>
+<div class="accordion">
+<details>
+<summary>
+<span class="icon">ℹ</span> comics
+</summary>
+<p>
+This table contains information about the comics collected from Marvel.com, including title, release date, and a unique identifier to connect to other tables.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+comic_id
+</td>
+<td>
+Comic ID
+</td>
+<td>
+Unique identifier for each comic (primary key).
+</td>
+</tr>
+<tr>
+<td>
+series_id
+</td>
+<td>
+Series ID
+</td>
+<td>
+Foreign key to <code>comic_series</code> table, indicating which series the comic belongs to.
+</td>
+</tr>
+<tr>
+<td>
+comic_title
+</td>
+<td>
+Title
+</td>
+<td>
+Title of the comic issue.
+</td>
+</tr>
+<tr>
+<td>
+release_date
+</td>
+<td>
+Release Date
+</td>
+<td>
+Date the comic was released.
+</td>
+</tr>
+<tr>
+<td>
+page_count
+</td>
+<td>
+Page Count
+</td>
+<td>
+Total number of pages in the comic.
+</td>
+</tr>
+<tr>
+<td>
+rating
+</td>
+<td>
+Rating
+</td>
+<td>
+Comic rating (e.g., All Ages, Teen).
+</td>
+</tr>
+<tr>
+<td>
+price
+</td>
+<td>
+Price
+</td>
+<td>
+Retail price of the comic issue.
+</td>
+</tr>
+<tr>
+<td>
+description
+</td>
+<td>
+Description
+</td>
+<td>
+Textual summary of the comic’s content.
+</td>
+</tr>
+<tr>
+<td>
+threat_id
+</td>
+<td>
+Threat ID
+</td>
+<td>
+Foreign key to <code>threat_level</code>; derived from description keywords.
+</td>
+</tr>
+<tr>
+<td>
+used_in_movie
+</td>
+<td>
+Used in Movie
+</td>
+<td>
+Indicates if this comic was directly referenced or used in an MCU movie.
+</td>
+</tr>
+<tr>
+<td>
+movie_based
+</td>
+<td>
+Movie-Based
+</td>
+<td>
+Whether the comic itself is based on an MCU movie.
+</td>
+</tr>
+<tr>
+<td>
+mentor
+</td>
+<td>
+Mentor Present
+</td>
+<td>
+Boolean indicating presence of a mentor character, inferred from description.
+</td>
+</tr>
+<tr>
+<td>
+impactful_moment
+</td>
+<td>
+Impactful Moment
+</td>
+<td>
+Boolean flag for key emotional or plot moments in the description.
+</td>
+</tr>
+<tr>
+<td>
+comedy
+</td>
+<td>
+Comedy
+</td>
+<td>
+Boolean flag for comedic tone or humor-related keywords in description.
+</td>
+</tr>
+<tr>
+<td>
+cultural
+</td>
+<td>
+Cultural
+</td>
+<td>
+Boolean flag for cultural themes (e.g., holidays, traditions) found in description.
+</td>
+</tr>
+<tr>
+<td>
+location_id
+</td>
+<td>
+Location ID
+</td>
+<td>
+Foreign key to <code>locations</code> table; place where the comic is set.
+</td>
+</tr>
+<tr>
+<td>
+romance
+</td>
+<td>
+Romance
+</td>
+<td>
+Boolean flag for romance-related elements in the description.
+</td>
+</tr>
+<tr>
+<td>
+origin_story
+</td>
+<td>
+Origin Story
+</td>
+<td>
+Boolean flag for origin story content based on description keywords.
+</td>
+</tr>
+<tr>
+<td>
+major_event
+</td>
+<td>
+Major Event
+</td>
+<td>
+Foreign key to <code>major_event</code> table; high-level event associated with comic.
+</td>
+</tr>
+<tr>
+<td>
+comic_url
+</td>
+<td>
+Comic URL
+</td>
+<td>
+URL to the comic’s official Marvel.com page or source.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> marvel_heroes
+</summary>
+<p>
+This table contains key attributes for Marvel characters, including names, demographic traits, and adaptation indicators. It links to ethnicity and species reference tables.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+character_id
+</td>
+<td>
+Character ID
+</td>
+<td>
+Unique identifier for the character (primary key).
+</td>
+</tr>
+<tr>
+<td>
+civilian_name
+</td>
+<td>
+Civilian Name
+</td>
+<td>
+Canonical civilian name of the character (e.g., Peter Parker).
+</td>
+</tr>
+<tr>
+<td>
+comedy
+</td>
+<td>
+Comic Relief
+</td>
+<td>
+Boolean flag indicating if the character is associated with humor or comic relief roles.
+</td>
+</tr>
+<tr>
+<td>
+sex
+</td>
+<td>
+Sex
+</td>
+<td>
+Character’s sex as presented in canonical sources (e.g., Male, Female, Non-binary).
+</td>
+</tr>
+<tr>
+<td>
+in_movie
+</td>
+<td>
+In Movie
+</td>
+<td>
+Indicates whether the character has appeared in the MCU or other film adaptations.
+</td>
+</tr>
+<tr>
+<td>
+ethnicity_id
+</td>
+<td>
+Ethnicity
+</td>
+<td>
+Foreign key to <code>character_ethnicities</code> table representing character’s cultural background.
+</td>
+</tr>
+<tr>
+<td>
+species_id
+</td>
+<td>
+Species
+</td>
+<td>
+Foreign key to <code>species</code> table indicating the character’s biological or origin classification.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> marvel_ratings
+</summary>
+<p>
+This table contains critic and audience ratings for Marvel movies and TV shows, along with metadata such as type and release date.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+media_id
+</td>
+<td>
+Media ID
+</td>
+<td>
+Primary key; unique identifier for the movie or show.
+</td>
+</tr>
+<tr>
+<td>
+title
+</td>
+<td>
+Title
+</td>
+<td>
+Name of the Marvel movie or television series.
+</td>
+</tr>
+<tr>
+<td>
+type
+</td>
+<td>
+Type
+</td>
+<td>
+Format of the media (e.g., Movie, TV Show, Mini-Series).
+</td>
+</tr>
+<tr>
+<td>
+critic_score
+</td>
+<td>
+Critic Score
+</td>
+<td>
+Aggregated critic score (e.g., from Rotten Tomatoes).
+</td>
+</tr>
+<tr>
+<td>
+audience_score
+</td>
+<td>
+Audience Score
+</td>
+<td>
+Aggregated audience score (e.g., from Rotten Tomatoes or IMDb).
+</td>
+</tr>
+<tr>
+<td>
+release_date
+</td>
+<td>
+Release Date
+</td>
+<td>
+Date the media was first released to the public.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> character_ethnicities
+</summary>
+<p>
+This table contains a variety of character ethnicities and unique ids
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+ethnicity_id
+</td>
+<td>
+Ethnicity ID
+</td>
+<td>
+Primary key; unique identifier for ethnicities.
+</td>
+</tr>
+<tr>
+<td>
+ethnicity_label
+</td>
+<td>
+Ethnicity Label
+</td>
+<td>
+An ethnic group EX: Indigenous / Native
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+TO BE CHANGED TABLES:
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> character_ethnicities
+</summary>
+<p>
+This table contains a variety of character ethnicities and unique ids
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+ethnicity_id
+</td>
+<td>
+Ethnicity ID
+</td>
+<td>
+Primary key; unique identifier for ethnicities.
+</td>
+</tr>
+<tr>
+<td>
+ethnicity_label
+</td>
+<td>
+Ethnicity Label
+</td>
+<td>
+An ethnic group EX: Indigenous / Native
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> character_ethnicities
+</summary>
+<p>
+This table contains a variety of character ethnicities and unique ids
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+ethnicity_id
+</td>
+<td>
+Ethnicity ID
+</td>
+<td>
+Primary key; unique identifier for ethnicities.
+</td>
+</tr>
+<tr>
+<td>
+ethnicity_label
+</td>
+<td>
+Ethnicity Label
+</td>
+<td>
+An ethnic group EX: Indigenous / Native
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> character_ethnicities
+</summary>
+<p>
+This table contains a variety of character ethnicities and unique ids
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+ethnicity_id
+</td>
+<td>
+Ethnicity ID
+</td>
+<td>
+Primary key; unique identifier for ethnicities.
+</td>
+</tr>
+<tr>
+<td>
+ethnicity_label
+</td>
+<td>
+Ethnicity Label
+</td>
+<td>
+An ethnic group EX: Indigenous / Native
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> character_ethnicities
+</summary>
+<p>
+This table contains a variety of character ethnicities and unique ids
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+ethnicity_id
+</td>
+<td>
+Ethnicity ID
+</td>
+<td>
+Primary key; unique identifier for ethnicities.
+</td>
+</tr>
+<tr>
+<td>
+ethnicity_label
+</td>
+<td>
+Ethnicity Label
+</td>
+<td>
+An ethnic group EX: Indigenous / Native
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> character_ethnicities
+</summary>
+<p>
+This table contains a variety of character ethnicities and unique ids
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+ethnicity_id
+</td>
+<td>
+Ethnicity ID
+</td>
+<td>
+Primary key; unique identifier for ethnicities.
+</td>
+</tr>
+<tr>
+<td>
+ethnicity_label
+</td>
+<td>
+Ethnicity Label
+</td>
+<td>
+An ethnic group EX: Indigenous / Native
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> character_ethnicities
+</summary>
+<p>
+This table contains a variety of character ethnicities and unique ids
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+ethnicity_id
+</td>
+<td>
+Ethnicity ID
+</td>
+<td>
+Primary key; unique identifier for ethnicities.
+</td>
+</tr>
+<tr>
+<td>
+ethnicity_label
+</td>
+<td>
+Ethnicity Label
+</td>
+<td>
+An ethnic group EX: Indigenous / Native
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="accordion">
+<summary>
+<span class="icon">ℹ</span> character_ethnicities
+</summary>
+<p>
+This table contains a variety of character ethnicities and unique ids
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+ethnicity_id
+</td>
+<td>
+Ethnicity ID
+</td>
+<td>
+Primary key; unique identifier for ethnicities.
+</td>
+</tr>
+<tr>
+<td>
+ethnicity_label
+</td>
+<td>
+Ethnicity Label
+</td>
+<td>
+An ethnic group EX: Indigenous / Native
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+</div>
+<div id="refs" role="list">
+
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id = "quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+</body>
+
+</html>
