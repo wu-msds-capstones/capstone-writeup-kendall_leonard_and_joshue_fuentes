@@ -16,4 +16,6 @@ We initially relied on a Kaggle dataset provided by Professor Jed Rembold, which
 To determine which comic characters had appeared in the MCU, we scraped full cast lists from IMDb pages for every MCU movie and television show. We matched scraped character names to our master character list and created a binary flag (in_movie) for each match. This indicator was essential for tying comic traits (e.g., popularity, powers, story arc depth) to real-world adaptation outcomes.
 
 ## Analysis
-Because analysis is still in progress, this section is incomplete
+Because analysis is still in progress, this section is incomplete.
+### Comics
+To begin analysis of the comics, 
