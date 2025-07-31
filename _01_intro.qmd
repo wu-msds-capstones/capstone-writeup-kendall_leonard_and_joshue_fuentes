@@ -1,8 +1,3 @@
----
-title: "MCU Adaptation Analysis"
-author: "Kendall Leonard & Joshue Fuentes-Ventura"
-format: html
----
 
 # Introduction
 The Marvel Cinematic Universe (MCU) is a superhero movie franchise that exploded onto the scene in 2008 and has become one of the most successful film franchises in history, grossing over $31 billion worldwide since its launch onto the silver screen. It transformed comic book adaptations into mainstream cinematic events and brought once-niche characters into the cultural spotlight. Yet, despite commercial success, many longtime fans have begun to question if the magic and creative spark that defined the franchise's earlier phases will return. As lifelong readers of Marvel comics and avid viewers of every movie and series we could get our hands on, we’ve noticed a growing disconnect between the storytelling that made the comics compelling and the recent direction the MCU has taken–particularly as it expands into more obscure characters and increasingly fragmented narratives. 

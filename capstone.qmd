@@ -5,10 +5,10 @@ authors:
   - Joshue Fuentes
   - Kendall Leonard
 bibliography: references.bib
-title-block-banner: true
+title-block-banner: '#ED1D24'
 format: 
   html:
-    theme: darkly
+    theme: lightly
     font-family: Century Schoolbook
 ---
 
