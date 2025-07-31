@@ -2,6 +2,13 @@
 
 ## Exploratory Data Analysis
 
+double checking intuition
+seeing a lot more releases, but much more variation in audience reception
+
+confirms need for this
+
+
+
 ```{r echo = FALSE, message = FALSE}
 #| fig-cap: "Figure X: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
@@ -21,3 +28,8 @@ ggplot(marvel_ratings, aes(x=release_date, y = audience_score))+
 
 
 ## Model Building
+
+- attempted model
+
+- classification model
+  - current very sus
