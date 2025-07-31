@@ -17,5 +17,7 @@ To determine which comic characters had appeared in the MCU, we scraped full cas
 
 ## Analysis
 Because analysis is still in progress, this section is incomplete.
+
+
 ### Comics
 To begin analysis of the comics, 
