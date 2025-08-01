@@ -12,3 +12,5 @@ format:
     theme:
       light: lightly
       dark: darkly
+    font-family: Century Schoolbook
+    css: styles.css

@@ -1,1 +1,35 @@
 # Results
+
+## Exploratory Data Analysis
+
+double checking intuition
+seeing a lot more releases, but much more variation in audience reception
+
+confirms need for this
+
+
+
+```{r echo = FALSE, message = FALSE}
+#| fig-cap: "Figure X: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+library(tidyverse)
+marvel_ratings<-read_csv("marvel_ratings.csv")
+ggplot(marvel_ratings, aes(x=release_date, y = audience_score))+
+  geom_line()+
+  theme_minimal()+
+  labs(title = "We're Not Crazy: Marvel's Just Not the Same",
+       subtitle = "Marvel Media's Audience Score Over Time",
+       x = "Release Date of Media",
+       y = "Rotten Tomatoes Audience Score (Percent)",
+       caption = "Data Source: Rotten Tomatoes")
+```
+
+
+
+
+## Model Building
+
+- attempted model
+
+- classification model
+  - current very sus
