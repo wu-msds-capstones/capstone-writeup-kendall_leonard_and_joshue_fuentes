@@ -2,10 +2,13 @@
 
 ## Exploratory Data Analysis
 
-double checking intuition
-seeing a lot more releases, but much more variation in audience reception
+To test our intuition that Marvel’s newer content hasn’t been hitting the same highs as its earlier phases, we turned to the data. The figure above visualizes Rotten Tomatoes audience scores for Marvel media over time, from 2008 through 2025.
 
-confirms need for this
+The trend is hard to miss: while early titles (roughly 2008–2018) generally received consistently high ratings—frequently in the 80–90% range—recent releases show a dramatic increase in variability. Starting around 2019, the scores become much more volatile, with several sharp dips into the 40s and 50s and far fewer guaranteed crowd-pleasers. Even well-established franchises aren't immune to this drop in reception.
+
+This backs up what many longtime fans (ourselves included) have been feeling: the MCU just isn’t as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. At the same time, there's been a surge in the volume of media released. With more shows and movies hitting screens each year, the range of quality—and audience response—has grown.
+
+This plot served as a useful gut-check: it confirmed that our hunch wasn’t just nostalgia talking. Something has changed in how Marvel stories are being received, and this volatility in reception helped motivate our deeper dive into the storytelling DNA of the comics themselves. If some source material leads to reliably well-received adaptations, and others don’t, then maybe the data can help us figure out the difference.
 
 
 
@@ -29,7 +32,54 @@ ggplot(marvel_ratings, aes(x=release_date, y = audience_score))+
 
 ## Model Building
 
-- attempted model
+Once we assembled our dataset, the next step was to determine which elements of comic storytelling actually correlate with a successful adaptation. To do this, we treated the task as a binary classification problem: given a comic issue’s metadata, could we predict whether it would be a strong candidate for MCU adaptation?
 
-- classification model
-  - current very sus
+We began by defining a success label using the success_score variable—a composite rating derived from Rotten Tomatoes critic and audience scores. Comics tied to MCU content with a score of 85 or higher were labeled 1 (successful); all others were labeled 0. We intentionally set a high bar here: the goal was not to capture everything that was merely “good,” but to flag only the standout stories.
+
+Before training, we handled missing data conservatively. Boolean indicators such as romance, mentor, and movie_based were treated as FALSE by default; numeric features like num_themes, num_characters, and num_power_types were filled in as 0. This approach helped preserve the structure of the data while minimizing the risk of overestimating character complexity or narrative richness.
+
+### Round 1: Random Forests
+We initially trained a Random Forest classifier using the caret and randomForest packages in R. The model showed striking performance during training—an AUC close to 1.0 and high overall accuracy. But the deeper we looked, the more issues we found.
+
+Specifically, the model appeared to overfit the training data, likely memorizing correlated artifacts—like series identifiers—instead of learning generalizable narrative signals. One major source of leakage was the series_id column: if every issue in a given series shared the same success label, the model could trivially “learn” to predict success without using any true narrative signals.
+
+Even after removing series_id, we applied multiple countermeasures, including class balancing via downsampling, 5-fold cross-validation, and feature selection to eliminate redundant predictors. Despite these efforts, the model continued to overfit. It performed exceptionally well on the dominant class (successful comics) but struggled to identify false positives and failed successes, resulting in poor generalization.
+
+A quick look at the confusion matrix and ROC curve confirmed our suspicion: the model was accurate for the wrong reasons.
+
+### Round 2: XGBoost
+Hoping to find a better balance, we turned to XGBoost, a more sophisticated gradient boosting method. We trained the model on the same set of predictors, with class balancing and regularization in place.
+
+While XGBoost slightly improved recall for the minority class (success_label == 0) under upsampling, the class imbalance remained a significant challenge. While precision remained high, recall for the unsuccessful class stayed low, and interpretability took a hit due to the model’s complexity. 
+
+ADD MORE HERE
+
+### Round 3: Logistic Regression
+
+Ultimately, we landed on a logistic regression model. Before fitting the model, we ensured that binary factors were encoded as pos/neg and applied 5-fold cross-validation with upsampling to counteract the imbalance in success labels. While it didn’t dazzle with perfect accuracy, it offered several clear advantages:
+
+Better class balance: It recognized both successful and unsuccessful comics more fairly.
+
+More interpretable coefficients: We could identify which features actually mattered (e.g., num_themes, mentor, origin_story).
+
+Fewer red flags: No sign of memorization or artifact-based prediction.
+
+In terms of metrics, the final model reached:
+
+- Accuracy: 81.2%
+
+- Precision: 96.5%
+
+- Recall: 71.0%
+
+- AUC: 0.898
+
+- Kappa: 0.425
+
+The ROC curve looked promising—stable, clean, and free of the extreme curvature that often signals overfitting and the Kappa statistic (κ = 0.425) indicates moderate agreement between predicted and actual labels after accounting for chance agreement—an important validation that the model wasn’t simply riding the dominant class (as earlier models had done). While not perfect, this level of agreement reinforces that the model captures meaningful patterns in the data without overfitting.
+
+## The Output
+Although tree-based models often dominate performance benchmarks, in this case, they proved too powerful for their own good. Random Forest and XGBoost were easily distracted by artifacts in the data and susceptible to subtle forms of leakage. Logistic regression, by contrast, struck the right balance between predictive power and explanatory value.
+
+More importantly, it helped us isolate actual narrative signals—traits that future adaptations could watch for, rather than shortcuts tied to past decisions. With this model in hand, we’re finally able to ask the question that started this whole project: what makes a comic story truly worth adapting?
+

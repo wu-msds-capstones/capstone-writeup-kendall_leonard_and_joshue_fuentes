@@ -150,7 +150,13 @@ div.csl-indent {
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
   <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
-  <li><a href="#model-building" id="toc-model-building" class="nav-link" data-scroll-target="#model-building">Model Building</a></li>
+  <li><a href="#model-building" id="toc-model-building" class="nav-link" data-scroll-target="#model-building">Model Building</a>
+  <ul class="collapse">
+  <li><a href="#round-1-random-forests" id="toc-round-1-random-forests" class="nav-link" data-scroll-target="#round-1-random-forests">Round 1: Random Forests</a></li>
+  <li><a href="#round-2-xgboost" id="toc-round-2-xgboost" class="nav-link" data-scroll-target="#round-2-xgboost">Round 2: XGBoost</a></li>
+  <li><a href="#round-3-logistic-regression" id="toc-round-3-logistic-regression" class="nav-link" data-scroll-target="#round-3-logistic-regression">Round 3: Logistic Regression</a></li>
+  </ul></li>
+  <li><a href="#the-output" id="toc-the-output" class="nav-link" data-scroll-target="#the-output">The Output</a></li>
   </ul></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -159,7 +165,7 @@ div.csl-indent {
   <li><a href="#full-data-dictionary" id="toc-full-data-dictionary" class="nav-link" data-scroll-target="#full-data-dictionary">Full Data Dictionary</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="Comic Features Associated with MCU Success-preview.html"><i class="bi bi-journal-code"></i>Exploring Comic Metadata Features Associated with MCU Movie Success</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -173,7 +179,7 @@ div.csl-indent {
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>The Marvel Cinematic Universe (MCU) is a superhero movie franchise that exploded onto the scene in 2008 and has become one of the most successful film franchises in history, grossing over $31 billion worldwide since its launch onto the silver screen. It transformed comic book adaptations into mainstream cinematic events and brought once-niche characters into the cultural spotlight. Yet, despite commercial success, many longtime fans have begun to question if the magic and creative spark that defined the franchise’s earlier phases will return. As lifelong readers of Marvel comics and avid viewers of every movie and series we could get our hands on, we’ve noticed a growing disconnect between the storytelling that made the comics compelling and the recent direction the MCU has taken–particularly as it expands into more obscure characters and increasingly fragmented narratives.</p>
-<p>The origin story of the project began with a simple but persistent question: why do some characters and storylines translate seamlessly to the screen while others, despite having rich and beloved source material, fail to resonate? The success of Guardians of the Galaxy (2014), for instance, seemed unlikely—these were not traditionally popular comic characters. Yet the films captured the heart of their story and became massive critical and commercial successes. Conversely, several characters with decades of deep, character-driven arcs have been introduced in the MCU in ways that feel shallow or disconnected from their origins. But, we know it’s possible to introduce these beloved characters in a stunning fashion. One standout example of a successful adaptation is Captain America: The Winter Soldier (2014), which not only delivered on the excitement and emotional weight of the comic arc but also functioned as a tight, character-focused political thriller. Moments like that, where source material is respected and elevated, are increasingly rare.</p>
+<p>The origin story of the project began with a simple but persistent question: why do some characters and storylines translate seamlessly to the screen while others, despite having rich and beloved source material, fail to resonate? The success of Guardians of the Galaxy (2014), for instance, seemed unlikely—these were not traditionally popular comic characters. Yet the films captured the heart of their story and became massive critical and commercial successes. Conversely, several characters with decades of deep, character-driven arcs have been introduced in the MCU in ways that feel shallow or disconnected from their origins. But, we know it is possible to introduce these beloved characters in a stunning fashion. One standout example of a successful adaptation is Captain America: The Winter Soldier (2014), which not only delivered on the excitement and emotional weight of the comic arc but also functioned as a tight, character-focused political thriller. Moments like that, where source material is respected and elevated, are increasingly rare.</p>
 <p>Our aim is not to predict box office hits or speculate on the next breakout character. Instead, we are interested in understanding the comic-specific storytelling elements—such as character development, power dynamics, team interactions, and narrative structure—that contribute to the success of adaptations. This leads to our central research question: <strong>How do specific aspects of comic metadata (such as issue counts, character popularity, story arcs, team-ups, and power levels) influence the likelihood of a Marvel character or storyline achieving commercial and critical success when adapted into the MCU?</strong> Ultimately, our goal is to provide insight into how future adaptations might remain faithful to the core of their source material while also creating high-quality films and series that appeal to both longtime fans and new audiences.</p>
 </section>
 <section id="background" class="level1">
@@ -709,8 +715,10 @@ Date the media was first released to the public.
 <h1>Results</h1>
 <section id="exploratory-data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
-<p>double checking intuition seeing a lot more releases, but much more variation in audience reception</p>
-<p>confirms need for this</p>
+<p>To test our intuition that Marvel’s newer content hasn’t been hitting the same highs as its earlier phases, we turned to the data. The figure above visualizes Rotten Tomatoes audience scores for Marvel media over time, from 2008 through 2025.</p>
+<p>The trend is hard to miss: while early titles (roughly 2008–2018) generally received consistently high ratings—frequently in the 80–90% range—recent releases show a dramatic increase in variability. Starting around 2019, the scores become much more volatile, with several sharp dips into the 40s and 50s and far fewer guaranteed crowd-pleasers. Even well-established franchises aren’t immune to this drop in reception.</p>
+<p>This backs up what many longtime fans (ourselves included) have been feeling: the MCU just isn’t as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. At the same time, there’s been a surge in the volume of media released. With more shows and movies hitting screens each year, the range of quality—and audience response—has grown.</p>
+<p>This plot served as a useful gut-check: it confirmed that our hunch wasn’t just nostalgia talking. Something has changed in how Marvel stories are being received, and this volatility in reception helped motivate our deeper dive into the storytelling DNA of the comics themselves. If some source material leads to reliably well-received adaptations, and others don’t, then maybe the data can help us figure out the difference.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -724,13 +732,43 @@ Date the media was first released to the public.
 </section>
 <section id="model-building" class="level2">
 <h2 class="anchored" data-anchor-id="model-building">Model Building</h2>
+<p>Once we assembled our dataset, the next step was to determine which elements of comic storytelling actually correlate with a successful adaptation. To do this, we treated the task as a binary classification problem: given a comic issue’s metadata, could we predict whether it would be a strong candidate for MCU adaptation?</p>
+<p>We began by defining a success label using the success_score variable—a composite rating derived from Rotten Tomatoes critic and audience scores. Comics tied to MCU content with a score of 85 or higher were labeled 1 (successful); all others were labeled 0. We intentionally set a high bar here: the goal was not to capture everything that was merely “good,” but to flag only the standout stories.</p>
+<p>Before training, we handled missing data conservatively. Boolean indicators such as romance, mentor, and movie_based were treated as FALSE by default; numeric features like num_themes, num_characters, and num_power_types were filled in as 0. This approach helped preserve the structure of the data while minimizing the risk of overestimating character complexity or narrative richness.</p>
+<section id="round-1-random-forests" class="level3">
+<h3 class="anchored" data-anchor-id="round-1-random-forests">Round 1: Random Forests</h3>
+<p>We initially trained a Random Forest classifier using the caret and randomForest packages in R. The model showed striking performance during training—an AUC close to 1.0 and high overall accuracy. But the deeper we looked, the more issues we found.</p>
+<p>Specifically, the model appeared to overfit the training data, likely memorizing correlated artifacts—like series identifiers—instead of learning generalizable narrative signals. One major source of leakage was the series_id column: if every issue in a given series shared the same success label, the model could trivially “learn” to predict success without using any true narrative signals.</p>
+<p>Even after removing series_id, we applied multiple countermeasures, including class balancing via downsampling, 5-fold cross-validation, and feature selection to eliminate redundant predictors. Despite these efforts, the model continued to overfit. It performed exceptionally well on the dominant class (successful comics) but struggled to identify false positives and failed successes, resulting in poor generalization.</p>
+<p>A quick look at the confusion matrix and ROC curve confirmed our suspicion: the model was accurate for the wrong reasons.</p>
+</section>
+<section id="round-2-xgboost" class="level3">
+<h3 class="anchored" data-anchor-id="round-2-xgboost">Round 2: XGBoost</h3>
+<p>Hoping to find a better balance, we turned to XGBoost, a more sophisticated gradient boosting method. We trained the model on the same set of predictors, with class balancing and regularization in place.</p>
+<p>While XGBoost slightly improved recall for the minority class (success_label == 0) under upsampling, the class imbalance remained a significant challenge. While precision remained high, recall for the unsuccessful class stayed low, and interpretability took a hit due to the model’s complexity.</p>
+<p>ADD MORE HERE</p>
+</section>
+<section id="round-3-logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="round-3-logistic-regression">Round 3: Logistic Regression</h3>
+<p>Ultimately, we landed on a logistic regression model. Before fitting the model, we ensured that binary factors were encoded as pos/neg and applied 5-fold cross-validation with upsampling to counteract the imbalance in success labels. While it didn’t dazzle with perfect accuracy, it offered several clear advantages:</p>
+<p>Better class balance: It recognized both successful and unsuccessful comics more fairly.</p>
+<p>More interpretable coefficients: We could identify which features actually mattered (e.g., num_themes, mentor, origin_story).</p>
+<p>Fewer red flags: No sign of memorization or artifact-based prediction.</p>
+<p>In terms of metrics, the final model reached:</p>
 <ul>
-<li><p>attempted model</p></li>
-<li><p>classification model</p>
-<ul>
-<li>current very sus</li>
-</ul></li>
+<li><p>Accuracy: 81.2%</p></li>
+<li><p>Precision: 96.5%</p></li>
+<li><p>Recall: 71.0%</p></li>
+<li><p>AUC: 0.898</p></li>
+<li><p>Kappa: 0.425</p></li>
 </ul>
+<p>The ROC curve looked promising—stable, clean, and free of the extreme curvature that often signals overfitting and the Kappa statistic (κ = 0.425) indicates moderate agreement between predicted and actual labels after accounting for chance agreement—an important validation that the model wasn’t simply riding the dominant class (as earlier models had done). While not perfect, this level of agreement reinforces that the model captures meaningful patterns in the data without overfitting.</p>
+</section>
+</section>
+<section id="the-output" class="level2">
+<h2 class="anchored" data-anchor-id="the-output">The Output</h2>
+<p>Although tree-based models often dominate performance benchmarks, in this case, they proved too powerful for their own good. Random Forest and XGBoost were easily distracted by artifacts in the data and susceptible to subtle forms of leakage. Logistic regression, by contrast, struck the right balance between predictive power and explanatory value.</p>
+<p>More importantly, it helped us isolate actual narrative signals—traits that future adaptations could watch for, rather than shortcuts tied to past decisions. With this model in hand, we’re finally able to ask the question that started this whole project: what makes a comic story truly worth adapting?</p>
 </section>
 </section>
 <section id="conclusions" class="level1">
