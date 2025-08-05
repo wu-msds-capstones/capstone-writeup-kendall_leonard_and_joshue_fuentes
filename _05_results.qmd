@@ -47,6 +47,27 @@ Even after removing series_id, we applied multiple countermeasures, including cl
 
 A quick look at the confusion matrix and ROC curve confirmed our suspicion: the model was accurate for the wrong reasons.
 
+We also tested whether tree-based models could be salvaged through aggressive pruning. We trained a decision tree with a maximum depth of 3 and strict split constraints. However, the resulting model completely failed to recognize any successful comics, defaulting to the majority class and achieving a Kappa score of 0. Despite its high accuracy (87.1%), it had 0% sensitivity and a balanced accuracy of 0.5—effectively guessing at random. This confirmed that the limitations of tree-based models were not solely due to overfitting, but also a mismatch between model structure and task complexity. Logistic regression, in contrast, captured meaningful narrative patterns without relying on structural shortcuts.
+
+--- edit this: Round 3: Constrained XGBoost
+To better isolate whether overfitting was to blame, we trained a deliberately constrained XGBoost model, limiting tree depth, boosting rounds, and requiring large gains for splits. These constraints simulate a form of regularized learning, which reduces the model’s capacity to memorize spurious patterns.
+
+The results were striking. With only shallow trees (max_depth = 2), a high minimum child weight, and gamma regularization, the model achieved:
+
+Accuracy: 89.9%
+
+AUC: 0.968
+
+Kappa: 0.647
+
+Sensitivity (true positive rate): 89.4%
+
+Specificity (true negative rate): 92.9%
+
+These metrics strongly suggest that Random Forests and default XGBoost were not inherently unsuitable, but rather insufficiently disciplined in how they handled noisy or unbalanced training data. Once regularization was applied, XGBoost delivered excellent performance without falling into the traps of earlier models.
+
+That said, even with these constraints, interpretability remained a concern. Logistic regression provided more transparent feature weights and fewer failure modes when faced with edge cases or sparsely represented themes. So while constrained XGBoost could be a strong deployment model, logistic regression remained the better choice for exploration and explanation.
+
 ### Round 2: XGBoost
 Hoping to find a better balance, we turned to XGBoost, a more sophisticated gradient boosting method. We trained the model on the same set of predictors, with class balancing and regularization in place.
 
