@@ -10,7 +10,9 @@ This backs up what many longtime fans (ourselves included) have been feeling: th
 
 This plot served as a useful gut-check: it confirmed that our hunch wasn’t just nostalgia talking. Something has changed in how Marvel stories are being received, and this volatility in reception helped motivate our deeper dive into the storytelling DNA of the comics themselves. If some source material leads to reliably well-received adaptations, and others don’t, then maybe the data can help us figure out the difference.
 
+(I almost would include this graphic up front when you first bring this up. You don't have to give all the details around the data for it yet at that point, but it underpins much of what you are doing)
 
+(I like you checking this, though I think also looking at the critic scores might be interesting. I'd definitely phrase it around an increase in variability, not necessarily a decrease in quality though, because the highs still seem just as high if not higher)
 
 ```{r echo = FALSE, message = FALSE}
 #| fig-cap: "Figure X: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."
@@ -32,6 +34,9 @@ ggplot(marvel_ratings, aes(x=release_date, y = audience_score))+
 
 ## Model Building
 
+(Is the composite rating an average of the two (critic and audience)? Or how exactly did you do that? Keep in mind that good research is reproducible, and that means you need to give a reader enough details that they could largely reproduce things on their own. Also, how many movies/shows did you have in each bucket after deciding on this threshold?)
+
+(We talked about this after class last week, but don't be afraid to get into the weeds on this even if the end result didn't pan out. The goal is to show that you know what you are talking about and doing, and you should be able to do that even in cases where the model didn't end up working as hoped.)
 Once we assembled our dataset, the next step was to determine which elements of comic storytelling actually correlate with a successful adaptation. To do this, we treated the task as a binary classification problem: given a comic issue’s metadata, could we predict whether it would be a strong candidate for MCU adaptation?
 
 We began by defining a success label using the success_score variable—a composite rating derived from Rotten Tomatoes critic and audience scores. Comics tied to MCU content with a score of 85 or higher were labeled 1 (successful); all others were labeled 0. We intentionally set a high bar here: the goal was not to capture everything that was merely “good,” but to flag only the standout stories.

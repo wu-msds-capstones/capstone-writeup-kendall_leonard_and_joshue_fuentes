@@ -1,6 +1,6 @@
 # Data
 ## Sources
-The data for this project originates from three primary sources: the official Marvel website (Marvel.com), Rotten Tomatoes, and IMDb. While several additional sources were considered during the early stages of the project, they were ultimately dismissed due to inconsistent formatting, limited access, or unreliable metadata. These decisions are discussed in more detail in the Limitations section.
+The data for this project originates from three primary sources: the official Marvel website (Marvel.com), Rotten Tomatoes, and IMDb. (Isn't this what you just introduced above? If anything, this feel like it should come before that, as it introduces the concepts behind the sources, and then you could talk about the actual acquisition of those sources) While several additional sources were considered (such as?) during the early stages of the project, they were ultimately dismissed due to inconsistent formatting, limited access, or unreliable metadata. These decisions are discussed in more detail in the Limitations section.
 
 Because our objective is to identify which Marvel characters and storylines are most likely to succeed when adapted into the Marvel Cinematic Universe (MCU), we first had to define what “success” means. Initially, we considered using box office revenue as a proxy. However, this metric is not available for Marvel TV shows, especially those hosted on streaming platforms like Disney+. As a result, we pivoted to using aggregated ratings from Rotten Tomatoes, which measure how well both critics and general audiences received a particular movie or show. Ratings allow for comparisons across both film and television and offer a more complete picture of how adaptations are received.
 
@@ -10,7 +10,7 @@ Marvel.com served as the primary source for comic and character data. As the off
 
 IMDb was used to identify which comic characters had already appeared in the MCU. We scraped cast and character listings for every MCU movie and TV show to create an in_movie flag, linking comic metadata to real-world adaptation outcomes. This allowed us to connect character popularity and storyline complexity with on-screen representation—an essential component of our success metric.
 
-While our project uses publicly available data, we considered several ethical concerns. First, character metadata may reflect historical biases in comic publishing—e.g., underrepresentation of women and BIPOC characters—which could skew model outputs. We chose not to use race or gender as predictors in our adaptation models to avoid reinforcing such biases.
+While our project uses publicly available data, we considered several ethical concerns.(You mention several ethical concerns, but then only described one.) First, character metadata may reflect historical biases in comic publishing—e.g., underrepresentation of women and BIPOC characters—which could skew model outputs. We chose not to use race or gender as predictors in our adaptation models to avoid reinforcing such biases.
 
 Additionally, we excluded fan-edited wikis or Reddit data due to concerns about data quality, consent, and citation. Only official or structured third-party sources (IMDb, Marvel.com, Rotten Tomatoes) were used.
 
