@@ -1,0 +1,410 @@
+---
+title: "Exploring Comic Metadata Features Associated with MCU Movie Success"
+author: "Joshue Fuentes & Kendall Leonard"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Introduction
+
+This document chronicles the journey analyzing Marvel Cinematic Universe (MCU) success factors using comic metadata. We include all attempts, both successful and unsuccessful, as they demonstrate our data-driven decision-making process.
+
+## Initial Setup and Data Loading
+
+```{}
+# Loading packages
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(caret)
+
+# Set seed for reproducibility
+set.seed(123)
+```
+
+```{}
+# Loading tables for Model 1
+mcu_scores <- read_csv("C:/Users/joshu/Downloads/mcu_scores.csv")
+comics <- read_csv("C:/Users/joshu/Downloads/comics.csv")
+marvel_characters <- read_csv("C:/Users/joshu/Downloads/marvel_characters.csv")
+characters_in_movies <- read_csv("C:/Users/joshu/Downloads/characters_in_movies.csv")
+```
+
+## Model 1: Character Name-Matching Approach (Initial Attempt)
+
+Our first approach attempted to link movies to comic themes through character names.
+
+```{}
+# Check dimensions
+dim(mcu_scores)
+dim(comics)
+dim(characters_in_movies)
+dim(marvel_characters)
+```
+
+### Building Character-Comic Theme Links
+
+```{}
+# Function to link characters to comics through name matching
+link_characters_to_comics <- function() {
+  # Getting MCU characters only
+  mcu_characters <- marvel_characters %>% 
+    filter(mcu_appearance == TRUE) %>%
+    select(id, superhero_name, full_name)
+  
+  character_comic_themes <- data.frame()
+  
+  # For each character, finding comics mentioning them
+  for(i in 1:nrow(mcu_characters)) {
+    char_id <- mcu_characters$id[i]
+    char_name <- mcu_characters$superhero_name[i]
+    
+    # Find comics mentioning this character
+    char_comics <- comics %>%
+      filter(
+        grepl(char_name, comic_title, ignore.case = TRUE) |
+        grepl(char_name, description, ignore.case = TRUE, useBytes = TRUE)
+      ) %>%
+      summarise(
+        character_id = char_id,
+        character_name = char_name,
+        has_mentor_theme = any(mentor == 1, na.rm = TRUE),
+        has_comedy_theme = any(comedy == 1, na.rm = TRUE),
+        has_cultural_theme = any(cultural == 1, na.rm = TRUE),
+        has_romance_theme = any(romance == 1, na.rm = TRUE),
+        has_origin_theme = any(origin_story == 1, na.rm = TRUE),
+        comic_count = n()
+      )
+    
+    character_comic_themes <- rbind(character_comic_themes, char_comics)
+  }
+  
+  return(character_comic_themes)
+}
+
+# Execute the linking
+character_themes <- link_characters_to_comics()
+nrow(character_themes)
+head(character_themes)
+```
+
+### Aggregating to Movie Level
+
+```{}
+# Get character themes for each movie
+movie_character_themes <- characters_in_movies %>%
+  left_join(character_themes, by = "character_id") %>%
+  filter(!is.na(character_name))
+
+# Aggregate themes to movie level
+movie_themes <- movie_character_themes %>%
+  group_by(movie_id) %>%
+  summarise(
+    has_mentor_theme = any(has_mentor_theme, na.rm = TRUE),
+    has_comedy_theme = any(has_comedy_theme, na.rm = TRUE),
+    has_cultural_theme = any(has_cultural_theme, na.rm = TRUE),
+    has_romance_theme = any(has_romance_theme, na.rm = TRUE),
+    has_origin_theme = any(has_origin_theme, na.rm = TRUE),
+    character_count = n(),
+    .groups = "drop"
+  )
+
+# Add movie info and success metrics
+model1_data <- movie_themes %>%
+  left_join(mcu_scores, by = c("movie_id" = "id")) %>%
+  filter(!is.na(title)) %>%
+  select(title, critic_score, audience_score, 
+         has_mentor_theme, has_comedy_theme, has_cultural_theme, 
+         has_romance_theme, has_origin_theme, character_count)
+
+nrow(model1_data)
+
+# Theme distribution
+theme_counts <- model1_data %>%
+  summarise(
+    mentor_movies = sum(has_mentor_theme),
+    comedy_movies = sum(has_comedy_theme),
+    cultural_movies = sum(has_cultural_theme),
+    romance_movies = sum(has_romance_theme),
+    origin_movies = sum(has_origin_theme),
+    total_movies = n()
+  )
+theme_counts
+```
+
+### Model 1 Analysis
+
+```{}
+# Create success classification
+model1_final <- model1_data %>%
+  mutate(
+    high_success = factor(critic_score > 80 | audience_score > 85,
+                         levels = c(FALSE, TRUE),
+                         labels = c("No", "Yes"))
+  )
+
+# Split data
+set.seed(123)
+trainIndex <- createDataPartition(model1_final$high_success, p = 0.8, list = FALSE)
+train <- model1_final[trainIndex, ]
+test <- model1_final[-trainIndex, ]
+
+# Train model
+control <- trainControl(method = "cv", number = 5)
+model1_glm <- train(
+  high_success ~ has_mentor_theme + has_comedy_theme + 
+                 has_romance_theme + has_origin_theme,
+  data = train,
+  method = "glm",
+  family = "binomial",
+  trControl = control,
+  metric = "Kappa"
+)
+
+model1_glm
+
+# Confusion matrix
+pred <- predict(model1_glm, newdata = test)
+confusionMatrix(pred, test$high_success)
+```
+
+### Model 1 Reflection
+
+The name-matching approach yielded poor results (Kappa = -0.14). Issues included:
+- Indirect connection between characters and themes
+- Name matching missed many connections
+- Cultural themes completely absent
+
+## Model 2: Direct Comic-to-Movie Approach
+
+After Model 1's failure, we pivoted to using the comic_to_movie table for direct source material connections.
+
+```{}
+# Load the comic_to_movie junction table
+comic_to_movie <- read_csv("C:/Users/joshu/Downloads/comic_to_movie.csv")
+```
+
+```{}
+# Explore comic_to_movie table
+dim(comic_to_movie)
+length(unique(comic_to_movie$movie_id))
+
+# Which movies have comic connections?
+movies_with_connections <- comic_to_movie %>%
+  group_by(movie_id) %>%
+  summarise(comic_count = n()) %>%
+  left_join(mcu_scores, by = c("movie_id" = "id")) %>%
+  select(movie_id, title, comic_count) %>%
+  arrange(desc(comic_count))
+
+movies_with_connections
+```
+
+### Building Model 2 Dataset
+
+```{}
+# Join comic themes to movies
+movie_source_themes <- comic_to_movie %>%
+  left_join(comics, by = "comic_id") %>%
+  select(movie_id, comic_id, comic_title, mentor, comedy, cultural, romance, origin_story)
+
+# Aggregate themes at movie level
+movie_aggregated_themes <- movie_source_themes %>%
+  group_by(movie_id) %>%
+  summarise(
+    source_comic_count = n(),
+    has_mentor_theme = any(mentor == 1, na.rm = TRUE),
+    has_comedy_theme = any(comedy == 1, na.rm = TRUE),
+    has_cultural_theme = any(cultural == 1, na.rm = TRUE),
+    has_romance_theme = any(romance == 1, na.rm = TRUE),
+    has_origin_theme = any(origin_story == 1, na.rm = TRUE)
+  )
+
+# Add movie information
+model2_data <- movie_aggregated_themes %>%
+  left_join(mcu_scores, by = c("movie_id" = "id")) %>%
+  filter(!is.na(title)) %>%
+  select(title, critic_score, audience_score, source_comic_count,
+         has_mentor_theme, has_comedy_theme, has_cultural_theme, 
+         has_romance_theme, has_origin_theme)
+
+nrow(model2_data)
+```
+
+### Model 2 Analysis 
+
+```{}
+# Create success variable
+model2_analysis <- model2_data %>%
+  mutate(
+    high_success = factor(critic_score > 80 | audience_score > 85,
+                         levels = c(FALSE, TRUE),
+                         labels = c("No", "Yes"))
+  )
+
+# With only 13 movies, use Leave-One-Out Cross-Validation
+control_loocv <- trainControl(method = "LOOCV")
+```
+
+
+```{}
+# Logistic regression
+model2_glm <- train(
+  high_success ~ has_mentor_theme + has_comedy_theme + 
+                 has_romance_theme + has_origin_theme,
+  data = model2_analysis,
+  method = "glm",
+  family = "binomial",
+  trControl = control_loocv
+)
+
+model2_glm
+```
+
+
+```{}
+# Decision tree
+model2_tree <- train(
+  high_success ~ has_mentor_theme + has_comedy_theme + 
+                 has_romance_theme + has_origin_theme,
+  data = model2_analysis,
+  method = "rpart",
+  trControl = control_loocv,
+  tuneLength = 3
+)
+
+model2_tree
+```
+
+
+```{}
+# Single feature models
+# Just romance theme
+model2_simple <- train(
+  high_success ~ has_romance_theme,
+  data = model2_analysis,
+  method = "glm",
+  family = "binomial",
+  trControl = control_loocv
+)
+
+model2_simple
+```
+
+### Character Count
+
+```{}
+# First, we need to properly link movies to character counts
+# Get movie IDs for our 13 movies
+movie_ids_lookup <- comic_to_movie %>%
+  distinct(movie_id) %>%
+  left_join(mcu_scores, by = c("movie_id" = "id")) %>%
+  select(movie_id, title)
+
+# Get character counts per movie
+character_counts_per_movie <- characters_in_movies %>%
+  filter(movie_id %in% movie_ids_lookup$movie_id) %>%
+  group_by(movie_id) %>%
+  summarise(total_characters = n()) %>%
+  left_join(movie_ids_lookup, by = "movie_id")
+
+# Merge with our model2_data
+character_count_analysis <- model2_data %>%
+  left_join(character_counts_per_movie %>% select(title, total_characters), by = "title") %>%
+  mutate(
+    high_success = critic_score > 80 | audience_score > 85
+  )
+
+# Compare character counts
+character_summary <- character_count_analysis %>%
+  group_by(high_success) %>%
+  summarise(
+    avg_characters = mean(total_characters, na.rm = TRUE),
+    n = n()
+  )
+
+character_summary
+```
+
+
+```{}
+# Visualization
+ggplot(character_count_analysis, aes(x = total_characters, y = critic_score)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Character Count vs. Critical Success",
+       x = "Total Characters in Movie",
+       y = "Critic Score") +
+  theme_minimal()
+```
+
+
+## Model 2 Enhanced: Adding More Features
+
+Attempting to improve on the poor Kappa scores by adding character and power features.
+
+```{}
+# Load additional tables for enhanced features
+character_power_type <- read_csv("C:/Users/joshu/Downloads/character_power_type.csv")
+power_type <- read_csv("C:/Users/joshu/Downloads/power_type.csv")
+teams <- read_csv("C:/Users/joshu/Downloads/teams.csv")
+characters_in_teams <- read_csv("C:/Users/joshu/Downloads/characters_in_teams.csv")
+```
+
+```{}
+# Build power features for the 13 movies
+power_features <- characters_in_movies %>%
+  filter(movie_id %in% movies_with_connections$movie_id) %>%
+  left_join(character_power_type, by = "character_id") %>%
+  left_join(power_type, by = "power_type_id") %>%
+  group_by(movie_id) %>%
+  summarise(
+    unique_power_types = n_distinct(power_type_id, na.rm = TRUE),
+    has_super_strength = any(grepl("strength", description, ignore.case = TRUE), na.rm = TRUE),
+    has_flying = any(grepl("fly|flight", description, ignore.case = TRUE), na.rm = TRUE),
+    has_tech_powers = any(grepl("tech|armor", description, ignore.case = TRUE), na.rm = TRUE)
+  )
+
+# Build team features
+team_features <- characters_in_movies %>%
+  filter(movie_id %in% movies_with_connections$movie_id) %>%
+  left_join(characters_in_teams, by = "character_id", relationship = "many-to-many") %>%
+  left_join(teams, by = "team_id") %>%
+  group_by(movie_id) %>%
+  summarise(
+    unique_teams = n_distinct(team_id, na.rm = TRUE),
+    has_avengers = any(grepl("Avengers", team_name, ignore.case = TRUE), na.rm = TRUE)
+  )
+
+# Combine all features
+model2_enhanced <- movies_with_connections %>%
+  left_join(model2_data %>% select(-source_comic_count), by = c("title" = "title")) %>%
+  left_join(power_features, by = "movie_id") %>%
+  left_join(team_features, by = "movie_id") %>%
+  mutate(
+    high_success = factor(critic_score > 80 | audience_score > 85,
+                         levels = c(FALSE, TRUE),
+                         labels = c("No", "Yes"))
+  ) %>%
+  select(-movie_id)
+```
+
+
+```{}
+# Enhanced model with selected features
+model2_enhanced_fit <- train(
+  high_success ~ has_mentor_theme + has_romance_theme + unique_power_types + has_avengers,
+  data = model2_enhanced,
+  method = "glm",
+  family = "binomial",
+  trControl = control_loocv
+)
+
+model2_enhanced_fit
+```
+
