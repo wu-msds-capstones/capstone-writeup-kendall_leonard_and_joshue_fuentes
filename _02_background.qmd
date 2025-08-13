@@ -1,37 +1,58 @@
 # Background
-(You should always have _at least_ a paragraph introducing that section before moving into any subsections)
+
+
+The field of predictive modeling in entertainment analytics has grown substantially over the past decade. Researchers have developed increasingly sophisticated methods to forecast a film’s reception based on a variety of features. However, most of this work focuses on post-production or late-stage development. Our project seeks to address a gap in that research: how early-stage, source-material characteristics might inform adaptation success—before casting, production, or release.
+
+
 ## A Proven Field—With One Big Blind Spot
 
-Over the past decade, researchers have gotten really good at predicting how a movie will perform. Using machine learning and statistical modeling, dozens of studies have tackled the challenge of forecasting box office revenue, critical scores, and audience reception. A major literature survey by Ahmad et al. looked at 36 of these studies and found that most use some combination of regression and classification methods—especially multiple linear regression and support vector machines (SVMs)—to make their predictions (Ahmad et al. 249). Across these models, the most common features tend to include cast composition, the number of theaters, and genre. Standard evaluation metrics like root mean square error (RMSE) and mean absolute percentage error (MAPE) help measure just how close their predictions come to reality.
 
-And they are not just close—they’re often impressively accurate. More recent research has leaned into ensemble methods and hybrid models. Random forests, boosting algorithms, even LSTM networks for sentiment analysis are being combined to squeeze every last ounce of insight out of the data. One model hit over 91% accuracy(what is being predicted here?) by combining ensemble methods with audience sentiment (Ruwantha & Kumara 142). Another used XGBoost to predict *Rotten Tomatoes* critic scores with a mean absolute error of around 8.6 (which means what?) (Smith 1). These tools work well—particularly when the goal is to predict how a completed movie will be received once it is already in theaters or on a streaming platform.
+Over the past decade, researchers have become highly skilled at predicting how a movie will perform. Using machine learning and statistical modeling, dozens of studies have tackled the challenge of forecasting box office revenue, critical scores, and audience reception. A significant literature survey by Ahmad et al. looked at 36 of these studies and found that most use some combination of regression and classification methods—especially multiple linear regression and support vector machines (SVMs)—to make their predictions (Ahmad et al. 249). Across these models, the most common features tend to include cast composition, the number of theaters, and genre. Standard evaluation metrics like root mean square error (RMSE) and mean absolute percentage error (MAPE) help measure just how close their predictions come to reality.
 
-But here’s the thing: almost none of this research looks **before** a movie gets made. (I mean, surely at least some of the features are known beforehand. In your example above, cast composition and genre would be known before the movie starts filming right? So it is just that all of the research includes at least SOME features knowable only after the film is created? What are some of these that are problematic?) These models are great at predicting the success of a film that already exists. What they do *not* do is help decision-makers figure out what to adapt in the first place. There are hundreds of characters in the Marvel universe. How do you choose which ones are worth building an entire movie or show around? That’s a completely different kind of question—and one that the current research does not really answer.
+
+Moreover, they are not just close—they are often impressively accurate. More recent research has leaned into ensemble methods and hybrid models. For example, Ruwantha and Kumara (2020) achieved over 91% accuracy in predicting whether a movie would be a commercial success or failure by combining ensemble methods with audience sentiment. Similarly, Smith (2023) used XGBoost to predict *Rotten Tomatoes* critic scores from movie reviews, achieving a mean absolute error (MAE) of around 8.6–meaning that, on average, the predicted score was within 8.6 percentage points of the actual critic score. Other studies explored the use of  Random forests, boosting algorithms, and even LSTM networks for sentiment analysis on review text or trailer comments  (Ahmad et al., 2020; Gupta et al., 2023; Bristi et al., 2019).  These approaches work particularly well when the goal is to predict how a completed film will perform—whether in terms of box office revenue, critic ratings, or audience reception—once it is already in theaters or available on streaming platforms.
+
+
+However, here is the thing: almost none of this research looks **before** a movie gets made— it looks at features such as runtime, cinematography choices, and audience sentiment from trailers. These models are great at predicting the success of a film that already exists. What they do *not* do is help decision-makers figure out what to adapt in the first place. There are hundreds of characters in the Marvel universe. How do writers and directors choose which ones are worth building an entire movie or show around? That is an entirely different kind of question—and one that the current research does not answer.
+
 
 ### What the Research Misses
 
-Studies have shown you can predict *IMDb* ratings with decent consistency—around 70%—without needing to know the director or lead actor (Bristi et al. 338). That’s interesting, because it suggests that audience response might have more to do with story-level features than individual star power. But even then, those models do not reach into the source material. They focus on traits of the movie itself: runtime, genre, release month. None of them attempt to predict which characters or storylines are most likely to succeed *if* they were adapted from the comics.
 
-That’s where our project comes in. We are interested in moving *upstream*—before production, before casting, before anything gets greenlit. We want to know: **What can we learn from the comics themselves that might help predict adaptation success?** That means going beyond surface-level traits and digging into character dynamics, story arcs, power types, team memberships, and more.
+Studies have shown that we can predict *IMDb* ratings with decent consistency—around 70%—without needing to know the director or lead actor (Bristi et al. 338). That is interesting, because it suggests that audience response might have more to do with story-level features than individual star power. Nevertheless, even then, those models do not reach into the source material. They focus on traits of the movie itself: runtime, genre, and release month. None of them attempt to predict which characters or storylines are most likely to succeed *if* they were adapted from the comics.
 
-With so much money and attention invested in superhero adaptations—and with the MCU already deep into its second tier of character IP—it feels like a huge missed opportunity not to use the data that already exists. Marvel has decades of storytelling to draw from, but so far there is no real framework for using comic metadata to guide adaptation decisions.
+
+That is where our project comes in. We are interested in moving *upstream*—before production, before casting, before anything gets greenlit. We want to know: What can we learn from the comics themselves that might help predict adaptation success? That means going beyond surface-level traits and digging into character dynamics, story arcs, power types, team memberships, and more.
+
+
+With so much money and attention invested in superhero adaptations—and with the MCU already deep into its second tier of character IP—it feels like a huge missed opportunity not to use the data that already exists. Marvel has decades of storytelling to draw from, but so far, there is no fundamental framework for using comic metadata to guide adaptation decisions.
+
 
 ### Medium Matters: Why Comics and Movies Work Differently
 
-Part of the challenge here is that comics and film are completely different storytelling formats. In comics, there is no budget for visual effects. Stories can stretch across hundreds of issues. Characters can evolve slowly, shift across moral spectrums, die, come back, join teams, leave them, and get reinvented over time. Themes can coexist at multiple levels—personal drama, political allegory, cosmic-scale conflict—all on the same page.
 
-Movies and TV shows, on the other hand, are limited by runtime, budget, and audience attention. (I would argue this is still important to print stories) You cannot fit a decade of emotional development into a two-hour runtime without losing something. Visuals cost money. Relationships and arcs need to be compressed. And you need to make stories that work for both longtime fans and people walking in cold.
+Part of the challenge here is that comics and film are entirely different storytelling formats. In comics, there is no budget for visual effects. Stories can stretch across hundreds of issues. Characters can evolve slowly, shift across moral spectrums, die, come back, join teams, leave them, and get reinvented over time. Themes can coexist at multiple levels—personal drama, political allegory, cosmic-scale conflict—all on the same page.
 
-That compression often leads to misfires. Studios tend to prioritize flashy powers, iconic costumes, or names that sound cinematic, but overlook the deeper character work that made those heroes resonate in the first place. This is how you end up with adaptations that *look* right—but *feel* wrong. Characters might have the same names and abilities, but they lack the emotional weight or narrative grounding that the comics spent years building.
+
+Movies and TV shows, on the other hand, are limited by runtime, budget, and varying levels of audience knowledge. Studios cannot fit a decade of emotional development into a two-hour runtime without losing something. Visuals cost money. Relationships and arcs need to be compressed. Furthermore, the stories need to be presented in a way that meets the audience where they are in ways that work for both longtime fans and people walking in cold.
+
+
+That compression often leads to misfires. Studios tend to prioritize flashy powers, iconic costumes, or names that sound cinematic, but overlook the deeper character work that made those heroes resonate in the first place. This disconnect is how we end up with adaptations that *look* right—but *feel* wrong. Characters might have the same names and abilities, but they lack the emotional weight or narrative grounding that the comics spent years building.
+
 
 ### When It Works—and Why
 
-And yet, some MCU adaptations have absolutely nailed it. *Iron Man* grounded Tony Stark’s comic history in a powerful story about technology, guilt, and growth. *Thor* leaned into its mythological family drama while making it emotionally accessible. *Captain America: The Winter Soldier* took Cold War paranoia and turned it into a compelling political thriller with character at its core.
+
+Nevertheless, some MCU adaptations have nailed it. *Iron Man* grounded Tony Stark’s comic history in a powerful story about technology, guilt, and growth. *Thor* leaned into its mythological family drama while making it emotionally accessible. *Captain America: The Winter Soldier* took Cold War paranoia and turned it into a compelling political thriller with character at its core.
+
 
 These movies worked because they understood the structure and heart of the comics—not just their surface features. They translated the story faithfully but thoughtfully into a different medium. That is the kind of success we are trying to model.
 
+
 ### What We Aim to Do
 
+
 Our goal is to take the storytelling elements that comics handle so well—things like character relationships, power progression, team dynamics, and theme recurrence—and analyze them systematically. Which of these traits show up again and again in successful adaptations? Which ones seem harder to translate? And which might be warning signs that a character is better left on the page?
+
 
 By building a structured, data-driven framework for answering these questions, we hope to shed light on why some characters become breakout hits while others fizzle out. More importantly, we want to offer studios and fans alike a roadmap for what makes a strong, faithful, and successful adaptation—one that respects the source material and resonates on screen.

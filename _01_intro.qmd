@@ -1,7 +1,39 @@
-
 # Introduction
-The Marvel Cinematic Universe (MCU) is a superhero movie franchise that exploded onto the scene in 2008 with the premiere of Ironman and has become one of the most successful film franchises in history, grossing over $31 billion worldwide since its launch onto the silver screen. It adapted comic books into mainstream cinematic events and brought once-niche characters into the cultural spotlight. Yet, despite commercial success, many longtime fans have begun to question if the magic and creative spark that defined the franchise's earlier phases will return. As lifelong readers of Marvel comics and avid viewers of every movie and series we could get our hands on, we’ve noticed a growing disconnect between the storytelling that made the comics compelling and the recent direction the MCU has taken–particularly as it expands into more obscure characters and increasingly fragmented narratives. 
+The Marvel Cinematic Universe (MCU) is a superhero movie franchise that exploded onto the scene in 2008 with the premiere of Iron Man and has become one of the most successful film franchises in history, grossing over $31 billion worldwide since its launch onto the silver screen. It adapted comic books into mainstream cinematic events and brought once-niche characters into the cultural spotlight. However, despite commercial success, many longtime fans have begun to question if the magic and creative spark that defined the franchise's earlier phases has faded. As lifelong readers of Marvel comics and avid viewers of every movie and series we could get our hands on, we have noticed a growing disconnect between the storytelling that made the comics compelling and the recent direction the MCU has taken–particularly as it expands into more obscure characters and increasingly fragmented narratives.
 
-The origin story of this project began with a simple but persistent question: why do some characters and storylines translate seamlessly to the screen while others, despite having rich and beloved source material, fail to resonate? The success of *Guardians of the Galaxy (2014)*, for instance, seemed unlikely—these were not traditionally popular comic characters. Yet the films captured the heart of their story and became massive critical and commercial successes. Conversely, several characters with decades of deep, character-driven arcs have been introduced in the MCU in ways that feel shallow or disconnected from their origins(But were they commercial successes?). But, we know (you know? Or it has been proven in some way?)it is possible to introduce these beloved characters in a stunning fashion. One standout example of a successful adaptation is *Captain America: The Winter Soldier (2014)*, which not only delivered on the excitement and emotional weight of the comic arc but also functioned as a tight, character-focused political thriller. Moments like that, where source material is respected and elevated, are increasingly rare. (How do you measure that though?)
 
-Our aim is not to predict box office hits or speculate on the next breakout character. Instead, we are interested in understanding the comic-specific storytelling elements—such as character development, power dynamics, team interactions, and narrative structure—that contribute to the success of adaptations. This leads to our central research question: **How do specific aspects of comic metadata (such as issue counts, character popularity, story arcs, team-ups, and power levels) influence the likelihood of a Marvel character or storyline achieving commercial and critical success when adapted into the MCU?** Ultimately, our goal is to provide insight into how future adaptations might remain faithful to the core of their source material while also creating high-quality films and series that appeal to both longtime fans and new audiences.
+The origin story of this project began with a simple but persistent question: why do some characters and storylines translate seamlessly to the screen while others, despite having rich and beloved source material, fail to resonate? The success of *Guardians of the Galaxy (2014)*, for instance, seemed unlikely—these were not traditionally popular comic characters. Nevertheless, the films captured the heart of their story and became massive critical and commercial successes. By contrast, characters like Taskmaster or the Eternals—both of whom come from decades of nuanced comic history—were introduced with far less resonance. While both films had solid box office returns (Eternals grossed over $400 million), they received mixed critical reception and lacked the cultural staying power of earlier MCU entries. 
+
+
+This contrast raises a deeper question: what separates a successful adaptation from one that merely looks the part? One powerful example is Captain America: The Winter Soldier (2014), which not only delivered on the excitement and emotional weight of the comic arc but also functioned as a tight, character-focused political thriller.  Its Rotten Tomatoes score (90% critic, 92% audience) and long-term fan acclaim suggest that it succeeded not just in spectacle, but in storytelling. Moments like that, where source material is respected and elevated, are increasingly rare. 
+
+
+While that observation may seem subjective, the data backs it up.  As shown in Figure 1, each dot represents a single MCU or television release between 2008 and 2025, plotted by its Rotten Tomatoes Audience Score. The earlier Marvel phases (2008-2018) maintained a fairly consistent audience reception, often in the 80-90% range. Since 2019, however, scores have become far more variable–still reaching impressive highs, but also dipping sharply into the 30s and 40s. This trend backs up what many longtime fans (ourselves included) have been feeling: the MCU is no longer as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. 
+
+
+The fitted trend line in Figure 1 also suggests a gradual downward shift in audience reception over time. Coupled with the surge in the volume of media released each year, this widening spread in scores highlights the growing unpredictability in how Marvel stories are received. It is this shift– from consistent audience approval to greater variability and declining averages– that motivates our investigation into what elements of the original comics may influence adaptation success.  
+
+
+```{r echo = FALSE, message = FALSE}
+#| fig-cap: "Figure 1: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+library(tidyverse)
+marvel_ratings<-read_csv("marvel_ratings.csv")
+ggplot(marvel_ratings, aes(x=release_date, y = audience_score))+
+  geom_smooth()+
+  theme_minimal()+
+  labs(title = "We're Not Crazy: Marvel's Just Not the Same",
+       subtitle = "Marvel Media's Audience Score Over Time",
+       x = "Release Date of Media",
+       y = "Rotten Tomatoes Audience Score (Percent)",
+       caption = "Data Source: Rotten Tomatoes")
+```
+
+
+
+
+
+
+Our aim is not to predict box office hits or speculate on the next breakout character. Instead, we are interested in understanding the comic-specific storytelling elements—such as character development, power dynamics, team interactions, and narrative structure—that contribute to the success of adaptations. This desire leads to our central research question: **How do specific aspects of comic metadata (such as issue counts, character popularity, story arcs, team-ups, and power levels) influence the likelihood of a Marvel character or storyline achieving critical and audience reception success when adapted into the MCU?** Ultimately, our goal is to provide insight into how future adaptations might remain faithful to the core of their source material while also creating high-quality films and series that appeal to both longtime fans and new audiences.
+
+
