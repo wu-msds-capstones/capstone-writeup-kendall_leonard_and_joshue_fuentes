@@ -170,7 +170,44 @@ While slightly less accurate (81.2% accuracy, AUC of 0.898, 96.5% precision, 71.
 
 As shown in Figure Y, the top coefficients by absolute value included theme_scientific_ethics, theme_civil_conflict, and threat_social_threat_uprising, indicating that moral dilemmas, internal societal conflicts, and large-scale uprisings are strongly tied to positive reception. Other notable features included theme_faith_and_religion, theme_coming_of_age, and theme_hero_vs_clone_doppelganger, suggesting that personal growth arcs and identity-based conflicts resonate with audiences when adapted.
 
+```{r}
+library(caret)
+logistic_df <- features
+levels(logistic_df$success_label) <- c("neg", "pos")
+set.seed(42)
+# Train logistic regression model
+log_model <- train(
+  success_label ~ .,
+  data = logistic_df,
+  method = "glm",
+  family = "binomial",
+  trControl = ctrl,
+  metric = "ROC"
+)
 
+log_probs <- predict(log_model, newdata = logistic_df, type = "prob")[, "pos"]
+
+library(broom)
+
+# Extract coefficients and sort by absolute value
+log_imp <- tidy(log_model$finalModel) %>%
+  filter(term != "(Intercept)") %>%  # remove intercept
+  mutate(abs_estimate = abs(estimate)) %>%
+  arrange(desc(abs_estimate))
+
+# Optional: visualize
+library(ggplot2)
+ggplot(log_imp[1:15,], aes(x = reorder(term, abs_estimate), y = abs_estimate)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Top 15 Logistic Regression Variables by Absolute Coefficient",
+    x = "Feature",
+    y = "Absolute Coefficient",
+    caption = "Data from Marvel.com"
+  ) +
+  theme_minimal()
+```
 ### Consensus Feature Importance
 To combine predictive strength with interpretability, we averaged the probability outputs from both models to create a composite “success potential score.” Figure Z shows the consensus feature importance across both models. Traits like theme_cosmic_rivalries_power_struggles, theme_civil_conflict, and threat_national_emergency consistently ranked near the top, pointing to a shared recognition across models that large-scale stakes and high-intensity conflict drive adaptation success. Elements such as theme_infiltration_and_deception, theme_mystery_and_investigation, and theme_weapons_and_supertech also stood out, reflecting the enduring appeal of espionage, detective-style narratives, and advanced technology in the MCU formula.
 
