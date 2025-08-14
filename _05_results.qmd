@@ -33,7 +33,8 @@ To quantify the observed increase in variability in audience reception, we compa
 These results back up what many longtime fans (ourselves included) have been feeling: the MCU just is not as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. At the same time, there has been a surge in the volume of media released. With more shows and movies hitting screens each year, the range of quality—and audience response—has grown.
 
 
-We observed a similar pattern when looking at critic scores, as seen in Figure 3. While critic ratings historically showed less fluctuation than audience ratings, the post-2019 era still reveals a wider spread. Interestingly, the fitted trend line for critic scores slopes slightly upward in recent years, while the audience trend line slopes downward. This divergence suggests that critics and audiences may be responding differently to newer MCU content—a potential signal that what resonates with critics is not always what resonates with general audiences.
+While critic ratings historically showed less fluctuation than audience ratings, the post-2019 era still reveals a wider spread. An F-test confirmed this increase in variance, with the early MCU era showing a variance ratio of 0.295 relative to the recent era (F(22, 24) = 0.2947, p = 0.0054). This statistically significant result at the 1% level indicates that critic scores in the more recent era are substantially more variable than those in earlier years. Interestingly, the fitted trend line for critic scores slopes slightly upward in recent years, while the audience trend line slopes downward. This divergence suggests that critics and audiences may be responding differently to newer MCU content—a potential signal that what resonates with critics is not always what resonates with general audiences.
+
 
 ```{r echo=FALSE, message= FALSE}
 #| fig-cap: "Figure 3: A time series graph showing the Rotten Tomatoes Critic Scores for Marvel Media over Time."
@@ -51,6 +52,7 @@ ggplot(marvel_ratings, aes(x=release_date, y = critic_score))+
        y = "Rotten Tomatoes Critic Score (Percent)",
        caption = "Data Source: Rotten Tomatoes")
 ```
+
 
 Together, these patterns confirm that our hunch was not just nostalgia: something has changed in how Marvel stories are being received. This increasing variability and the critic audience split reinforce our motivation to look deeper into the storytelling DNA of the comics themselves. If certain narrative traits in the source material consistently lead to strong reception, identifying them could help explain why some adaptations resonate while others falter.
 
