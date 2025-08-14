@@ -12,13 +12,14 @@ The trend is hard to miss: while early titles (roughly 2008–2018) generally re
 
 
 ```{r echo = FALSE, message = FALSE}
-#| fig-cap: "Figure X: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."
+#| fig-cap: "Figure 1: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
 library(tidyverse)
-marvel_ratings<-read_csv("marvel_ratings.csv")
+marvel_ratings<-read_csv("C:/Users/lazyp/Downloads/marvel_ratings.csv")
 ggplot(marvel_ratings, aes(x=release_date, y = audience_score))+
   geom_line()+
-geom_smooth()+
+  geom_point()+
+  geom_smooth(se=FALSE)+
   theme_minimal()+
   labs(title = "We're Not Crazy: Marvel's Just Not the Same",
        subtitle = "Marvel Media's Audience Score Over Time",
@@ -26,7 +27,6 @@ geom_smooth()+
        y = "Rotten Tomatoes Audience Score (Percent)",
        caption = "Data Source: Rotten Tomatoes")
 ```
-
 
 These results back up what many longtime fans (ourselves included) have been feeling: the MCU just is not as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. At the same time, there has been a surge in the volume of media released. With more shows and movies hitting screens each year, the range of quality—and audience response—has grown.
 
