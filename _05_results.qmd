@@ -63,6 +63,13 @@ The constrained XGBoost model emerged as the strongest binary classifier, achiev
 
 Figure X shows the top 15 features ranked by “Gain,” XGBoost’s measure of how much each feature contributed to improving the model’s objective function. The most influential predictors were series_issue_count, theme_civil_conflict, num_creators, and page_count, suggesting that both the scope of a comic series and certain narrative conflicts are strong signals for adaptation success. Economic or market-related attributes such as price also ranked highly, hinting at potential links between production investment and adaptation likelihood. Additionally, thematic elements like weapons and supertech, romantic drama, and military conflict appeared in the top 15, reinforcing the importance of recognizable, high-stakes story elements in commercially viable adaptations.
 
+```{r}
+library(randomForest)
+library(caret)
+library(janitor)
+df <- read_csv("C:/Users/lazyp/Downloads/fr_comics.csv") %>%
+  clean_names()
+```
 
 ### Logistic Regression
 
