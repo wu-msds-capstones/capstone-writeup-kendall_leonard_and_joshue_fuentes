@@ -244,55 +244,46 @@ erDiagram
   </script>
 
   <script type="module">
-    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
 
-    const def = document.getElementById("mermaid-container").textContent;
-    const { svg } = await mermaid.render("erd", def);
+  // ——— choose your starting view ———
+  const INITIAL_ZOOM = 4;
+  const INITIAL_PAN  = { x: -1950, y: 70 };
 
-    const wrapper = document.getElementById("diagram-wrapper");
-    wrapper.innerHTML = svg;
+  // Render Mermaid -> inject SVG
+  const def = document.getElementById("mermaid-container").textContent;
+  const { svg } = await mermaid.render("erd", def);
+  const wrapper = document.getElementById("diagram-wrapper");
+  wrapper.innerHTML = svg;
 
-    // ⛔ REMOVE Mermaid’s built-in header <text> tag
-    const headerText = wrapper.querySelector('svg text');
-    if (headerText && headerText.textContent.trim() === 'Entity Relationship Diagram') {
-      headerText.parentNode.removeChild(headerText);
-    }
+  // Optional: remove Mermaid's auto title
+  const headerText = wrapper.querySelector('svg text');
+  if (headerText && headerText.textContent.trim() === 'Entity Relationship Diagram') {
+    headerText.parentNode.removeChild(headerText);
+  }
 
-    // Enable zoom + pan
-    window.panZoomInstance = svgPanZoom(wrapper.querySelector("svg"), {
-  zoomEnabled: true,
-  panEnabled: true,
-  controlIconsEnabled: false,
-  minZoom: 0.1,
-  maxZoom: 10
-});
+  // Init pan/zoom
+  const instance = svgPanZoom(wrapper.querySelector("svg"), {
+    zoomEnabled: true,
+    panEnabled: true,
+    controlIconsEnabled: false,
+    minZoom: 0.1,
+    maxZoom: 10
+  });
 
-// Set initial zoom level (1 is default, increase for closer)
-window.panZoomInstance.zoom(4);  // try 0.6 to 0.8 for a good overview
+  // Set the initial view
+  instance.zoom(INITIAL_ZOOM);
+  instance.pan(INITIAL_PAN);
 
-// Set initial pan position (x, y)
-window.panZoomInstance.pan({ x: -1850, y: 70 });
+  // Expose button handlers globally
+  window.zoomIn = () => instance.zoomIn();
+  window.zoomOut = () => instance.zoomOut();
+  window.resetZoom = () => {
+    instance.zoom(INITIAL_ZOOM);
+    instance.pan(INITIAL_PAN);
+  };
+</script>
 
-
-  </script>
-
-  <script>
-    function zoomIn() {
-      if (window.panZoomInstance) window.panZoomInstance.zoomIn();
-    }
-
-    function zoomOut() {
-      if (window.panZoomInstance) window.panZoomInstance.zoomOut();
-    }
-
-    function resetZoom() {
-      if (window.panZoomInstance) {
-        window.panZoomInstance.resetZoom();
-        window.panZoomInstance.center();
-        window.panZoomInstance.fit();
-      }
-    }
-  </script>
 
 </body>
 </html>
