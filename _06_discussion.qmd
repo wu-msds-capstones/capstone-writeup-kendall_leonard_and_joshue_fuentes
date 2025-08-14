@@ -24,16 +24,12 @@ It is also worth noting that, as outlined in our Data Ethics section, this model
 
 ## Future Work
 
-Several opportunities exist to expand and refine this research:
+Several opportunities exist to expand and refine this research. One avenue involves experimenting with different weighting strategies for the combined XGBoost and logistic regression models. Adjusting the balance between the two could allow us to fine-tune the trade-off between predictive power and interpretability, potentially yielding an even stronger composite score.
 
-Character-level modeling – Building a dedicated pipeline to incorporate character attributes (e.g., power sets, demographic traits, team affiliations) directly into the prediction process could reveal how individual heroes or villains influence adaptation success.
+Character-level modeling presents another significant opportunity. Building a dedicated pipeline to incorporate detailed character attributes—such as power sets, demographic traits, and team affiliations—directly into the prediction process could uncover how individual heroes or villains contribute to adaptation success. This approach might highlight recurring character archetypes or combinations that consistently perform well on screen.
 
-Improved adaptation mapping – Collaborating with comic historians or leveraging fan-curated wikis could produce a more precise mapping of comics to their on-screen adaptations, reducing uncertainty in labels.
+Improved adaptation mapping could also strengthen our dataset. Collaborating with comic historians or carefully integrating data from fan-curated wikis could produce a more precise mapping between comics and their on-screen adaptations, reducing uncertainty in the labels that drive our model training. Enhanced feature extraction techniques, especially those using natural language processing (NLP) such as transformer-based language models, could capture narrative nuance—detecting themes, relationships, and tonal elements beyond what is possible with simple keyword matching.
 
-Enhanced feature extraction – Using natural language processing (NLP) techniques, such as transformer-based language models, could allow for more nuanced detection of themes, relationships, and tone beyond simple keyword matching.
-
-Temporal and franchise-level analysis – Expanding the dataset to include non-MCU Marvel films or even adaptations from other publishers could help test whether the identified traits are universal or MCU-specific.
-
-Integration of non-comic features – Incorporating production-level data (e.g., budget, release strategy, marketing spend) alongside comic features could improve predictive accuracy for real-world performance.
+Finally, expanding the scope of analysis would test the generalizability of our findings. A temporal and franchise-level analysis that includes non-MCU Marvel films or adaptations from other publishers could help determine whether the traits we identified are universal or MCU-specific. Integrating non-comic features, such as production budgets, release strategies, and marketing spend, could further improve predictive accuracy by accounting for the external factors that often influence real-world performance.
 
 By addressing these avenues, future iterations of this work could provide a more holistic and precise toolkit for predicting and understanding adaptation success, potentially informing creative and business decisions in the film and television industry.
