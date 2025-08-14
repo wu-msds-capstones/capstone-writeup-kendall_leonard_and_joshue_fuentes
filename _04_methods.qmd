@@ -47,17 +47,10 @@ Recognizing these limitations, we shifted to a semi-automated “threat helper�
 ### Character Meta Data
 Like the comics data, character metadata from Marvel.com was inconsistently formatted, with powers sometimes listed as a single sentence (“Can control shadows”) or as a bulleted list, and group affiliations sometimes buried in biography text rather than in labeled sections.
 
-
-To standardize this, we developed pattern-matching routines and keyword detection methods:
-
-
-Powers: Matched terms from a curated power dictionary (e.g., “telepathy,” “superhuman strength”) across both list and free-text descriptions.
+To standardize this, we developed pattern-matching routines and keyword detection methods. For example, for powers we matched terms from a curated power dictionary (e.g., “telepathy,” “superhuman strength”) across both list and free-text descriptions. For slightly more complicated things, like group affiliations, we detected known team names (e.g., “Avengers,” “X-Men,” “Guardians of the Galaxy”) regardless of case or phrasing, including variations like “member of the Avengers” or “joined the Avengers.”
 
 
-Group affiliations: Detected known team names (e.g., “Avengers,” “X-Men,” “Guardians of the Galaxy”) regardless of case or phrasing, including variations like “member of the Avengers” or “joined the Avengers.”
-
-
-This process yielded 1,868 unique Marvel characters—nearly five times the coverage of the filtered Kaggle dataset—each assigned a unique ID and stored in the characters table. Both the raw scraped fields (exact text from Marvel.com) and our standardized, structured fields (boolean indicators for powers, team memberships, etc.) were preserved, ensuring we could analyze both the original descriptions and the engineered traits in downstream modeling.
+The process of switching to scraping and utilizing regular expressions yielded 1,868 unique Marvel characters—nearly five times the coverage of the filtered Kaggle dataset—each assigned a unique ID and stored in the characters table. Both the raw scraped fields (exact text from Marvel.com) and our standardized, structured fields (boolean indicators for powers, team memberships, etc.) were preserved, ensuring we could analyze both the original descriptions and the engineered traits in downstream modeling.
 
 
 We also experimented with regex-based extraction for additional character-level metadata, including nationality, sex, and other demographic attributes. For instance, we attempted to identify nationality by scanning for explicit mentions like “born in Wakanda,” “Canadian mutant,” or “Russian spy” within character biographies, and to determine sex by detecting gendered pronouns or descriptors such as “he/him,” “she/her,” “female hero,” or “male villain.” However, these approaches proved unreliable and were discarded to avoid bias.

@@ -148,7 +148,7 @@ xgb_constrained <- train(
 
 # Evaluate
 xgb_preds <- predict(xgb_constrained, newdata = features_xgb)
-confusionMatrix(xgb_preds, features_xgb$success_label, positive = "pos")
+
 
 # AUC
 xgb_probs <- predict(xgb_constrained, newdata = features_xgb, type = "prob")[, "pos"]
@@ -170,7 +170,7 @@ While slightly less accurate (81.2% accuracy, AUC of 0.898, 96.5% precision, 71.
 
 As shown in Figure Y, the top coefficients by absolute value included theme_scientific_ethics, theme_civil_conflict, and threat_social_threat_uprising, indicating that moral dilemmas, internal societal conflicts, and large-scale uprisings are strongly tied to positive reception. Other notable features included theme_faith_and_religion, theme_coming_of_age, and theme_hero_vs_clone_doppelganger, suggesting that personal growth arcs and identity-based conflicts resonate with audiences when adapted.
 
-```{r}
+```{r echo=FALSE, message= FALSE}
 library(caret)
 logistic_df <- features
 levels(logistic_df$success_label) <- c("neg", "pos")
@@ -211,14 +211,57 @@ ggplot(log_imp[1:15,], aes(x = reorder(term, abs_estimate), y = abs_estimate)) +
 ### Consensus Feature Importance
 To combine predictive strength with interpretability, we averaged the probability outputs from both models to create a composite “success potential score.” Figure Z shows the consensus feature importance across both models. Traits like theme_cosmic_rivalries_power_struggles, theme_civil_conflict, and threat_national_emergency consistently ranked near the top, pointing to a shared recognition across models that large-scale stakes and high-intensity conflict drive adaptation success. Elements such as theme_infiltration_and_deception, theme_mystery_and_investigation, and theme_weapons_and_supertech also stood out, reflecting the enduring appeal of espionage, detective-style narratives, and advanced technology in the MCU formula.
 
+```{r echo=FALSE, message= FALSE}
+xgb_imp <- xgb.importance(model = xgb_constrained$finalModel) %>%
+  rename(term = Feature) %>%
+  mutate(importance_rank_xgb = rank(-Gain, ties.method = "first"))
+
+# Already have log_imp from broom::tidy()
+log_imp <- tidy(log_model$finalModel) %>%
+  filter(term != "(Intercept)") %>%
+  mutate(abs_estimate = abs(estimate),
+         importance_rank_log = rank(-abs_estimate, ties.method = "first"))
+
+# Now join successfully
+combined_importance <- full_join(log_imp, xgb_imp, by = "term")
+
+# Continue with your consensus ranking
+consensus_importance <- combined_importance %>%
+  mutate(
+    importance_rank_log = ifelse(is.na(importance_rank_log),
+                                 max(importance_rank_log, na.rm = TRUE) + 1,
+                                 importance_rank_log),
+    importance_rank_xgb = ifelse(is.na(importance_rank_xgb),
+                                 max(importance_rank_xgb, na.rm = TRUE) + 1,
+                                 importance_rank_xgb)
+  ) %>%
+  mutate(
+    log_rank_norm = 1 - ((importance_rank_log - 1) / (max(importance_rank_log) - 1)),
+    xgb_rank_norm = 1 - ((importance_rank_xgb - 1) / (max(importance_rank_xgb) - 1))
+  ) %>%
+  mutate(consensus_score = (log_rank_norm + xgb_rank_norm) / 2) %>%
+  arrange(desc(consensus_score))
+
+ggplot(head(consensus_importance, 15),
+       aes(x = reorder(term, consensus_score), y = consensus_score)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Consensus Feature Importance\n(Logistic Regression + XGBoost)",
+    x = "Feature",
+    y = "Consensus Score (0–1)"
+  ) +
+  theme_minimal()
+
+```
 
 By combining model outputs and aligning them with top features from each, we produced not just a ranked list of comics with the highest adaptation potential, but also a clear thematic and structural profile of what “success” tends to look like in the MCU context.
 
 
 ## Final Model Recommendation
-Our composite scoring system—an equal-weighted average of constrained XGBoost and logistic regression probabilities—ranked every comic in our dataset according to its potential for MCU adaptation success. While the model outputs a full ranked list, our top candidate was Agents of Atlas (2006) #5, with an XGBoost probability of 0.9988, a logistic regression probability of 1.0000, and a combined score of 0.9994.
+Our composite scoring system—an equal-weighted average of constrained XGBoost and logistic regression probabilities—ranked every comic in our dataset according to its potential for MCU adaptation success. While the model outputs a full ranked list, our top candidate was *Agents of Atlas (2006) #5*, with an XGBoost probability of 0.9988, a logistic regression probability of 1.0000, and a combined score of 0.9994.
 
-This recommendation is supported by the presence of many traits that ranked highly in our consensus feature importance analysis (Figure Z). Agents of Atlas (2006) #5 features cosmic rivalries and power struggles, civil conflict, and national emergency–level threats, all of which were among the top consensus predictors of adaptation success. It also incorporates strong elements of infiltration and deception and mystery and investigation, weaving espionage and covert operations into the plot. These thematic drivers, combined with the inclusion of advanced technology (“weapons and supertech”), a diverse team structure, and large-scale stakes, closely mirror the narrative DNA of past critically and commercially successful MCU adaptations.
+This recommendation is supported by the presence of many traits that ranked highly in our consensus feature importance analysis (Figure Z). *Agents of Atlas (2006) #5* features rivalries and power struggles, civil conflict, and national emergency–level threats, all of which were among the top consensus predictors of adaptation success. It also incorporates strong elements of infiltration and deception and mystery and investigation, weaving espionage and covert operations into the plot. These thematic drivers, combined with the inclusion of advanced technology (“weapons and supertech”), a diverse team structure, and large-scale stakes, closely mirror the narrative DNA of past critically and commercially successful MCU adaptations.
 
-It’s important to stress that this result does not suggest Agents of Atlas (2006) #5 should be adapted in isolation. MCU projects almost always blend multiple comics and arcs into a single narrative. Instead, its high score reflects the fact that its narrative and structural features align strongly with those most associated with past MCU successes—making it an exemplary case study of what our models define as “adaptation-ready” storytelling.
+It’s important to stress that this result does not suggest *Agents of Atlas (2006) #5* should be adapted in isolation. MCU projects almost always blend multiple comics and arcs into a single narrative. Instead, its high score reflects the fact that its narrative and structural features align strongly with those most associated with past MCU successes—making it an exemplary case study of what our models define as “adaptation-ready” storytelling.
 

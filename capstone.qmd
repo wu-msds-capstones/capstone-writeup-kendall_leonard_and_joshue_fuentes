@@ -1,5 +1,5 @@
 ---
-title: "Data Assembled: A Heroic Struggle"
+title: "Marvel: Data Assembled"
 subtitle: An Analysis and Classification of Marvel Comics and Media
 authors:
   - Joshue Fuentes
