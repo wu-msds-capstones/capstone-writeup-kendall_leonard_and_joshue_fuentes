@@ -24,7 +24,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -214,7 +213,7 @@ div.csl-indent {
 <p>The field of predictive modeling in entertainment analytics has grown substantially over the past decade. Researchers have developed increasingly sophisticated methods to forecast a film’s reception based on a variety of features. However, most of this work focuses on post-production or late-stage development. Our project seeks to address a gap in that research: how early-stage, source-material characteristics might inform adaptation success—before casting, production, or release.</p>
 <section id="a-proven-fieldwith-one-big-blind-spot" class="level2">
 <h2 class="anchored" data-anchor-id="a-proven-fieldwith-one-big-blind-spot">A Proven Field—With One Big Blind Spot</h2>
-<p>Over the past decade, researchers have become highly skilled at predicting how a movie will perform. Using machine learning and statistical modeling, dozens of studies have tackled the challenge of forecasting box office revenue, critical scores, and audience reception. A significant literature survey by Ahmad et al.&nbsp;looked at 36 of these studies and found that most use some combination of regression and classification methods—especially multiple linear regression and support vector machines (SVMs)—to make their predictions <a href="Ahmad%20et%20al.%20249"><span class="citation" data-cites="ahmad2020">Ahmad et al. (<span>2020</span>)</span></a>. Across these models, the most common features tend to include cast composition, the number of theaters, and genre. Standard evaluation metrics like root mean square error (RMSE) and mean absolute percentage error (MAPE) help measure just how close their predictions come to reality.</p>
+<p>Over the past decade, researchers have become highly skilled at predicting how a movie will perform. Using machine learning and statistical modeling, dozens of studies have tackled the challenge of forecasting box office revenue, critical scores, and audience reception. A significant literature survey by Ahmad et al.&nbsp;looked at 36 of these studies and found that most use some combination of regression and classification methods—especially multiple linear regression and support vector machines (SVMs)—to make their predictions <a href="#ref-ahmad2020">Ahmad et al.&nbsp;2020</a>. Across these models, the most common features tend to include cast composition, the number of theaters, and genre. Standard evaluation metrics like root mean square error (RMSE) and mean absolute percentage error (MAPE) help measure just how close their predictions come to reality.</p>
 <p>Moreover, they are not just close—they are often impressively accurate. More recent research has leaned into ensemble methods and hybrid models. For example, Ruwantha and Kumara (2020) achieved over 91% accuracy in predicting whether a movie would be a commercial success or failure by combining ensemble methods with audience sentiment. Similarly, Smith (2023) used XGBoost to predict <em>Rotten Tomatoes</em> critic scores from movie reviews, achieving a mean absolute error (MAE) of around 8.6–meaning that, on average, the predicted score was within 8.6 percentage points of the actual critic score. Other studies explored the use of Random forests, boosting algorithms, and even LSTM networks for sentiment analysis on review text or trailer comments (Ahmad et al., 2020; Gupta et al., 2023; Bristi et al., 2019). These approaches work particularly well when the goal is to predict how a completed film will perform—whether in terms of box office revenue, critic ratings, or audience reception—once it is already in theaters or available on streaming platforms.</p>
 <p>However, here is the thing: almost none of this research looks at <strong>before</strong> a movie gets made— it looks at features such as runtime, cinematography choices, and audience sentiment from trailers. These models are great at predicting the success of a film that already exists. What they do <em>not</em> do is help decision-makers figure out what to adapt in the first place. There are hundreds of characters in the Marvel universe. How do writers and directors choose which ones are worth building an entire movie or show around? That is an entirely different kind of question—and one that the current research does not answer.</p>
 <section id="what-the-research-misses" class="level3">
@@ -871,10 +870,8 @@ Date the media was first released to the public.
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-ahmad2020" class="csl-entry" role="listitem">
-Ahmad, Izhar Saleem et al. 2020. <span>“A Survey on Machine Learning Techniques in Movie Revenue Prediction.”</span> <em>SN Computer Science</em> 1: 1–14.
-</div>
+<div id="refs" role="list">
+
 </div>
 </section>
 <section id="appendix" class="level1">
