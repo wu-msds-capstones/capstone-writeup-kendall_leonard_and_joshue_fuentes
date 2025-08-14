@@ -1,3 +1,6 @@
+###### *Disclaimer: We are not officially associated With Marvel Studios or The Walt Disney Company. This is a passion project and we earn no income from this publication.*
+
+
 # Introduction
 The Marvel Cinematic Universe (MCU) is a superhero movie franchise that exploded onto the scene in 2008 with the premiere of Iron Man and has become one of the most successful film franchises in history, grossing over $31 billion worldwide since its launch onto the silver screen. It adapted comic books into mainstream cinematic events and brought once-niche characters into the cultural spotlight. However, despite commercial success, many longtime fans have begun to question if the magic and creative spark that defined the franchise's earlier phases has faded. As lifelong readers of Marvel comics and avid viewers of every movie and series we could get our hands on, we have noticed a growing disconnect between the storytelling that made the comics compelling and the recent direction the MCU has taken–particularly as it expands into more obscure characters and increasingly fragmented narratives.
 
@@ -12,7 +15,6 @@ While that observation may seem subjective, the data backs it up.  As shown in F
 
 
 The fitted trend line in Figure 1 also suggests a gradual downward shift in audience reception over time. Coupled with the surge in the volume of media released each year, this widening spread in scores highlights the growing unpredictability in how Marvel stories are received. It is this shift– from consistent audience approval to greater variability and declining averages– that motivates our investigation into what elements of the original comics may influence adaptation success.  
-
 
 
 ```{r echo = FALSE, message = FALSE}

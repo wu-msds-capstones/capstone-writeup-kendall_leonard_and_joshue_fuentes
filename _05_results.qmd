@@ -8,7 +8,7 @@ Our results begin with an exploration of key trends in Marvel media reception, p
 To test our intuition that Marvel’s newer content has not been hitting the same highs as its earlier phases, we turned to the data. Figure 1 visualizes Rotten Tomatoes audience scores for Marvel media over time, from 2008 through 2025.
 
 
-The trend is hard to miss: while early titles (roughly 2008–2018) generally received consistently high ratings—frequently in the 80–90% range—recent releases show a dramatic increase in variability. Starting around 2019, the scores became much more volatile, with several sharp dips into the 40s and 50s and far fewer guaranteed crowd-pleasers. Even well-established franchises are not immune to this drop in reception.
+The trend is hard to miss: while early titles (roughly 2008–2019) generally received consistently high ratings—frequently in the 80–90% range—recent releases show a dramatic increase in variability. Starting around 2021, the scores became much more volatile, with several sharp dips into the 40s and 50s and far fewer guaranteed crowd-pleasers. Even well-established franchises are not immune to this drop in reception.
 
 
 ```{r echo = FALSE, message = FALSE}
@@ -28,10 +28,13 @@ ggplot(marvel_ratings, aes(x=release_date, y = audience_score))+
        caption = "Data Source: Rotten Tomatoes")
 ```
 
+To quantify the observed increase in variability in audience reception, we compared the variance in Rotten Tomatoes audience scores between the early MCU era (2008–2019) and the recent MCU era (2021–2025) using an F-test for equality of variances. The early MCU period had a variance ratio of 0.394 relative to the recent era (F(22, 24) = 0.3937, p = 0.0314), indicating significantly lower variability in scores. This statistical evidence supports our visual findings: while early MCU releases tended to receive consistently high ratings, recent releases have been far more volatile, with both higher peaks and deeper lows.
+
 These results back up what many longtime fans (ourselves included) have been feeling: the MCU just is not as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. At the same time, there has been a surge in the volume of media released. With more shows and movies hitting screens each year, the range of quality—and audience response—has grown.
 
 
 We observed a similar pattern when looking at critic scores, as seen in Figure 3. While critic ratings historically showed less fluctuation than audience ratings, the post-2019 era still reveals a wider spread. Interestingly, the fitted trend line for critic scores slopes slightly upward in recent years, while the audience trend line slopes downward. This divergence suggests that critics and audiences may be responding differently to newer MCU content—a potential signal that what resonates with critics is not always what resonates with general audiences.
+
 ```{r echo=FALSE, message= FALSE}
 #| fig-cap: "Figure 3: A time series graph showing the Rotten Tomatoes Critic Scores for Marvel Media over Time."
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
@@ -58,32 +61,218 @@ Following our exploratory analysis, we evaluated how well different modeling app
 ### Constrained XGBoost
 
 
-The constrained XGBoost model emerged as the strongest binary classifier, achieving 89.9% accuracy, AUC of 0.968, Kappa of 0.4473, 89.4% sensitivity, and 92.9% specificity. This configuration effectively balanced high predictive performance with reduced overfitting.
+The constrained XGBoost model emerged as the strongest binary classifier, achieving 89.9% accuracy, an AUC of 0.968, a Kappa of 0.4473, 89.4% sensitivity, and 92.9% specificity. In this context, accuracy represents the percentage of all predictions—both successful and unsuccessful adaptations—that the model classified correctly. The AUC (Area Under the ROC Curve) measures the model’s ability to distinguish between successful and unsuccessful adaptations across all classification thresholds; a score of 0.968 is considered excellent and indicates strong separability between the two classes. The Kappa statistic, which adjusts for agreement expected by chance, came in at 0.4473, suggesting moderate agreement and confirming that the model’s performance was not merely the result of the dataset’s class imbalance. Sensitivity (true positive rate) of 89.4% means the model correctly identified nearly nine out of ten successful adaptations, while specificity (true negative rate) of 92.9% means it correctly rejected most unsuccessful candidates.
+
+Taken together, these results indicate that the constrained XGBoost model not only performed exceptionally well in predicting adaptation success but did so while maintaining a good balance between catching true positives and avoiding false positives. Its high AUC and balanced sensitivity-specificity profile suggest it could be a reliable screening tool for identifying promising adaptation candidates, even when working with a dataset where successful examples are relatively rare.
 
 
-Figure X shows the top 15 features ranked by “Gain,” XGBoost’s measure of how much each feature contributed to improving the model’s objective function. The most influential predictors were series_issue_count, theme_civil_conflict, num_creators, and page_count, suggesting that both the scope of a comic series and certain narrative conflicts are strong signals for adaptation success. Economic or market-related attributes such as price also ranked highly, hinting at potential links between production investment and adaptation likelihood. Additionally, thematic elements like weapons and supertech, romantic drama, and military conflict appeared in the top 15, reinforcing the importance of recognizable, high-stakes story elements in commercially viable adaptations.
+To look at the output of this model, Figure 4 shows the top 15 features ranked by “Gain,” XGBoost’s measure of how much each feature contributed to improving the model’s objective function. The most influential predictors were series_issue_count, theme_civil_conflict, num_creators, and page_count, suggesting that both the scope of a comic series and certain narrative conflicts are strong signals for adaptation success. Economic or market-related attributes such as price also ranked highly, hinting at potential links between production investment and adaptation likelihood. Additionally, thematic elements like weapons and supertech, romantic drama, and military conflict appeared in the top 15, reinforcing the importance of recognizable, high-stakes story elements in commercially viable adaptations.
 
+```{r echo=FALSE, message= FALSE}
+#| fig-cap: "Figure 4: A bar chart showing the top 15 most impactful features according to the constrained XGBoost Tree."
+library(randomForest)
+library(caret)
+library(janitor)
+df <- read_csv("C:/Users/lazyp/Downloads/fr_comics.csv") %>%
+  clean_names()
+  library(stringr)
+
+df_imputed <- df %>%
+  mutate(
+    # Text fields
+    comic_title = replace_na(comic_title, "Unknown"),
+    comic_rating = replace_na(comic_rating, "Unknown"),
+
+    # Numeric fields
+    page_count = replace_na(page_count, 0),
+    price = replace_na(price, 0),
+    series_issue_count = replace_na(series_issue_count, 0),
+    num_characters = replace_na(num_characters, 0),
+    num_teams = replace_na(num_teams, 0),
+    num_ethnicities = replace_na(num_ethnicities, 0),
+    num_power_types = replace_na(num_power_types, 0),
+    num_creators = replace_na(num_creators, 0),
+    num_themes = replace_na(num_themes, 0),
+    num_threats = replace_na(num_threats, 0),
+
+    # Boolean flags → assume FALSE = not present if NA
+    comedy = replace_na(comedy, FALSE),
+    origin_story = replace_na(origin_story, FALSE),
+    mentor = replace_na(mentor, FALSE),
+    impactful_moment = replace_na(impactful_moment, FALSE),
+    cultural = replace_na(cultural, FALSE),
+    romance = replace_na(romance, FALSE),
+    movie_based = replace_na(movie_based, FALSE),
+    used_in_movie = replace_na(used_in_movie, FALSE),
+
+    # Optional: release_date → leave as NA or impute
+    release_date = replace_na(release_date, as.Date("1900-01-01"))
+  )
+
+library(fastDummies)
+library(janitor)
+library(tidyverse)
+library(xgboost)
+df_imputed <- df_imputed %>%
+  mutate(across(where(~ is.logical(.) || all(. %in% c(TRUE, FALSE, NA))), ~ replace_na(., FALSE)))
+  train_df <- df_imputed %>% filter(!is.na(success_score))
+predict_df <- df_imputed %>% filter(is.na(success_score))
+
+# Define binary label for success (can tune threshold here)
+train_df <- train_df %>%
+  mutate(success_label = ifelse(success_score >= 85, 1, 0)) %>%
+  mutate(success_label = as.factor(success_label))
+features <- train_df %>%
+  select(-comic_id_1,-comic_id_25, -comic_id_120, -comic_title, -success_score, -release_date, -theme_cosmic_rivalries_power_struggles)
+  features_xgb <- features%>% select(-series_id)
+levels(features_xgb$success_label) <- c("neg", "pos")
+ctrl <- trainControl(
+  method = "cv",
+  number = 5,
+  classProbs = TRUE,
+  summaryFunction = twoClassSummary,
+  sampling = "up"  # you can also try "down" or "smote"
+)
+
+# Train constrained XGBoost
+xgb_constrained <- train(
+  success_label ~ .,
+  data = features_xgb,
+  method = "xgbTree",
+  trControl = ctrl,
+  metric = "ROC",
+  tuneGrid = expand.grid(
+    nrounds = 50,
+    max_depth = 2,
+    eta = 0.3,
+    gamma = 5,
+    colsample_bytree = 0.5,
+    min_child_weight = 10,
+    subsample = 0.7
+  )
+)
+
+# Evaluate
+xgb_preds <- predict(xgb_constrained, newdata = features_xgb)
+
+
+# AUC
+xgb_probs <- predict(xgb_constrained, newdata = features_xgb, type = "prob")[, "pos"]
+xgb_imp <- xgb.importance(model = xgb_constrained$finalModel)
+
+xgb_imp_df <- as.data.frame(xgb_imp)
+ggplot(xgb_imp_df[1:15,], aes(x = reorder(Feature, Gain), y = Gain)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  theme_minimal()+
+  labs(title = "XGBoosted: Top 15 Most Important Features", x = "Feature", y = "Gain", caption = "Data From Marvel.com")
+```
 
 ### Logistic Regression
 
 
-While slightly less accurate (81.2% accuracy, AUC of 0.898, 96.5% precision, 71.0% recall, Kappa of 0.425), logistic regression provided far greater interpretability. Coefficients revealed which traits were positively or negatively associated with adaptation success, allowing us to directly connect model outputs to storytelling elements.
+While slightly less accurate than the constrained XGBoost, the logistic regression model achieved an accuracy of 81.2%, an AUC of 0.898, a precision of 96.5%, a recall of 71.0%, and a Kappa of 0.425. In this case, precision—the proportion of predicted successes that were actually successful—was exceptionally high, indicating that when the model flagged a comic as a strong adaptation candidate, it was correct more than 96% of the time. Recall (true positive rate) of 71.0% shows that the model successfully identified just over seven out of ten successful adaptations, missing some positives but maintaining a strong focus on accuracy when it did predict success. The AUC score of 0.898 reflects excellent overall separability between successful and unsuccessful adaptations, even if not quite as high as the XGBoost model. The Kappa statistic of 0.425 again points to moderate agreement beyond chance, confirming that performance was not driven solely by the dataset’s imbalance.
 
 
-As shown in Figure Y, the top coefficients by absolute value included theme_scientific_ethics, theme_civil_conflict, and threat_social_threat_uprising, indicating that moral dilemmas, internal societal conflicts, and large-scale uprisings are strongly tied to positive reception. Other notable features included theme_faith_and_religion, theme_coming_of_age, and theme_hero_vs_clone_doppelganger, suggesting that personal growth arcs and identity-based conflicts resonate with audiences when adapted.
+Importantly, the trade-off for slightly lower predictive accuracy was far greater interpretability. As shown in Figure 5, the top coefficients by absolute value included theme_scientific_ethics, theme_civil_conflict, and threat_social_threat_uprising, indicating that moral dilemmas, internal societal conflicts, and large-scale uprisings are strongly tied to positive reception. Other notable features included theme_faith_and_religion, theme_coming_of_age, and theme_hero_vs_clone_doppelganger, suggesting that personal growth arcs and identity-based conflicts resonate with audiences when adapted.
 
+```{r echo=FALSE, message= FALSE}
+#| fig-cap: "Figure 5: A bar chart showing the top 15 most impactful features according to our Logistic Regression model."
+library(caret)
+logistic_df <- features
+levels(logistic_df$success_label) <- c("neg", "pos")
+set.seed(42)
+# Train logistic regression model
+log_model <- train(
+  success_label ~ .,
+  data = logistic_df,
+  method = "glm",
+  family = "binomial",
+  trControl = ctrl,
+  metric = "ROC"
+)
+
+log_probs <- predict(log_model, newdata = logistic_df, type = "prob")[, "pos"]
+
+library(broom)
+
+# Extract coefficients and sort by absolute value
+log_imp <- tidy(log_model$finalModel) %>%
+  filter(term != "(Intercept)") %>%  # remove intercept
+  mutate(abs_estimate = abs(estimate)) %>%
+  arrange(desc(abs_estimate))
+
+# Optional: visualize
+library(ggplot2)
+ggplot(log_imp[1:15,], aes(x = reorder(term, abs_estimate), y = abs_estimate)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Top 15 Logistic Regression Variables by Absolute Coefficient",
+    x = "Feature",
+    y = "Absolute Coefficient",
+    caption = "Data from Marvel.com"
+  ) +
+  theme_minimal()
+```
+
+This made it a powerful tool not just for prediction, but for understanding the “why” behind the results, offering actionable insights into the storytelling traits that have historically resonated most with audiences and critics.
 
 ### Consensus Feature Importance
-To combine predictive strength with interpretability, we averaged the probability outputs from both models to create a composite “success potential score.” Figure Z shows the consensus feature importance across both models. Traits like theme_cosmic_rivalries_power_struggles, theme_civil_conflict, and threat_national_emergency consistently ranked near the top, pointing to a shared recognition across models that large-scale stakes and high-intensity conflict drive adaptation success. Elements such as theme_infiltration_and_deception, theme_mystery_and_investigation, and theme_weapons_and_supertech also stood out, reflecting the enduring appeal of espionage, detective-style narratives, and advanced technology in the MCU formula.
+To combine predictive strength with interpretability, we averaged the probability outputs from both models to create a composite “success potential score.” Figure 6 shows the consensus feature importance across both models. Traits like theme_cosmic_rivalries_power_struggles, theme_civil_conflict, and threat_national_emergency consistently ranked near the top, pointing to a shared recognition across models that large-scale stakes and high-intensity conflict drive adaptation success. Elements such as theme_infiltration_and_deception, theme_mystery_and_investigation, and theme_weapons_and_supertech also stood out, reflecting the enduring appeal of espionage, detective-style narratives, and advanced technology in the MCU formula.
 
+```{r echo=FALSE, message= FALSE}
+#| fig-cap: "Figure 5: A bar chart showing the top 15 most impactful features according to our combined model, made up of an XGBoost tree and Logistic Regression."
+xgb_imp <- xgb.importance(model = xgb_constrained$finalModel) %>%
+  rename(term = Feature) %>%
+  mutate(importance_rank_xgb = rank(-Gain, ties.method = "first"))
+
+# Already have log_imp from broom::tidy()
+log_imp <- tidy(log_model$finalModel) %>%
+  filter(term != "(Intercept)") %>%
+  mutate(abs_estimate = abs(estimate),
+         importance_rank_log = rank(-abs_estimate, ties.method = "first"))
+
+# Now join successfully
+combined_importance <- full_join(log_imp, xgb_imp, by = "term")
+
+# Continue with your consensus ranking
+consensus_importance <- combined_importance %>%
+  mutate(
+    importance_rank_log = ifelse(is.na(importance_rank_log),
+                                 max(importance_rank_log, na.rm = TRUE) + 1,
+                                 importance_rank_log),
+    importance_rank_xgb = ifelse(is.na(importance_rank_xgb),
+                                 max(importance_rank_xgb, na.rm = TRUE) + 1,
+                                 importance_rank_xgb)
+  ) %>%
+  mutate(
+    log_rank_norm = 1 - ((importance_rank_log - 1) / (max(importance_rank_log) - 1)),
+    xgb_rank_norm = 1 - ((importance_rank_xgb - 1) / (max(importance_rank_xgb) - 1))
+  ) %>%
+  mutate(consensus_score = (log_rank_norm + xgb_rank_norm) / 2) %>%
+  arrange(desc(consensus_score))
+
+ggplot(head(consensus_importance, 15),
+       aes(x = reorder(term, consensus_score), y = consensus_score)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Consensus Feature Importance\n(Logistic Regression + XGBoost)",
+    x = "Feature",
+    y = "Consensus Score (0–1)"
+  ) +
+  theme_minimal()
+
+```
 
 By combining model outputs and aligning them with top features from each, we produced not just a ranked list of comics with the highest adaptation potential, but also a clear thematic and structural profile of what “success” tends to look like in the MCU context.
 
 
 ## Final Model Recommendation
-Our composite scoring system—an equal-weighted average of constrained XGBoost and logistic regression probabilities—ranked every comic in our dataset according to its potential for MCU adaptation success. While the model outputs a full ranked list, our top candidate was Agents of Atlas (2006) #5, with an XGBoost probability of 0.9988, a logistic regression probability of 1.0000, and a combined score of 0.9994.
+Our composite scoring system—an equal-weighted average of constrained XGBoost and logistic regression probabilities—ranked every comic in our dataset according to its potential for MCU adaptation success. While the model outputs a full ranked list, our top candidate was *Agents of Atlas (2006) #5*, with an XGBoost probability of 0.9988, a logistic regression probability of 1.0000, and a combined score of 0.9994.
 
-This recommendation is supported by the presence of many traits that ranked highly in our consensus feature importance analysis (Figure Z). Agents of Atlas (2006) #5 features cosmic rivalries and power struggles, civil conflict, and national emergency–level threats, all of which were among the top consensus predictors of adaptation success. It also incorporates strong elements of infiltration and deception and mystery and investigation, weaving espionage and covert operations into the plot. These thematic drivers, combined with the inclusion of advanced technology (“weapons and supertech”), a diverse team structure, and large-scale stakes, closely mirror the narrative DNA of past critically and commercially successful MCU adaptations.
+This recommendation is supported by the presence of many traits that ranked highly in our consensus feature importance analysis (Figure 6). *Agents of Atlas (2006) #5* features rivalries and power struggles, civil conflict, and national emergency–level threats, all of which were among the top consensus predictors of adaptation success. It also incorporates strong elements of infiltration and deception and mystery and investigation, weaving espionage and covert operations into the plot. These thematic drivers, combined with the inclusion of advanced technology (“weapons and supertech”), a diverse team structure, and large-scale stakes, closely mirror the narrative DNA of past critically and commercially successful MCU adaptations.
 
-It’s important to stress that this result does not suggest Agents of Atlas (2006) #5 should be adapted in isolation. MCU projects almost always blend multiple comics and arcs into a single narrative. Instead, its high score reflects the fact that its narrative and structural features align strongly with those most associated with past MCU successes—making it an exemplary case study of what our models define as “adaptation-ready” storytelling.
+It’s important to stress that this result does not suggest *Agents of Atlas (2006) #5* should be adapted in isolation. MCU projects almost always blend multiple comics and arcs into a single narrative. Instead, its high score reflects the fact that its narrative and structural features align strongly with those most associated with past MCU successes—making it an exemplary case study of what our models define as “adaptation-ready” storytelling.
 

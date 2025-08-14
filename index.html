@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Assembled: A Heroic Struggle</title>
+<title>Marvel: Data Assembled</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ div.csl-indent {
 
 
 <link rel="stylesheet" href="styles.css">
-<meta name="citation_title" content="Data Assembled: A Heroic Struggle">
+<meta name="citation_title" content="Marvel: Data Assembled">
 <meta name="citation_author" content="Joshue Fuentes">
 <meta name="citation_author" content="Kendall Leonard">
 <meta name="citation_language" content="en">
@@ -82,7 +82,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Data Assembled: A Heroic Struggle</h1>
+      <h1 class="title">Marvel: Data Assembled</h1>
             <p class="subtitle lead">An Analysis and Classification of Marvel Comics and Media</p>
           </div>
 
@@ -190,6 +190,9 @@ div.csl-indent {
   
 
 
+<section id="disclaimer-we-are-not-officially-associated-with-marvel-studios-or-the-walt-disney-company.-this-is-a-passion-project-and-we-earn-no-income-from-this-publication." class="level6">
+<h6 class="anchored" data-anchor-id="disclaimer-we-are-not-officially-associated-with-marvel-studios-or-the-walt-disney-company.-this-is-a-passion-project-and-we-earn-no-income-from-this-publication."><em>Disclaimer: We are not officially associated With Marvel Studios or The Walt Disney Company. This is a passion project and we earn no income from this publication.</em></h6>
+</section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>The Marvel Cinematic Universe (MCU) is a superhero movie franchise that exploded onto the scene in 2008 with the premiere of Iron Man and has become one of the most successful film franchises in history, grossing over $31 billion worldwide since its launch onto the silver screen. It adapted comic books into mainstream cinematic events and brought once-niche characters into the cultural spotlight. However, despite commercial success, many longtime fans have begun to question if the magic and creative spark that defined the franchise’s earlier phases has faded. As lifelong readers of Marvel comics and avid viewers of every movie and series we could get our hands on, we have noticed a growing disconnect between the storytelling that made the comics compelling and the recent direction the MCU has taken–particularly as it expands into more obscure characters and increasingly fragmented narratives.</p>
@@ -741,10 +744,8 @@ Date the media was first released to the public.
 <section id="character-meta-data" class="level3">
 <h3 class="anchored" data-anchor-id="character-meta-data">Character Meta Data</h3>
 <p>Like the comics data, character metadata from Marvel.com was inconsistently formatted, with powers sometimes listed as a single sentence (“Can control shadows”) or as a bulleted list, and group affiliations sometimes buried in biography text rather than in labeled sections.</p>
-<p>To standardize this, we developed pattern-matching routines and keyword detection methods:</p>
-<p>Powers: Matched terms from a curated power dictionary (e.g., “telepathy,” “superhuman strength”) across both list and free-text descriptions.</p>
-<p>Group affiliations: Detected known team names (e.g., “Avengers,” “X-Men,” “Guardians of the Galaxy”) regardless of case or phrasing, including variations like “member of the Avengers” or “joined the Avengers.”</p>
-<p>This process yielded 1,868 unique Marvel characters—nearly five times the coverage of the filtered Kaggle dataset—each assigned a unique ID and stored in the characters table. Both the raw scraped fields (exact text from Marvel.com) and our standardized, structured fields (boolean indicators for powers, team memberships, etc.) were preserved, ensuring we could analyze both the original descriptions and the engineered traits in downstream modeling.</p>
+<p>To standardize this, we developed pattern-matching routines and keyword detection methods. For example, for powers we matched terms from a curated power dictionary (e.g., “telepathy,” “superhuman strength”) across both list and free-text descriptions. For slightly more complicated things, like group affiliations, we detected known team names (e.g., “Avengers,” “X-Men,” “Guardians of the Galaxy”) regardless of case or phrasing, including variations like “member of the Avengers” or “joined the Avengers.”</p>
+<p>The process of switching to scraping and utilizing regular expressions yielded 1,868 unique Marvel characters—nearly five times the coverage of the filtered Kaggle dataset—each assigned a unique ID and stored in the characters table. Both the raw scraped fields (exact text from Marvel.com) and our standardized, structured fields (boolean indicators for powers, team memberships, etc.) were preserved, ensuring we could analyze both the original descriptions and the engineered traits in downstream modeling.</p>
 <p>We also experimented with regex-based extraction for additional character-level metadata, including nationality, sex, and other demographic attributes. For instance, we attempted to identify nationality by scanning for explicit mentions like “born in Wakanda,” “Canadian mutant,” or “Russian spy” within character biographies, and to determine sex by detecting gendered pronouns or descriptors such as “he/him,” “she/her,” “female hero,” or “male villain.” However, these approaches proved unreliable and were discarded to avoid bias.</p>
 </section>
 <section id="imdb-data" class="level3">
@@ -785,7 +786,7 @@ Date the media was first released to the public.
 <section id="exploratory-data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
 <p>To test our intuition that Marvel’s newer content has not been hitting the same highs as its earlier phases, we turned to the data. Figure 1 visualizes Rotten Tomatoes audience scores for Marvel media over time, from 2008 through 2025.</p>
-<p>The trend is hard to miss: while early titles (roughly 2008–2018) generally received consistently high ratings—frequently in the 80–90% range—recent releases show a dramatic increase in variability. Starting around 2019, the scores became much more volatile, with several sharp dips into the 40s and 50s and far fewer guaranteed crowd-pleasers. Even well-established franchises are not immune to this drop in reception.</p>
+<p>The trend is hard to miss: while early titles (roughly 2008–2019) generally received consistently high ratings—frequently in the 80–90% range—recent releases show a dramatic increase in variability. Starting around 2021, the scores became much more volatile, with several sharp dips into the 40s and 50s and far fewer guaranteed crowd-pleasers. Even well-established franchises are not immune to this drop in reception.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -796,6 +797,7 @@ Date the media was first released to the public.
 </div>
 </div>
 </div>
+<p>To quantify the observed increase in variability in audience reception, we compared the variance in Rotten Tomatoes audience scores between the early MCU era (2008–2019) and the recent MCU era (2021–2025) using an F-test for equality of variances. The early MCU period had a variance ratio of 0.394 relative to the recent era (F(22, 24) = 0.3937, p = 0.0314), indicating significantly lower variability in scores. This statistical evidence supports our visual findings: while early MCU releases tended to receive consistently high ratings, recent releases have been far more volatile, with both higher peaks and deeper lows.</p>
 <p>These results back up what many longtime fans (ourselves included) have been feeling: the MCU just is not as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. At the same time, there has been a surge in the volume of media released. With more shows and movies hitting screens each year, the range of quality—and audience response—has grown.</p>
 <p>We observed a similar pattern when looking at critic scores, as seen in Figure 3. While critic ratings historically showed less fluctuation than audience ratings, the post-2019 era still reveals a wider spread. Interestingly, the fitted trend line for critic scores slopes slightly upward in recent years, while the audience trend line slopes downward. This divergence suggests that critics and audiences may be responding differently to newer MCU content—a potential signal that what resonates with critics is not always what resonates with general audiences.</p>
 <div class="cell">
@@ -815,25 +817,57 @@ Date the media was first released to the public.
 <p>Following our exploratory analysis, we evaluated how well different modeling approaches could predict whether a comic would be a strong candidate for a successful MCU adaptation.</p>
 <section id="constrained-xgboost" class="level3">
 <h3 class="anchored" data-anchor-id="constrained-xgboost">Constrained XGBoost</h3>
-<p>The constrained XGBoost model emerged as the strongest binary classifier, achieving 89.9% accuracy, AUC of 0.968, Kappa of 0.4473, 89.4% sensitivity, and 92.9% specificity. This configuration effectively balanced high predictive performance with reduced overfitting.</p>
-<p>Figure X shows the top 15 features ranked by “Gain,” XGBoost’s measure of how much each feature contributed to improving the model’s objective function. The most influential predictors were series_issue_count, theme_civil_conflict, num_creators, and page_count, suggesting that both the scope of a comic series and certain narrative conflicts are strong signals for adaptation success. Economic or market-related attributes such as price also ranked highly, hinting at potential links between production investment and adaptation likelihood. Additionally, thematic elements like weapons and supertech, romantic drama, and military conflict appeared in the top 15, reinforcing the importance of recognizable, high-stakes story elements in commercially viable adaptations.</p>
+<p>The constrained XGBoost model emerged as the strongest binary classifier, achieving 89.9% accuracy, an AUC of 0.968, a Kappa of 0.4473, 89.4% sensitivity, and 92.9% specificity. In this context, accuracy represents the percentage of all predictions—both successful and unsuccessful adaptations—that the model classified correctly. The AUC (Area Under the ROC Curve) measures the model’s ability to distinguish between successful and unsuccessful adaptations across all classification thresholds; a score of 0.968 is considered excellent and indicates strong separability between the two classes. The Kappa statistic, which adjusts for agreement expected by chance, came in at 0.4473, suggesting moderate agreement and confirming that the model’s performance was not merely the result of the dataset’s class imbalance. Sensitivity (true positive rate) of 89.4% means the model correctly identified nearly nine out of ten successful adaptations, while specificity (true negative rate) of 92.9% means it correctly rejected most unsuccessful candidates.</p>
+<p>Taken together, these results indicate that the constrained XGBoost model not only performed exceptionally well in predicting adaptation success but did so while maintaining a good balance between catching true positives and avoiding false positives. Its high AUC and balanced sensitivity-specificity profile suggest it could be a reliable screening tool for identifying promising adaptation candidates, even when working with a dataset where successful examples are relatively rare.</p>
+<p>To look at the output of this model, Figure 4 shows the top 15 features ranked by “Gain,” XGBoost’s measure of how much each feature contributed to improving the model’s objective function. The most influential predictors were series_issue_count, theme_civil_conflict, num_creators, and page_count, suggesting that both the scope of a comic series and certain narrative conflicts are strong signals for adaptation success. Economic or market-related attributes such as price also ranked highly, hinting at potential links between production investment and adaptation likelihood. Additionally, thematic elements like weapons and supertech, romantic drama, and military conflict appeared in the top 15, reinforcing the importance of recognizable, high-stakes story elements in commercially viable adaptations.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure 4: A bar chart showing the top 15 most impactful features according to the constrained XGBoost Tree."><img src="capstone_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672" alt="Figure 4: A bar chart showing the top 15 most impactful features according to the constrained XGBoost Tree."></a></p>
+<figcaption>Figure 4: A bar chart showing the top 15 most impactful features according to the constrained XGBoost Tree.</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="logistic-regression" class="level3">
 <h3 class="anchored" data-anchor-id="logistic-regression">Logistic Regression</h3>
-<p>While slightly less accurate (81.2% accuracy, AUC of 0.898, 96.5% precision, 71.0% recall, Kappa of 0.425), logistic regression provided far greater interpretability. Coefficients revealed which traits were positively or negatively associated with adaptation success, allowing us to directly connect model outputs to storytelling elements.</p>
-<p>As shown in Figure Y, the top coefficients by absolute value included theme_scientific_ethics, theme_civil_conflict, and threat_social_threat_uprising, indicating that moral dilemmas, internal societal conflicts, and large-scale uprisings are strongly tied to positive reception. Other notable features included theme_faith_and_religion, theme_coming_of_age, and theme_hero_vs_clone_doppelganger, suggesting that personal growth arcs and identity-based conflicts resonate with audiences when adapted.</p>
+<p>While slightly less accurate than the constrained XGBoost, the logistic regression model achieved an accuracy of 81.2%, an AUC of 0.898, a precision of 96.5%, a recall of 71.0%, and a Kappa of 0.425. In this case, precision—the proportion of predicted successes that were actually successful—was exceptionally high, indicating that when the model flagged a comic as a strong adaptation candidate, it was correct more than 96% of the time. Recall (true positive rate) of 71.0% shows that the model successfully identified just over seven out of ten successful adaptations, missing some positives but maintaining a strong focus on accuracy when it did predict success. The AUC score of 0.898 reflects excellent overall separability between successful and unsuccessful adaptations, even if not quite as high as the XGBoost model. The Kappa statistic of 0.425 again points to moderate agreement beyond chance, confirming that performance was not driven solely by the dataset’s imbalance.</p>
+<p>Importantly, the trade-off for slightly lower predictive accuracy was far greater interpretability. As shown in Figure 5, the top coefficients by absolute value included theme_scientific_ethics, theme_civil_conflict, and threat_social_threat_uprising, indicating that moral dilemmas, internal societal conflicts, and large-scale uprisings are strongly tied to positive reception. Other notable features included theme_faith_and_religion, theme_coming_of_age, and theme_hero_vs_clone_doppelganger, suggesting that personal growth arcs and identity-based conflicts resonate with audiences when adapted.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure 5: A bar chart showing the top 15 most impactful features according to our Logistic Regression model."><img src="capstone_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672" alt="Figure 5: A bar chart showing the top 15 most impactful features according to our Logistic Regression model."></a></p>
+<figcaption>Figure 5: A bar chart showing the top 15 most impactful features according to our Logistic Regression model.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This made it a powerful tool not just for prediction, but for understanding the “why” behind the results, offering actionable insights into the storytelling traits that have historically resonated most with audiences and critics.</p>
 </section>
 <section id="consensus-feature-importance" class="level3">
 <h3 class="anchored" data-anchor-id="consensus-feature-importance">Consensus Feature Importance</h3>
-<p>To combine predictive strength with interpretability, we averaged the probability outputs from both models to create a composite “success potential score.” Figure Z shows the consensus feature importance across both models. Traits like theme_cosmic_rivalries_power_struggles, theme_civil_conflict, and threat_national_emergency consistently ranked near the top, pointing to a shared recognition across models that large-scale stakes and high-intensity conflict drive adaptation success. Elements such as theme_infiltration_and_deception, theme_mystery_and_investigation, and theme_weapons_and_supertech also stood out, reflecting the enduring appeal of espionage, detective-style narratives, and advanced technology in the MCU formula.</p>
+<p>To combine predictive strength with interpretability, we averaged the probability outputs from both models to create a composite “success potential score.” Figure 6 shows the consensus feature importance across both models. Traits like theme_cosmic_rivalries_power_struggles, theme_civil_conflict, and threat_national_emergency consistently ranked near the top, pointing to a shared recognition across models that large-scale stakes and high-intensity conflict drive adaptation success. Elements such as theme_infiltration_and_deception, theme_mystery_and_investigation, and theme_weapons_and_supertech also stood out, reflecting the enduring appeal of espionage, detective-style narratives, and advanced technology in the MCU formula.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure 5: A bar chart showing the top 15 most impactful features according to our combined model, made up of an XGBoost tree and Logistic Regression."><img src="capstone_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672" alt="Figure 5: A bar chart showing the top 15 most impactful features according to our combined model, made up of an XGBoost tree and Logistic Regression."></a></p>
+<figcaption>Figure 5: A bar chart showing the top 15 most impactful features according to our combined model, made up of an XGBoost tree and Logistic Regression.</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>By combining model outputs and aligning them with top features from each, we produced not just a ranked list of comics with the highest adaptation potential, but also a clear thematic and structural profile of what “success” tends to look like in the MCU context.</p>
 </section>
 </section>
 <section id="final-model-recommendation" class="level2">
 <h2 class="anchored" data-anchor-id="final-model-recommendation">Final Model Recommendation</h2>
-<p>Our composite scoring system—an equal-weighted average of constrained XGBoost and logistic regression probabilities—ranked every comic in our dataset according to its potential for MCU adaptation success. While the model outputs a full ranked list, our top candidate was Agents of Atlas (2006) #5, with an XGBoost probability of 0.9988, a logistic regression probability of 1.0000, and a combined score of 0.9994.</p>
-<p>This recommendation is supported by the presence of many traits that ranked highly in our consensus feature importance analysis (Figure Z). Agents of Atlas (2006) #5 features cosmic rivalries and power struggles, civil conflict, and national emergency–level threats, all of which were among the top consensus predictors of adaptation success. It also incorporates strong elements of infiltration and deception and mystery and investigation, weaving espionage and covert operations into the plot. These thematic drivers, combined with the inclusion of advanced technology (“weapons and supertech”), a diverse team structure, and large-scale stakes, closely mirror the narrative DNA of past critically and commercially successful MCU adaptations.</p>
-<p>It’s important to stress that this result does not suggest Agents of Atlas (2006) #5 should be adapted in isolation. MCU projects almost always blend multiple comics and arcs into a single narrative. Instead, its high score reflects the fact that its narrative and structural features align strongly with those most associated with past MCU successes—making it an exemplary case study of what our models define as “adaptation-ready” storytelling.</p>
+<p>Our composite scoring system—an equal-weighted average of constrained XGBoost and logistic regression probabilities—ranked every comic in our dataset according to its potential for MCU adaptation success. While the model outputs a full ranked list, our top candidate was <em>Agents of Atlas (2006) #5</em>, with an XGBoost probability of 0.9988, a logistic regression probability of 1.0000, and a combined score of 0.9994.</p>
+<p>This recommendation is supported by the presence of many traits that ranked highly in our consensus feature importance analysis (Figure 6). <em>Agents of Atlas (2006) #5</em> features rivalries and power struggles, civil conflict, and national emergency–level threats, all of which were among the top consensus predictors of adaptation success. It also incorporates strong elements of infiltration and deception and mystery and investigation, weaving espionage and covert operations into the plot. These thematic drivers, combined with the inclusion of advanced technology (“weapons and supertech”), a diverse team structure, and large-scale stakes, closely mirror the narrative DNA of past critically and commercially successful MCU adaptations.</p>
+<p>It’s important to stress that this result does not suggest <em>Agents of Atlas (2006) #5</em> should be adapted in isolation. MCU projects almost always blend multiple comics and arcs into a single narrative. Instead, its high score reflects the fact that its narrative and structural features align strongly with those most associated with past MCU successes—making it an exemplary case study of what our models define as “adaptation-ready” storytelling.</p>
 </section>
 </section>
 <section id="discussion" class="level1">
@@ -853,12 +887,10 @@ Date the media was first released to the public.
 </section>
 <section id="future-work" class="level2">
 <h2 class="anchored" data-anchor-id="future-work">Future Work</h2>
-<p>Several opportunities exist to expand and refine this research:</p>
-<p>Character-level modeling – Building a dedicated pipeline to incorporate character attributes (e.g., power sets, demographic traits, team affiliations) directly into the prediction process could reveal how individual heroes or villains influence adaptation success.</p>
-<p>Improved adaptation mapping – Collaborating with comic historians or leveraging fan-curated wikis could produce a more precise mapping of comics to their on-screen adaptations, reducing uncertainty in labels.</p>
-<p>Enhanced feature extraction – Using natural language processing (NLP) techniques, such as transformer-based language models, could allow for more nuanced detection of themes, relationships, and tone beyond simple keyword matching.</p>
-<p>Temporal and franchise-level analysis – Expanding the dataset to include non-MCU Marvel films or even adaptations from other publishers could help test whether the identified traits are universal or MCU-specific.</p>
-<p>Integration of non-comic features – Incorporating production-level data (e.g., budget, release strategy, marketing spend) alongside comic features could improve predictive accuracy for real-world performance.</p>
+<p>Several opportunities exist to expand and refine this research. One avenue involves experimenting with different weighting strategies for the combined XGBoost and logistic regression models. Adjusting the balance between the two could allow us to fine-tune the trade-off between predictive power and interpretability, potentially yielding an even stronger composite score.</p>
+<p>Character-level modeling presents another significant opportunity. Building a dedicated pipeline to incorporate detailed character attributes—such as power sets, demographic traits, and team affiliations—directly into the prediction process could uncover how individual heroes or villains contribute to adaptation success. This approach might highlight recurring character archetypes or combinations that consistently perform well on screen.</p>
+<p>Improved adaptation mapping could also strengthen our dataset. Collaborating with comic historians or carefully integrating data from fan-curated wikis could produce a more precise mapping between comics and their on-screen adaptations, reducing uncertainty in the labels that drive our model training. Enhanced feature extraction techniques, especially those using natural language processing (NLP) such as transformer-based language models, could capture narrative nuance—detecting themes, relationships, and tonal elements beyond what is possible with simple keyword matching.</p>
+<p>Finally, expanding the scope of analysis would test the generalizability of our findings. A temporal and franchise-level analysis that includes non-MCU Marvel films or adaptations from other publishers could help determine whether the traits we identified are universal or MCU-specific. Integrating non-comic features, such as production budgets, release strategies, and marketing spend, could further improve predictive accuracy by accounting for the external factors that often influence real-world performance.</p>
 <p>By addressing these avenues, future iterations of this work could provide a more holistic and precise toolkit for predicting and understanding adaptation success, potentially informing creative and business decisions in the film and television industry.</p>
 </section>
 </section>
