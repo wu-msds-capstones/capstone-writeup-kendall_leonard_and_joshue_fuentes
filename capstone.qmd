@@ -10,7 +10,7 @@ format:
   html:
     theme: lightly
     font-family: Century Schoolbook
-link-citations: true
+    link-citations: true
 ---
 
 {{< include _01_intro.qmd >}}
