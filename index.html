@@ -24,6 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -69,7 +70,11 @@ div.csl-indent {
 <meta name="citation_author" content="Joshue Fuentes">
 <meta name="citation_author" content="Kendall Leonard">
 <meta name="citation_language" content="en">
-<meta name="citation_reference" content="citation_title=A guide to backward paper writing for the data sciences;,citation_abstract=Summary In this perspective, we outline a set of best practices for the planning, writing, and revision of scientific papers and other forms of professional communication in the data sciences. We propose a backward approach that begins with clearly identifying the scientific and professional goals motivating the work, followed by a purposeful mapping from those goals to each section of a paper. This approach is motivated by the conviction that manuscript writing can be more effective, efficient, creative, and even enjoyable—particularly for early-career researchers—when the overarching goals of the paper and its individual components are clearly mapped out.;,citation_author=Jon Zelner;,citation_author=Kelly Broen;,citation_author=Ella August;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2666389921003068;,citation_issue=3;,citation_doi=10.1016/j.patter.2021.100423;,citation_issn=2666-3899;,citation_volume=3;,citation_journal_title=Patterns;">
+<meta name="citation_reference" content="citation_title=A survey on machine learning techniques in movie revenue prediction;,citation_author=Izhar Saleem Ahmad;,citation_author=others;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_volume=1;,citation_journal_title=SN Computer Science;">
+<meta name="citation_reference" content="citation_title=Predicting IMDb rating of movies by machine learning techniques;,citation_author=Afsana Akter Bristi;,citation_author=others;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_conference_title=International conference on computer, communication, chemical, materials and electronic engineering;">
+<meta name="citation_reference" content="citation_title=Predicting attributes based movie success through ensemble machine learning;,citation_author=Vedika Gupta;,citation_author=others;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_volume=82;,citation_journal_title=Multimedia Tools and Applications;">
+<meta name="citation_reference" content="citation_title=Movie success prediction based on feature and trailer comments using ensemble+LSTM model;,citation_author=Kasun Ruwantha;,citation_author=Sumudu Kumara;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_issue=6;,citation_volume=16;,citation_journal_title=Journal of Computer Science;">
+<meta name="citation_reference" content="citation_title=Unveiling the tomato verdict: Harnessing machine learning to predict rotten tomatoes scores from movie reviews;,citation_author=Chad Smith;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_publisher=https://www.chadd.blog/p/unveiling-the-tomato-verdict-harnessing-machine-learning-to-predict-rotten-tomatoes-scores-from-movie-reviews;">
 </head>
 
 <body class="quarto-light">
@@ -121,8 +126,15 @@ div.csl-indent {
   <li><a href="#what-the-research-misses" id="toc-what-the-research-misses" class="nav-link" data-scroll-target="#what-the-research-misses">What the Research Misses</a></li>
   <li><a href="#medium-matters-why-comics-and-movies-work-differently" id="toc-medium-matters-why-comics-and-movies-work-differently" class="nav-link" data-scroll-target="#medium-matters-why-comics-and-movies-work-differently">Medium Matters: Why Comics and Movies Work Differently</a></li>
   <li><a href="#when-it-worksand-why" id="toc-when-it-worksand-why" class="nav-link" data-scroll-target="#when-it-worksand-why">When It Works—and Why</a></li>
-  <li><a href="#what-we-aim-to-do" id="toc-what-we-aim-to-do" class="nav-link" data-scroll-target="#what-we-aim-to-do">What We Aim to Do</a></li>
   </ul></li>
+  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#organization" id="toc-organization" class="nav-link" data-scroll-target="#organization">Organization</a>
+  <ul class="collapse">
+  <li><a href="#entity-relationship-diagram" id="toc-entity-relationship-diagram" class="nav-link" data-scroll-target="#entity-relationship-diagram">Entity Relationship Diagram</a></li>
+  </ul></li>
+  <li><a href="#dictionaries" id="toc-dictionaries" class="nav-link" data-scroll-target="#dictionaries">Dictionaries</a></li>
   </ul></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
@@ -133,30 +145,32 @@ div.csl-indent {
   <li><a href="#character-metadata-marvel.com-and-kaggle" id="toc-character-metadata-marvel.com-and-kaggle" class="nav-link" data-scroll-target="#character-metadata-marvel.com-and-kaggle">Character Metadata (Marvel.com and Kaggle):</a></li>
   <li><a href="#imdb-adaptation-links" id="toc-imdb-adaptation-links" class="nav-link" data-scroll-target="#imdb-adaptation-links">IMDb Adaptation Links:</a></li>
   </ul></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
+  <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering">Feature Engineering</a>
   <ul class="collapse">
-  <li><a href="#comics" id="toc-comics" class="nav-link" data-scroll-target="#comics">Comics</a></li>
+  <li><a href="#rotten-tomatoes" id="toc-rotten-tomatoes" class="nav-link" data-scroll-target="#rotten-tomatoes">Rotten Tomatoes</a></li>
+  <li><a href="#comic-meta-data" id="toc-comic-meta-data" class="nav-link" data-scroll-target="#comic-meta-data">Comic Meta Data</a></li>
+  <li><a href="#character-meta-data" id="toc-character-meta-data" class="nav-link" data-scroll-target="#character-meta-data">Character Meta Data</a></li>
+  <li><a href="#imdb-data" id="toc-imdb-data" class="nav-link" data-scroll-target="#imdb-data">IMDb Data</a></li>
+  <li><a href="#final-standardization" id="toc-final-standardization" class="nav-link" data-scroll-target="#final-standardization">Final Standardization</a></li>
   </ul></li>
+  <li><a href="#methods-for-analysis" id="toc-methods-for-analysis" class="nav-link" data-scroll-target="#methods-for-analysis">Methods for Analysis</a></li>
   </ul></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
-  <ul class="collapse">
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
-  <li><a href="#organization" id="toc-organization" class="nav-link" data-scroll-target="#organization">Organization</a>
-  <ul class="collapse">
-  <li><a href="#entity-relationship-diagram" id="toc-entity-relationship-diagram" class="nav-link" data-scroll-target="#entity-relationship-diagram">Entity Relationship Diagram</a></li>
-  </ul></li>
-  <li><a href="#dictionaries" id="toc-dictionaries" class="nav-link" data-scroll-target="#dictionaries">Dictionaries</a></li>
-  </ul></li>
+  <li><a href="#ethical-considerations" id="toc-ethical-considerations" class="nav-link" data-scroll-target="#ethical-considerations">Ethical Considerations</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
   <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
-  <li><a href="#model-building" id="toc-model-building" class="nav-link" data-scroll-target="#model-building">Model Building</a>
+  <li><a href="#model-performance-and-insights" id="toc-model-performance-and-insights" class="nav-link" data-scroll-target="#model-performance-and-insights">Model Performance and Insights</a>
   <ul class="collapse">
-  <li><a href="#round-1-random-forests" id="toc-round-1-random-forests" class="nav-link" data-scroll-target="#round-1-random-forests">Round 1: Random Forests</a></li>
-  <li><a href="#round-2-xgboost" id="toc-round-2-xgboost" class="nav-link" data-scroll-target="#round-2-xgboost">Round 2: XGBoost</a></li>
-  <li><a href="#round-3-logistic-regression" id="toc-round-3-logistic-regression" class="nav-link" data-scroll-target="#round-3-logistic-regression">Round 3: Logistic Regression</a></li>
+  <li><a href="#constrained-xgboost" id="toc-constrained-xgboost" class="nav-link" data-scroll-target="#constrained-xgboost">Constrained XGBoost</a></li>
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic Regression</a></li>
+  <li><a href="#consensus-feature-importance" id="toc-consensus-feature-importance" class="nav-link" data-scroll-target="#consensus-feature-importance">Consensus Feature Importance</a></li>
   </ul></li>
-  <li><a href="#the-output" id="toc-the-output" class="nav-link" data-scroll-target="#the-output">The Output</a></li>
+  <li><a href="#final-model-recommendation" id="toc-final-model-recommendation" class="nav-link" data-scroll-target="#final-model-recommendation">Final Model Recommendation</a></li>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a>
+  <ul class="collapse">
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">Future Work</a></li>
   </ul></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -178,97 +192,70 @@ div.csl-indent {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>The Marvel Cinematic Universe (MCU) is a superhero movie franchise that exploded onto the scene in 2008 and has become one of the most successful film franchises in history, grossing over $31 billion worldwide since its launch onto the silver screen. It transformed comic book adaptations into mainstream cinematic events and brought once-niche characters into the cultural spotlight. Yet, despite commercial success, many longtime fans have begun to question if the magic and creative spark that defined the franchise’s earlier phases will return. As lifelong readers of Marvel comics and avid viewers of every movie and series we could get our hands on, we’ve noticed a growing disconnect between the storytelling that made the comics compelling and the recent direction the MCU has taken–particularly as it expands into more obscure characters and increasingly fragmented narratives.</p>
-<p>The origin story of the project began with a simple but persistent question: why do some characters and storylines translate seamlessly to the screen while others, despite having rich and beloved source material, fail to resonate? The success of Guardians of the Galaxy (2014), for instance, seemed unlikely—these were not traditionally popular comic characters. Yet the films captured the heart of their story and became massive critical and commercial successes. Conversely, several characters with decades of deep, character-driven arcs have been introduced in the MCU in ways that feel shallow or disconnected from their origins. But, we know it is possible to introduce these beloved characters in a stunning fashion. One standout example of a successful adaptation is Captain America: The Winter Soldier (2014), which not only delivered on the excitement and emotional weight of the comic arc but also functioned as a tight, character-focused political thriller. Moments like that, where source material is respected and elevated, are increasingly rare.</p>
-<p>Our aim is not to predict box office hits or speculate on the next breakout character. Instead, we are interested in understanding the comic-specific storytelling elements—such as character development, power dynamics, team interactions, and narrative structure—that contribute to the success of adaptations. This leads to our central research question: <strong>How do specific aspects of comic metadata (such as issue counts, character popularity, story arcs, team-ups, and power levels) influence the likelihood of a Marvel character or storyline achieving commercial and critical success when adapted into the MCU?</strong> Ultimately, our goal is to provide insight into how future adaptations might remain faithful to the core of their source material while also creating high-quality films and series that appeal to both longtime fans and new audiences.</p>
+<p>The Marvel Cinematic Universe (MCU) is a superhero movie franchise that exploded onto the scene in 2008 with the premiere of Iron Man and has become one of the most successful film franchises in history, grossing over $31 billion worldwide since its launch onto the silver screen. It adapted comic books into mainstream cinematic events and brought once-niche characters into the cultural spotlight. However, despite commercial success, many longtime fans have begun to question if the magic and creative spark that defined the franchise’s earlier phases has faded. As lifelong readers of Marvel comics and avid viewers of every movie and series we could get our hands on, we have noticed a growing disconnect between the storytelling that made the comics compelling and the recent direction the MCU has taken–particularly as it expands into more obscure characters and increasingly fragmented narratives.</p>
+<p>The origin story of this project began with a simple but persistent question: why do some characters and storylines translate seamlessly to the screen while others, despite having rich and beloved source material, fail to resonate? The success of <em>Guardians of the Galaxy (2014)</em>, for instance, seemed unlikely—these were not traditionally popular comic characters. Nevertheless, the films captured the heart of their story and became massive critical and commercial successes. By contrast, characters like Taskmaster or the Eternals—both of whom come from decades of nuanced comic history—were introduced with far less resonance. While both films had solid box office returns (Eternals grossed over $400 million), they received mixed critical reception and lacked the cultural staying power of earlier MCU entries.</p>
+<p>This contrast raises a deeper question: what separates a successful adaptation from one that merely looks the part? One powerful example is Captain America: The Winter Soldier (2014), which not only delivered on the excitement and emotional weight of the comic arc but also functioned as a tight, character-focused political thriller. Its Rotten Tomatoes score (90% critic, 92% audience) and long-term fan acclaim suggest that it succeeded not just in spectacle, but in storytelling. Moments like that, where source material is respected and elevated, are increasingly rare.</p>
+<p>While that observation may seem subjective, the data backs it up. As shown in Figure 1, each dot represents a single MCU or television release between 2008 and 2025, plotted by its Rotten Tomatoes Audience Score. The earlier Marvel phases (2008-2018) maintained a fairly consistent audience reception, often in the 80-90% range. Since 2019, however, scores have become far more variable–still reaching impressive highs, but also dipping sharply into the 30s and 40s. This trend backs up what many longtime fans (ourselves included) have been feeling: the MCU is no longer as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off.</p>
+<p>The fitted trend line in Figure 1 also suggests a gradual downward shift in audience reception over time. Coupled with the surge in the volume of media released each year, this widening spread in scores highlights the growing unpredictability in how Marvel stories are received. It is this shift– from consistent audience approval to greater variability and declining averages– that motivates our investigation into what elements of the original comics may influence adaptation success.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure 1: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."><img src="capstone_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672" alt="Figure 1: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."></a></p>
+<figcaption>Figure 1: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Our aim is not to predict box office hits or speculate on the next breakout character. Instead, we are interested in understanding the comic-specific storytelling elements—such as character development, power dynamics, team interactions, and narrative structure—that contribute to the success of adaptations. This desire leads to our central research question: <strong>How do specific aspects of comic metadata (such as issue counts, character popularity, story arcs, team-ups, and power levels) influence the likelihood of a Marvel character or storyline achieving critical and audience reception success when adapted into the MCU?</strong> Ultimately, our goal is to provide insight into how future adaptations might remain faithful to the core of their source material while also creating high-quality films and series that appeal to both longtime fans and new audiences.</p>
 </section>
 <section id="background" class="level1">
 <h1>Background</h1>
+<p>The field of predictive modeling in entertainment analytics has grown substantially over the past decade. Researchers have developed increasingly sophisticated methods to forecast a film’s reception based on a variety of features. However, most of this work focuses on post-production or late-stage development. Our project seeks to address a gap in that research: how early-stage, source-material characteristics might inform adaptation success—before casting, production, or release.</p>
 <section id="a-proven-fieldwith-one-big-blind-spot" class="level2">
 <h2 class="anchored" data-anchor-id="a-proven-fieldwith-one-big-blind-spot">A Proven Field—With One Big Blind Spot</h2>
-<p>Over the past decade, researchers have gotten really good at predicting how a movie will perform. Using machine learning and statistical modeling, dozens of studies have tackled the challenge of forecasting box office revenue, critical scores, and audience reception. A major survey by Ahmad et al.&nbsp;looked at 36 of these studies and found that most use some combination of regression and classification methods—especially multiple linear regression and support vector machines (SVMs)—to make their predictions (Ahmad et al.&nbsp;249). Across these models, the most common features tend to include cast composition, the number of theaters, and genre. Standard evaluation metrics like root mean square error (RMSE) and mean absolute percentage error (MAPE) help measure just how close their predictions come to reality.</p>
-<p>And they are not just close—they’re often impressively accurate. More recent research has leaned into ensemble methods and hybrid models. Random forests, boosting algorithms, even LSTM networks for sentiment analysis are being combined to squeeze every last ounce of insight out of the data. One model hit over 91% accuracy by combining ensemble methods with audience sentiment (Ruwantha &amp; Kumara 142). Another used XGBoost to predict <em>Rotten Tomatoes</em> critic scores with a mean absolute error of around 8.6 (Smith 1). These tools work well—particularly when the goal is to predict how a completed movie will be received once it is already in theaters or on a streaming platform.</p>
-<p>But here’s the thing: almost none of this research looks <strong>before</strong> a movie gets made. These models are great at predicting the success of a film that already exists. What they do <em>not</em> do is help decision-makers figure out what to adapt in the first place. There are hundreds of characters in the Marvel universe. How do you choose which ones are worth building an entire movie or show around? That’s a completely different kind of question—and one that the current research does not really answer.</p>
+<p>Over the past decade, researchers have become highly skilled at predicting how a movie will perform. Using machine learning and statistical modeling, dozens of studies have tackled the challenge of forecasting box office revenue, critical scores, and audience reception. A significant literature survey by Ahmad et al.&nbsp;looked at 36 of these studies and found that most use some combination of regression and classification methods—especially multiple linear regression and support vector machines (SVMs)—to make their predictions <a href="Ahmad%20et%20al.%20249"><span class="citation" data-cites="ahmad2020">Ahmad et al. (<span>2020</span>)</span></a>. Across these models, the most common features tend to include cast composition, the number of theaters, and genre. Standard evaluation metrics like root mean square error (RMSE) and mean absolute percentage error (MAPE) help measure just how close their predictions come to reality.</p>
+<p>Moreover, they are not just close—they are often impressively accurate. More recent research has leaned into ensemble methods and hybrid models. For example, Ruwantha and Kumara (2020) achieved over 91% accuracy in predicting whether a movie would be a commercial success or failure by combining ensemble methods with audience sentiment. Similarly, Smith (2023) used XGBoost to predict <em>Rotten Tomatoes</em> critic scores from movie reviews, achieving a mean absolute error (MAE) of around 8.6–meaning that, on average, the predicted score was within 8.6 percentage points of the actual critic score. Other studies explored the use of Random forests, boosting algorithms, and even LSTM networks for sentiment analysis on review text or trailer comments (Ahmad et al., 2020; Gupta et al., 2023; Bristi et al., 2019). These approaches work particularly well when the goal is to predict how a completed film will perform—whether in terms of box office revenue, critic ratings, or audience reception—once it is already in theaters or available on streaming platforms.</p>
+<p>However, here is the thing: almost none of this research looks at <strong>before</strong> a movie gets made— it looks at features such as runtime, cinematography choices, and audience sentiment from trailers. These models are great at predicting the success of a film that already exists. What they do <em>not</em> do is help decision-makers figure out what to adapt in the first place. There are hundreds of characters in the Marvel universe. How do writers and directors choose which ones are worth building an entire movie or show around? That is an entirely different kind of question—and one that the current research does not answer.</p>
 <section id="what-the-research-misses" class="level3">
 <h3 class="anchored" data-anchor-id="what-the-research-misses">What the Research Misses</h3>
-<p>Some studies have shown you can predict <em>IMDb</em> ratings with decent consistency—around 70%—without needing to know the director or lead actor (Bristi et al.&nbsp;338). That’s interesting, because it suggests that audience response might have more to do with story-level features than individual star power. But even then, those models do not reach into the source material. They focus on traits of the movie itself: runtime, genre, release month. None of them attempt to predict which characters or storylines are most likely to succeed <em>if</em> they were adapted from the comics.</p>
-<p>That’s where our project comes in. We are interested in moving <em>upstream</em>—before production, before casting, before anything gets greenlit. We want to know: <strong>What can we learn from the comics themselves that might help predict adaptation success?</strong> That means going beyond surface-level traits and digging into character dynamics, story arcs, power types, team memberships, and more.</p>
-<p>With so much money and attention invested in superhero adaptations—and with the MCU already deep into its second tier of character IP—it feels like a huge missed opportunity not to use the data that already exists. Marvel has decades of storytelling to draw from, but so far there is no real framework for using comic metadata to guide adaptation decisions.</p>
+<p>Studies have shown that we can predict <em>IMDb</em> ratings with decent consistency—around 70%—without needing to know the director or lead actor (Bristi et al.&nbsp;338). That is interesting, because it suggests that audience response might have more to do with story-level features than individual star power. Nevertheless, even then, those models do not reach into the source material. They focus on traits of the movie itself: runtime, genre, and release month. None of them attempt to predict which characters or storylines are most likely to succeed <em>if</em> they were adapted from the comics.</p>
+<p>That is where our project comes in. We are interested in moving <em>upstream</em>—before production, before casting, before anything gets greenlit. We want to know: What can we learn from the comics themselves that might help predict adaptation success? That means going beyond surface-level traits and digging into character dynamics, story arcs, power types, team memberships, and more.</p>
+<p>With so much money and attention invested in superhero adaptations—and with the MCU already deep into its second tier of character IP—it feels like a huge missed opportunity not to use the data that already exists. Marvel has decades of storytelling to draw from, but so far, there is no fundamental framework for using comic metadata to guide adaptation decisions.</p>
 </section>
 <section id="medium-matters-why-comics-and-movies-work-differently" class="level3">
 <h3 class="anchored" data-anchor-id="medium-matters-why-comics-and-movies-work-differently">Medium Matters: Why Comics and Movies Work Differently</h3>
-<p>Part of the challenge here is that comics and film are completely different storytelling formats. In comics, there is no budget for visual effects. Stories can stretch across hundreds of issues. Characters can evolve slowly, shift across moral spectrums, die, come back, join teams, leave them, and get reinvented over time. Themes can coexist at multiple levels—personal drama, political allegory, cosmic-scale conflict—all on the same page.</p>
-<p>Movies and TV shows, on the other hand, are limited by runtime, budget, and audience attention. You cannot fit a decade of emotional development into a two-hour runtime without losing something. Visuals cost money. Relationships and arcs need to be compressed. And you need to make stories that work for both longtime fans and people walking in cold.</p>
-<p>That compression often leads to misfires. Studios tend to prioritize flashy powers, iconic costumes, or names that sound cinematic, but overlook the deeper character work that made those heroes resonate in the first place. This is how you end up with adaptations that <em>look</em> right—but <em>feel</em> wrong. Characters might have the same names and abilities, but they lack the emotional weight or narrative grounding that the comics spent years building.</p>
+<p>Part of the challenge here is that comics and film are entirely different storytelling formats. In comics, there is no budget for visual effects. Stories can stretch across hundreds of issues. Characters can evolve slowly, shift across moral spectrums, die, come back, join teams, leave them, and get reinvented over time. Themes can coexist at multiple levels—personal drama, political allegory, cosmic-scale conflict—all on the same page.</p>
+<p>Movies and TV shows, on the other hand, are limited by runtime, budget, and varying levels of audience knowledge. Studios cannot fit a decade of emotional development into a two-hour runtime without losing something. Visuals cost money. Relationships and arcs need to be compressed. Furthermore, the stories need to be presented in a way that meets the audience where they are in ways that work for both longtime fans and people walking in cold.</p>
+<p>That compression often leads to misfires. Studios tend to prioritize flashy powers, iconic costumes, or names that sound cinematic, but overlook the deeper character work that made those heroes resonate in the first place. This disconnect is how we end up with adaptations that <em>look</em> right—but <em>feel</em> wrong. Characters might have the same names and abilities, but they lack the emotional weight or narrative grounding that the comics spent years building.</p>
 </section>
 <section id="when-it-worksand-why" class="level3">
 <h3 class="anchored" data-anchor-id="when-it-worksand-why">When It Works—and Why</h3>
-<p>And yet, some MCU adaptations have absolutely nailed it. <em>Iron Man</em> grounded Tony Stark’s comic history in a powerful story about technology, guilt, and growth. <em>Thor</em> leaned into its mythological family drama while making it emotionally accessible. <em>Captain America: The Winter Soldier</em> took Cold War paranoia and turned it into a compelling political thriller with character at its core.</p>
+<p>Nevertheless, some MCU adaptations have nailed it. <em>Iron Man</em> grounded Tony Stark’s comic history in a powerful story about technology, guilt, and growth. <em>Thor</em> leaned into its mythological family drama while making it emotionally accessible. <em>Captain America: The Winter Soldier</em> took Cold War paranoia and turned it into a compelling political thriller with character at its core.</p>
 <p>These movies worked because they understood the structure and heart of the comics—not just their surface features. They translated the story faithfully but thoughtfully into a different medium. That is the kind of success we are trying to model.</p>
-</section>
-<section id="what-we-aim-to-do" class="level3">
-<h3 class="anchored" data-anchor-id="what-we-aim-to-do">What We Aim to Do</h3>
-<p>Our goal is to take the storytelling elements that comics handle so well—things like character relationships, power progression, team dynamics, and theme recurrence—and analyze them systematically. Which of these traits show up again and again in successful adaptations? Which ones seem harder to translate? And which might be warning signs that a character is better left on the page?</p>
-<p>By building a structured, data-driven framework for answering these questions, we hope to shed light on why some characters become breakout hits while others fizzle out. More importantly, we want to offer studios and fans alike a roadmap for what makes a strong, faithful, and successful adaptation—one that respects the source material and resonates on screen.</p>
-</section>
-</section>
-</section>
-<section id="methods" class="level1">
-<h1>Methods</h1>
-<section id="data-collection" class="level2">
-<h2 class="anchored" data-anchor-id="data-collection">Data Collection</h2>
-<p>To gather data from our three primary sources, we developed a set of custom web scraping tools and performed minimal use of structured APIs.</p>
-<section id="cinematic-ratings-rotten-tomatoes" class="level3">
-<h3 class="anchored" data-anchor-id="cinematic-ratings-rotten-tomatoes">Cinematic Ratings (Rotten Tomatoes):</h3>
-<p>We developed a scraper using Python’s BeautifulSoup and requests libraries to extract critic and audience scores from Rotten Tomatoes. The tool processed a curated list of MCU movies and shows, formatting each title for URL compatibility and accounting for exceptions such as punctuation or naming variations (e.g., Spider-Man: Homecoming or The Avengers). The scraper navigated to each title’s page and extracted three key metrics: the Tomatometer (critic score), the Popcornmeter (audience score), and the Verified Audience Score. These were stored in a structured CSV with columns for title, type (movie or TV show), release_year, critic_score, audience_score, and verified_score.</p>
-</section>
-<section id="comic-metadata-marvel.com" class="level3">
-<h3 class="anchored" data-anchor-id="comic-metadata-marvel.com">Comic Metadata (Marvel.com):</h3>
-<p>To retrieve information about comic issues, we first scraped all comic series listed on Marvel.com. From there, we navigated into each series’ archive and collected issue-level information, including title, release_year, description, and characters_appearing. Due to inconsistent formatting across issue pages, we relied heavily on keyword-based classification to derive structured fields such as team-ups, themes, threat levels, and major events. These derived attributes were created using curated keyword lists and regular expressions and were stored in a table called comics, which included both raw and engineered columns.</p>
-</section>
-<section id="character-metadata-marvel.com-and-kaggle" class="level3">
-<h3 class="anchored" data-anchor-id="character-metadata-marvel.com-and-kaggle">Character Metadata (Marvel.com and Kaggle):</h3>
-<p>We initially relied on a Kaggle dataset provided by Professor Jed Rembold, which contained basic character information including name, powers, and gender. However, as we explored the comics data, we found that many characters were missing. To improve coverage, we scraped the Marvel.com character archive, visiting individual character pages to extract fields such as civilian_name, aliases, power_descriptions, and group_affiliations. These fields were not always standardized, so we used pattern matching and keyword detection to identify powers and team memberships. All characters were assigned a unique ID and stored in the characters table.</p>
-</section>
-<section id="imdb-adaptation-links" class="level3">
-<h3 class="anchored" data-anchor-id="imdb-adaptation-links">IMDb Adaptation Links:</h3>
-<p>To determine which comic characters had appeared in the MCU, we scraped full cast lists from IMDb pages for every MCU movie and television show. We matched scraped character names to our master character list and created a binary flag (in_movie) for each match. This indicator was essential for tying comic traits (e.g., popularity, powers, story arc depth) to real-world adaptation outcomes.</p>
-</section>
-</section>
-<section id="analysis" class="level2">
-<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
-<p>Because analysis is still in progress, this section is incomplete.</p>
-<section id="comics" class="level3">
-<h3 class="anchored" data-anchor-id="comics">Comics</h3>
-<p>To begin analysis of the comics,</p>
 </section>
 </section>
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
-<section id="sources" class="level2">
-<h2 class="anchored" data-anchor-id="sources">Sources</h2>
-<p>The data for this project originates from three primary sources: the official Marvel website (Marvel.com), Rotten Tomatoes, and IMDb. While several additional sources were considered during the early stages of the project, they were ultimately dismissed due to inconsistent formatting, limited access, or unreliable metadata. These decisions are discussed in more detail in the Limitations section.</p>
-<p>Because our objective is to identify which Marvel characters and storylines are most likely to succeed when adapted into the Marvel Cinematic Universe (MCU), we first had to define what “success” means. Initially, we considered using box office revenue as a proxy. However, this metric is not available for Marvel TV shows, especially those hosted on streaming platforms like Disney+. As a result, we pivoted to using aggregated ratings from Rotten Tomatoes, which measure how well both critics and general audiences received a particular movie or show. Ratings allow for comparisons across both film and television and offer a more complete picture of how adaptations are received.</p>
+<p>Our project draws on a combination of original web-scraped datasets and curated external resources, each chosen to capture a different dimension of the Marvel-to-MCU adaptation pipeline. Together, these sources provide the foundation for both our exploratory analysis and our modeling efforts. The following sections outline each source in detail, describing what information it contains and why it was essential for answering our research question. ## Sources The data for this project originates from three primary sources: the official Marvel website (Marvel.com), Rotten Tomatoes, and IMDb. While several additional sources were considered, such as Marvel’s official API and Kaggle, during the early stages of the project, they were ultimately dismissed due to inconsistent formatting, limited access, or unreliable metadata.</p>
+<p>Because our objective is to identify which Marvel characters and storylines are most likely to succeed when adapted into the Marvel Cinematic Universe (MCU), we first had to define what “success” means. Initially, we considered using box office revenue as a proxy. However, in the era of streaming, box office earnings no longer carry the same weight they once did—particularly for franchises like the MCU, where major releases are increasingly supplemented by Disney+ series and direct-to-streaming projects. This shift makes box office earnings an incomplete and sometimes misleading measure of success. Box-office earnings are not available for Marvel TV shows, especially those hosted on streaming platforms like Disney+. As a result, we pivoted to using aggregated ratings from Rotten Tomatoes, which measure how well both critics and general audiences received a particular movie or show. Ratings allow for comparisons across both film and television and offer a more complete picture of how adaptations are received.</p>
 <p>Rotten Tomatoes was selected as our primary source for critical and audience response data. It offers public access to both critic and audience scores, and it includes a verified audience score that draws only from users who purchased tickets. While all review aggregators are subject to response bias (e.g., users are more likely to leave reviews when they are extremely satisfied or dissatisfied), Rotten Tomatoes mitigates this through its aggregation methodology and verification features. Its inclusion of both theatrical and streaming content, combined with the availability of consistent data for all MCU productions, made it an ideal fit for this project.</p>
 <p>Marvel.com served as the primary source for comic and character data. As the official home of Marvel’s online catalog, the site includes comprehensive information about characters, issues, story arcs, powers, and team affiliations. Although Marvel does offer a public developer API, it has not been actively maintained since 2014. Many endpoints were broken or returned incomplete or incorrect data, forcing us to shift to a custom web scraping approach. While Marvel.com contains additional data we were unable to capture due to time and software constraints, we focused on the characters and comics components as they directly relate to our project’s central research question.</p>
 <p>IMDb was used to identify which comic characters had already appeared in the MCU. We scraped cast and character listings for every MCU movie and TV show to create an in_movie flag, linking comic metadata to real-world adaptation outcomes. This allowed us to connect character popularity and storyline complexity with on-screen representation—an essential component of our success metric.</p>
-<p>While our project uses publicly available data, we considered several ethical concerns. First, character metadata may reflect historical biases in comic publishing—e.g., underrepresentation of women and BIPOC characters—which could skew model outputs. We chose not to use race or gender as predictors in our adaptation models to avoid reinforcing such biases.</p>
-<p>Additionally, we excluded fan-edited wikis or Reddit data due to concerns about data quality, consent, and citation. Only official or structured third-party sources (IMDb, Marvel.com, Rotten Tomatoes) were used.</p>
-</section>
 <section id="organization" class="level2">
 <h2 class="anchored" data-anchor-id="organization">Organization</h2>
+<p>Before diving into the specific tables and relationships, it is important to understand how the project’s data sources fit together. Our dataset integrates multiple streams of information—comic metadata, character details, MCU adaptation data, and audience/critic reception—into a unified relational structure. This organization ensures that raw scraped fields and engineered features can be linked seamlessly across sources, supporting both descriptive analysis and predictive modeling. The Entity Relationship Diagram (ERD) below illustrates how these components connect in our database.</p>
 <section id="entity-relationship-diagram" class="level3">
 <h3 class="anchored" data-anchor-id="entity-relationship-diagram">Entity Relationship Diagram</h3>
-<p>To support the complexity of our classification and prediction tasks, we designed a comprehensive relational database schema that captures character traits, comic metadata, adaptation linkages, and auxiliary attributes across over 20 interrelated tables. The schema integrates many-to-many bridge tables and normalized dimensions to preserve data integrity and analytic flexibility. Below, we provide an interactive entity-relationship diagram (ERD) that visualizes the structure of our database, allowing readers to explore table-level details dynamically.</p>
-<iframe src="Marvel_ERD.html" width="100%" height="800px" style="border: none;">
+<p>To support the complexity of our classification and prediction tasks, we designed a comprehensive relational database schema that captures character traits, comic metadata, adaptation linkages, and auxiliary attributes across over 20 interrelated tables, with a final count of 25. The schema integrates many-to-many bridge tables and normalized dimensions to preserve data integrity and analytic flexibility. Below, we provide an interactive entity-relationship diagram (ERD) that visualizes the structure of our database, allowing readers to explore table-level details dynamically.</p>
+<iframe class="wider-iframe" src="Marvel_ERD.html" height="800px" style="border:none;">
 </iframe>
 </section>
 </section>
 <section id="dictionaries" class="level2">
 <h2 class="anchored" data-anchor-id="dictionaries">Dictionaries</h2>
 <p>To provide further clarity on the structure and contents of our database, we include brief data dictionaries for a subset of central tables that play a critical role in our analysis—particularly those related to characters, comics, and MCU adaptations. These summaries define key variables and their relationships, supporting the reader’s understanding of the modeling pipeline. For a complete listing of auxiliary tables, including bridge and lookup dimensions (e.g., comic_themes, hero_to_alias, and locations), see the extended documentation in the Appendix.</p>
-<p>Dictionaries coming soon</p>
 <div class="accordion">
 <details>
 <summary>
@@ -711,75 +698,183 @@ Date the media was first released to the public.
 </div>
 </section>
 </section>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<p>Our methodological approach combines web scraping, data engineering, and machine learning. We gathered structured data from official and semi-official sources, created a relational schema to support analysis, and built models to identify which comic features correlate with successful MCU adaptations.</p>
+<section id="data-collection" class="level2">
+<h2 class="anchored" data-anchor-id="data-collection">Data Collection</h2>
+<p>Our project relied on building a unified dataset from our three sources—Rotten Tomatoes, Marvel.com, and IMDb—each with its own challenges and extraction strategies. Because no single source contained all of the information we needed in a clean, structured format, we combined multiple data acquisition methods, including custom Python-based web scrapers, point-and-click scraping tools, and selective use of existing datasets. In each case, we evaluated whether available APIs were usable; while Rotten Tomatoes provided no public API, Marvel’s certified API was tested but ultimately discarded due to severe data quality issues such as truncated text, incorrect field assignments, and missing metadata. As a result, we opted for targeted manual scraping approaches tailored to each platform’s structure, coupled with custom data cleaning, pattern matching, and keyword classification routines to transform raw web data into analysis-ready formats.</p>
+<section id="cinematic-ratings-rotten-tomatoes" class="level3">
+<h3 class="anchored" data-anchor-id="cinematic-ratings-rotten-tomatoes">Cinematic Ratings (Rotten Tomatoes):</h3>
+<p>We developed a scraper using Python’s BeautifulSoup and requests libraries to extract critic and audience scores from Rotten Tomatoes. The tool processed a curated list of MCU movies and shows, formatting each title for URL compatibility and accounting for exceptions such as punctuation or naming variations (e.g., Spider-Man: Homecoming or The Avengers). The scraper navigated to each title’s page and extracted three key metrics: the Tomatometer (critic score) and the Popcornmeter (audience score). These were stored in a structured CSV with columns for title, type (movie or TV show), release year, critic score, and audience score.</p>
+</section>
+<section id="comic-metadata-marvel.com" class="level3">
+<h3 class="anchored" data-anchor-id="comic-metadata-marvel.com">Comic Metadata (Marvel.com):</h3>
+<p>To retrieve information about comic issues, we began by scraping the complete list of comic series available on Marvel.com. From there, we navigated into each series archive to collect issue-level data, including title, release year, description, and appearing characters. While Marvel does offer a certified API that theoretically provides this information, our early tests revealed significant quality problems—such as descriptions appearing in the title field, truncated text, incorrect issue numbers, and mismatched release dates. Because of these inconsistencies, we opted to build a custom scraper rather than rely on the API.</p>
+<p>Scraping the issue pages introduced its own challenges, as the HTML structure and labeling varied widely—not just across series, but sometimes from issue to issue. This variability required the scraper to adapt to different page layouts and naming conventions to ensure complete capture of available metadata. The resulting raw fields were stored exactly as they appeared on the site, preserving the unaltered source data for downstream processing.</p>
+</section>
+<section id="character-metadata-marvel.com-and-kaggle" class="level3">
+<h3 class="anchored" data-anchor-id="character-metadata-marvel.com-and-kaggle">Character Metadata (Marvel.com and Kaggle):</h3>
+<p>We initially relied on a Kaggle dataset provided by Professor Jed Rembold, which contained basic character information such as name, powers, and gender. However, the dataset included only about 750 characters—and not all of them were Marvel. After filtering out non-Marvel entries, we were left with just 387 characters, far short of the thousands that exist in the Marvel universe. This limited coverage meant that many characters present in our comics data had no corresponding entry in the Kaggle set, making it unsuitable as our primary source.</p>
+<p>To address this, we shifted to scraping the Marvel.com character archive directly, due in part to similar API issues we had encountered with the comics data. While Marvel’s certified API exists, it suffered from inconsistent and incomplete data—such as missing fields, truncated descriptions, and occasional mismatches (e.g., a character’s civilian name being replaced with a location or incorrect alignment). Moreover, the API did not offer as much metadata as we needed for our analysis, omitting certain alias information, detailed power descriptions, and complete group affiliation histories.</p>
+<p>Our scraper navigated the paginated Marvel.com character index and visited each individual character page to extract key fields: civilian name, aliases, detailed power descriptions, and group affiliations. The information was stored exactly as it appeared on the site, preserving the unaltered source text for downstream processing.</p>
+</section>
+<section id="imdb-adaptation-links" class="level3">
+<h3 class="anchored" data-anchor-id="imdb-adaptation-links">IMDb Adaptation Links:</h3>
+<p>To determine which comic characters had appeared in the MCU, we scraped complete cast lists from IMDb pages for every MCU movie and television show. Unlike Marvel.com—which has an inconsistent HTML structure and labeling—IMDb uses a standardized page format, making it possible to extract data more efficiently. For this task, we used Webscraper.io, a point-and-click scraping tool that allowed us to define a structured site map for pulling all actor and character names without having to write a custom parser from scratch.</p>
+<p>The tool navigated through each production’s cast list, collecting every credited character name. The extracted names were stored exactly as they appeared on IMDb, preserving the original formatting for later processing.</p>
+</section>
+</section>
+<section id="feature-engineering" class="level2">
+<h2 class="anchored" data-anchor-id="feature-engineering">Feature Engineering</h2>
+<p>Once the raw data was collected, we undertook a series of transformations and enrichment steps to make it analysis-ready. Across all sources, we performed both targeted data cleaning and structured feature creation, ensuring that raw scraped fields were preserved while generating new variables for modeling.</p>
+<section id="rotten-tomatoes" class="level3">
+<h3 class="anchored" data-anchor-id="rotten-tomatoes">Rotten Tomatoes</h3>
+<p>For the cinematic ratings data from Rotten Tomatoes, title strings were normalized to ensure URL compatibility, and known exceptions such as punctuation or naming variations were handled to maintain consistency across sources.</p>
+</section>
+<section id="comic-meta-data" class="level3">
+<h3 class="anchored" data-anchor-id="comic-meta-data">Comic Meta Data</h3>
+<p>We developed keyword- and regular-expression-based routines to detect boolean features such as team-ups, significant events, recurring themes, and threat levels. For example, detecting a team-up with the X-Men required matching multiple phrasings, including “joins forces with,” “guest-starring,” or “X-Men appearance.” Similar approaches were applied to identify common themes (e.g., “time travel,” “political intrigue”), threat categories (e.g., “cosmic entity,” “street-level”), and major Marvel events (e.g., Civil War, Infinity Gauntlet).</p>
+<p>Threat level classification was initially approached entirely through regex-based keyword matching. We curated separate lists of phrases and terms that we believed could indicate different categories of threat, including local criminal threats (e.g., “gang leader,” “organized crime”), city-level threats (e.g., “terrorist attack,” “mass destruction”), national or global threats (e.g., “world domination,” “international crisis”), and cosmic or interdimensional threats (e.g., “galactic invasion,” “alien armada,” “universal annihilation”). While this worked well in clear-cut cases—such as spotting the term “Galactus” to flag a cosmic-level threat—it quickly became clear that the diversity of phrasing in Marvel’s descriptions made consistent classification difficult.</p>
+<p>Recognizing these limitations, we shifted to a semi-automated “threat helper” approach. We built a Python tool that combined our curated threat-level keyword lists with an AI-assisted workflow. The script ingested each comic’s description, scanned for potential threat indicators from our curated lists, and then generated a suggested classification into one of our predefined categories. These suggestions were presented for human review, allowing us to quickly confirm correct classifications or make adjustments when the AI’s suggestion missed context or nuance. This human-in-the-loop process dramatically expanded our coverage, increasing classified comics from roughly 500 under the pure-regex approach to over 11,000. While this still fell short of full coverage, it represented a substantial improvement.</p>
+</section>
+<section id="character-meta-data" class="level3">
+<h3 class="anchored" data-anchor-id="character-meta-data">Character Meta Data</h3>
+<p>Like the comics data, character metadata from Marvel.com was inconsistently formatted, with powers sometimes listed as a single sentence (“Can control shadows”) or as a bulleted list, and group affiliations sometimes buried in biography text rather than in labeled sections.</p>
+<p>To standardize this, we developed pattern-matching routines and keyword detection methods:</p>
+<p>Powers: Matched terms from a curated power dictionary (e.g., “telepathy,” “superhuman strength”) across both list and free-text descriptions.</p>
+<p>Group affiliations: Detected known team names (e.g., “Avengers,” “X-Men,” “Guardians of the Galaxy”) regardless of case or phrasing, including variations like “member of the Avengers” or “joined the Avengers.”</p>
+<p>This process yielded 1,868 unique Marvel characters—nearly five times the coverage of the filtered Kaggle dataset—each assigned a unique ID and stored in the characters table. Both the raw scraped fields (exact text from Marvel.com) and our standardized, structured fields (boolean indicators for powers, team memberships, etc.) were preserved, ensuring we could analyze both the original descriptions and the engineered traits in downstream modeling.</p>
+<p>We also experimented with regex-based extraction for additional character-level metadata, including nationality, sex, and other demographic attributes. For instance, we attempted to identify nationality by scanning for explicit mentions like “born in Wakanda,” “Canadian mutant,” or “Russian spy” within character biographies, and to determine sex by detecting gendered pronouns or descriptors such as “he/him,” “she/her,” “female hero,” or “male villain.” However, these approaches proved unreliable and were discarded to avoid bias.</p>
+</section>
+<section id="imdb-data" class="level3">
+<h3 class="anchored" data-anchor-id="imdb-data">IMDb Data</h3>
+<p>While the consistent IMDb structure made scraping straightforward, the extracted data required cleaning before use. Characters with dual identities or aliases were often listed as a single string separated by a slash (e.g., “Steve Rogers/Captain America”). The scraping process sometimes splits these into separate cells, treating them as two distinct entries.</p>
+<p>To address this, we post-processed the data by joining the split cells back into a single string before attempting to match them against our master characters table. Once this cleaning was complete, we performed name matching between the IMDb-scraped character list and our Marvel.com-sourced character metadata. Any match was assigned a binary in_movie flag, which became a crucial linking feature for our analysis—allowing us to tie specific comic traits (e.g., popularity, powers, story arc depth) to real-world MCU adaptation outcomes.</p>
+</section>
+<section id="final-standardization" class="level3">
+<h3 class="anchored" data-anchor-id="final-standardization">Final Standardization</h3>
+<p>Throughout all of this, we also performed data cleaning and imputation to standardize the dataset. Boolean fields such as romance, mentor, and cultural significance were imputed as FALSE when missing, and numeric count variables—including number of themes, characters, and power types—were imputed as zero. This conservative imputation ensured that missing values did not artificially inflate the narrative richness or complexity of a comic. Finally, both the raw scraped text and the engineered boolean and numeric indicators were stored in our database, preserving the original source material while enabling structured, reproducible analysis for modeling.</p>
+</section>
+</section>
+<section id="methods-for-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="methods-for-analysis">Methods for Analysis</h2>
+<p>Our analysis framed the problem as a binary classification task: given a comic issue’s metadata, could we predict whether it would be a strong candidate for a successful MCU adaptation? We first defined a success metric for adapted comics by averaging each MCU movie or series’s Rotten Tomatoes critic and audience scores—both converted to a 0–100 scale—to produce a composite “success score.” Issues with a score of 85 or higher were labeled as successful (1), while those below this threshold were labeled as unsuccessful (0). This threshold was chosen to highlight standout titles rather than merely above-average ones. Adaptations missing either critic or audience scores were excluded to avoid introducing bias from incomplete data.</p>
+<p>Because the dataset was highly imbalanced—most comics have never been adapted, and even fewer qualified as successful adaptations—we implemented class-balancing techniques tailored to each modeling approach. For Random Forest, we applied downsampling of the majority class, while for logistic regression, we used upsampling of the minority class to ensure sufficient positive examples during training.</p>
+<p>Feature engineering played a central role in preparing the dataset for modeling. Boolean variables such as romance, mentor, and cultural significance were imputed as FALSE when missing, while numeric count features like the number of themes, characters, and power types were imputed as zero. In addition to raw metadata, engineered features—such as thematic classifications, threat levels, and team affiliations—were incorporated to better capture narrative and structural characteristics.</p>
+<p>We evaluated three modeling strategies, each chosen for a specific reason. First, we trained a Random Forest classifier using the caret package with 5-fold cross-validation. Random Forest was selected as our starting point because it is a strong, general-purpose baseline for tabular data, capable of capturing non-linear relationships and variable interactions without requiring extensive feature scaling. However, while it initially achieved strong performance on the training set, it suffered from overfitting caused in part by leakage from series-level identifiers. Removing these high-leakage features reduced but did not eliminate the problem, and recall for the minority class remained low.</p>
+<p>Next, we implemented a constrained XGBoost model, chosen for its ability to model complex non-linear interactions while offering fine-grained control over regularization to reduce overfitting. Our goal was to see whether a carefully restricted tree-based model could retain predictive strength while avoiding the pitfalls seen in Random Forest. Hyperparameters were set to: max_depth = 2, nrounds = 50, eta = 0.3, gamma = 5, min_child_weight = 10, subsample = 0.7, and colsample_bytree = 0.5. These settings enforced shallow trees, strong regularization, and feature subsampling, which together encouraged generalization and reduced reliance on dataset quirks.</p>
+<p>Finally, we trained a logistic regression model, chosen specifically for its interpretability. While tree-based methods can be opaque, logistic regression’s coefficients directly show the direction and magnitude of each feature’s influence on the outcome, making it ideal for explaining why certain comics ranked highly. All binary predictors were encoded as “pos”/“neg” to ensure consistent treatment, and the model was trained with 5-fold cross-validation using upsampling to balance the classes.</p>
+<p>Because our objectives included both high predictive accuracy and interpretability, we combined the outputs of the constrained XGBoost and logistic regression models into an equal-weight ensemble. For each comic, we averaged the two models’ predicted probabilities of success to create a composite “success potential score.” This ensemble leveraged the non-linear interaction modeling strengths of XGBoost alongside the transparency of logistic regression, producing a ranked list of candidate comics with both a strong empirical basis and an interpretable rationale.</p>
+</section>
+</section>
+<section id="ethical-considerations" class="level1">
+<h1>Ethical Considerations</h1>
+<p>In constructing our dataset, we prioritized sourcing information from official or semi-official platforms—Rotten Tomatoes, Marvel.com, and IMDb—to ensure accuracy, attribution, and compliance with public data access guidelines. We explicitly avoided fan-maintained wikis, Reddit threads, or other user-generated content due to concerns over data reliability, consent, and attribution.</p>
+<p>There was one intentional exception to this rule. The MCU does not maintain an official, comprehensive list of which comics or series contributed to each adaptation, and in many cases, a film draws from multiple sources. To fill this gap, we consulted aggregated fan consensus from reputable online discussions to determine which series had been adapted. These judgments were made only when there was broad agreement across sources and were recorded at the series level (marking the entire series as adapted or not) rather than attempting to classify individual issues. This series-level adaptation indicator served as an auxiliary reference for linking comics to MCU productions.</p>
+<p>Bias in source material was also a central concern. Marvel’s official descriptions often reflect the creative and cultural context in which they were written, which can lead to underrepresentation or stereotyping. This has practical implications: our early regex-based attempts to classify characters by gender or nationality failed in part because Marvel’s text frequently omitted, obscured, or inconsistently presented these details—especially for alien, robotic, or alternate-universe characters. To avoid introducing systematic errors or reinforcing stereotypes, we chose to discard these automated classifications.</p>
+<p>Bias in performance metrics must also be acknowledged. Rotten Tomatoes scores, while useful for comparing adaptations, are shaped by the composition and behavior of the voting population. Online review bombing, demographic skews, and differences in critic vs.&nbsp;audience priorities mean these scores are not purely objective measures of “success,” but rather culturally mediated proxies.</p>
+<p>We also applied content filtering before feature engineering, excluding comics with problematic or outdated material that could bias analysis or introduce inappropriate themes into the dataset.</p>
+<p>Privacy, data ownership, and responsible AI were important in our workflow. Although the AI-assisted “threat helper” only analyzed fictional descriptions, we treated its outputs as suggestions requiring human verification to prevent over-reliance on automated classification. This human-in-the-loop approach reduced the risk of amplifying AI misclassifications and maintained accountability for the final dataset. Additionally, all scraping adhered to public access guidelines, and we avoided proprietary, unpublished, or paywalled content.</p>
+<p>Finally, we defined a clear scope for what qualified as an MCU adaptation: only the 48 feature films and television series officially produced under the MCU banner. While some characters also appear in non-MCU productions (e.g., the X-Men films), these were excluded from adaptation matching, as they were created outside MCU continuity. As a result, our final dataset included 27,520 comics, 1,868 unique Marvel characters, and adaptation metadata for the complete set of MCU productions to date.</p>
+<p>Finally, we recognize that predictive models like ours have real-world influence if used in industry settings. If deployed without context, a “success potential score” could unintentionally reinforce historical preferences in which stories are adapted, limiting diversity in both characters and narrative structures. We therefore frame our models as decision-support tools, intended to complement rather than replace human judgment, with explicit attention to representation, cultural sensitivity, and creative integrity.</p>
+</section>
 <section id="results" class="level1">
 <h1>Results</h1>
+<p>Our results begin with an exploration of key trends in Marvel media reception, providing context for the predictive modeling that follows. By first examining how critic and audience scores have evolved over time, we can see where the MCU has maintained its momentum and where reception has become more volatile. These patterns not only validate the motivation for our project but also highlight the value of looking to the comics themselves for insights. This section moves from broad descriptive trends to targeted model outputs, ultimately showing how specific narrative and structural traits align with adaptation success.</p>
 <section id="exploratory-data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
-<p>To test our intuition that Marvel’s newer content hasn’t been hitting the same highs as its earlier phases, we turned to the data. The figure above visualizes Rotten Tomatoes audience scores for Marvel media over time, from 2008 through 2025.</p>
-<p>The trend is hard to miss: while early titles (roughly 2008–2018) generally received consistently high ratings—frequently in the 80–90% range—recent releases show a dramatic increase in variability. Starting around 2019, the scores become much more volatile, with several sharp dips into the 40s and 50s and far fewer guaranteed crowd-pleasers. Even well-established franchises aren’t immune to this drop in reception.</p>
-<p>This backs up what many longtime fans (ourselves included) have been feeling: the MCU just isn’t as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. At the same time, there’s been a surge in the volume of media released. With more shows and movies hitting screens each year, the range of quality—and audience response—has grown.</p>
-<p>This plot served as a useful gut-check: it confirmed that our hunch wasn’t just nostalgia talking. Something has changed in how Marvel stories are being received, and this volatility in reception helped motivate our deeper dive into the storytelling DNA of the comics themselves. If some source material leads to reliably well-received adaptations, and others don’t, then maybe the data can help us figure out the difference.</p>
+<p>To test our intuition that Marvel’s newer content has not been hitting the same highs as its earlier phases, we turned to the data. Figure 1 visualizes Rotten Tomatoes audience scores for Marvel media over time, from 2008 through 2025.</p>
+<p>The trend is hard to miss: while early titles (roughly 2008–2018) generally received consistently high ratings—frequently in the 80–90% range—recent releases show a dramatic increase in variability. Starting around 2019, the scores became much more volatile, with several sharp dips into the 40s and 50s and far fewer guaranteed crowd-pleasers. Even well-established franchises are not immune to this drop in reception.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure X: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."><img src="capstone_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672" alt="Figure X: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure X: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."><img src="capstone_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672" alt="Figure X: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time."></a></p>
 <figcaption>Figure X: A time series graph showing the Rotten Tomatoes Audience Scores for Marvel Media over Time.</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>These results back up what many longtime fans (ourselves included) have been feeling: the MCU just is not as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. At the same time, there has been a surge in the volume of media released. With more shows and movies hitting screens each year, the range of quality—and audience response—has grown.</p>
+<p>We observed a similar pattern when looking at critic scores, as seen in Figure 3. While critic ratings historically showed less fluctuation than audience ratings, the post-2019 era still reveals a wider spread. Interestingly, the fitted trend line for critic scores slopes slightly upward in recent years, while the audience trend line slopes downward. This divergence suggests that critics and audiences may be responding differently to newer MCU content—a potential signal that what resonates with critics is not always what resonates with general audiences.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure 3: A time series graph showing the Rotten Tomatoes Critic Scores for Marvel Media over Time."><img src="capstone_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672" alt="Figure 3: A time series graph showing the Rotten Tomatoes Critic Scores for Marvel Media over Time."></a></p>
+<figcaption>Figure 3: A time series graph showing the Rotten Tomatoes Critic Scores for Marvel Media over Time.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Together, these patterns confirm that our hunch was not just nostalgia: something has changed in how Marvel stories are being received. This increasing variability and the critic audience split reinforce our motivation to look deeper into the storytelling DNA of the comics themselves. If certain narrative traits in the source material consistently lead to strong reception, identifying them could help explain why some adaptations resonate while others falter.</p>
 </section>
-<section id="model-building" class="level2">
-<h2 class="anchored" data-anchor-id="model-building">Model Building</h2>
-<p>Once we assembled our dataset, the next step was to determine which elements of comic storytelling actually correlate with a successful adaptation. To do this, we treated the task as a binary classification problem: given a comic issue’s metadata, could we predict whether it would be a strong candidate for MCU adaptation?</p>
-<p>We began by defining a success label using the success_score variable—a composite rating derived from Rotten Tomatoes critic and audience scores. Comics tied to MCU content with a score of 85 or higher were labeled 1 (successful); all others were labeled 0. We intentionally set a high bar here: the goal was not to capture everything that was merely “good,” but to flag only the standout stories.</p>
-<p>Before training, we handled missing data conservatively. Boolean indicators such as romance, mentor, and movie_based were treated as FALSE by default; numeric features like num_themes, num_characters, and num_power_types were filled in as 0. This approach helped preserve the structure of the data while minimizing the risk of overestimating character complexity or narrative richness.</p>
-<section id="round-1-random-forests" class="level3">
-<h3 class="anchored" data-anchor-id="round-1-random-forests">Round 1: Random Forests</h3>
-<p>We initially trained a Random Forest classifier using the caret and randomForest packages in R. The model showed striking performance during training—an AUC close to 1.0 and high overall accuracy. But the deeper we looked, the more issues we found.</p>
-<p>Specifically, the model appeared to overfit the training data, likely memorizing correlated artifacts—like series identifiers—instead of learning generalizable narrative signals. One major source of leakage was the series_id column: if every issue in a given series shared the same success label, the model could trivially “learn” to predict success without using any true narrative signals.</p>
-<p>Even after removing series_id, we applied multiple countermeasures, including class balancing via downsampling, 5-fold cross-validation, and feature selection to eliminate redundant predictors. Despite these efforts, the model continued to overfit. It performed exceptionally well on the dominant class (successful comics) but struggled to identify false positives and failed successes, resulting in poor generalization.</p>
-<p>A quick look at the confusion matrix and ROC curve confirmed our suspicion: the model was accurate for the wrong reasons.</p>
+<section id="model-performance-and-insights" class="level2">
+<h2 class="anchored" data-anchor-id="model-performance-and-insights">Model Performance and Insights</h2>
+<p>Following our exploratory analysis, we evaluated how well different modeling approaches could predict whether a comic would be a strong candidate for a successful MCU adaptation.</p>
+<section id="constrained-xgboost" class="level3">
+<h3 class="anchored" data-anchor-id="constrained-xgboost">Constrained XGBoost</h3>
+<p>The constrained XGBoost model emerged as the strongest binary classifier, achieving 89.9% accuracy, AUC of 0.968, Kappa of 0.4473, 89.4% sensitivity, and 92.9% specificity. This configuration effectively balanced high predictive performance with reduced overfitting.</p>
+<p>Figure X shows the top 15 features ranked by “Gain,” XGBoost’s measure of how much each feature contributed to improving the model’s objective function. The most influential predictors were series_issue_count, theme_civil_conflict, num_creators, and page_count, suggesting that both the scope of a comic series and certain narrative conflicts are strong signals for adaptation success. Economic or market-related attributes such as price also ranked highly, hinting at potential links between production investment and adaptation likelihood. Additionally, thematic elements like weapons and supertech, romantic drama, and military conflict appeared in the top 15, reinforcing the importance of recognizable, high-stakes story elements in commercially viable adaptations.</p>
 </section>
-<section id="round-2-xgboost" class="level3">
-<h3 class="anchored" data-anchor-id="round-2-xgboost">Round 2: XGBoost</h3>
-<p>Hoping to find a better balance, we turned to XGBoost, a more sophisticated gradient boosting method. We trained the model on the same set of predictors, with class balancing and regularization in place.</p>
-<p>While XGBoost slightly improved recall for the minority class (success_label == 0) under upsampling, the class imbalance remained a significant challenge. While precision remained high, recall for the unsuccessful class stayed low, and interpretability took a hit due to the model’s complexity.</p>
-<p>ADD MORE HERE</p>
+<section id="logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-regression">Logistic Regression</h3>
+<p>While slightly less accurate (81.2% accuracy, AUC of 0.898, 96.5% precision, 71.0% recall, Kappa of 0.425), logistic regression provided far greater interpretability. Coefficients revealed which traits were positively or negatively associated with adaptation success, allowing us to directly connect model outputs to storytelling elements.</p>
+<p>As shown in Figure Y, the top coefficients by absolute value included theme_scientific_ethics, theme_civil_conflict, and threat_social_threat_uprising, indicating that moral dilemmas, internal societal conflicts, and large-scale uprisings are strongly tied to positive reception. Other notable features included theme_faith_and_religion, theme_coming_of_age, and theme_hero_vs_clone_doppelganger, suggesting that personal growth arcs and identity-based conflicts resonate with audiences when adapted.</p>
 </section>
-<section id="round-3-logistic-regression" class="level3">
-<h3 class="anchored" data-anchor-id="round-3-logistic-regression">Round 3: Logistic Regression</h3>
-<p>Ultimately, we landed on a logistic regression model. Before fitting the model, we ensured that binary factors were encoded as pos/neg and applied 5-fold cross-validation with upsampling to counteract the imbalance in success labels. While it didn’t dazzle with perfect accuracy, it offered several clear advantages:</p>
-<p>Better class balance: It recognized both successful and unsuccessful comics more fairly.</p>
-<p>More interpretable coefficients: We could identify which features actually mattered (e.g., num_themes, mentor, origin_story).</p>
-<p>Fewer red flags: No sign of memorization or artifact-based prediction.</p>
-<p>In terms of metrics, the final model reached:</p>
-<ul>
-<li><p>Accuracy: 81.2%</p></li>
-<li><p>Precision: 96.5%</p></li>
-<li><p>Recall: 71.0%</p></li>
-<li><p>AUC: 0.898</p></li>
-<li><p>Kappa: 0.425</p></li>
-</ul>
-<p>The ROC curve looked promising—stable, clean, and free of the extreme curvature that often signals overfitting and the Kappa statistic (κ = 0.425) indicates moderate agreement between predicted and actual labels after accounting for chance agreement—an important validation that the model wasn’t simply riding the dominant class (as earlier models had done). While not perfect, this level of agreement reinforces that the model captures meaningful patterns in the data without overfitting.</p>
+<section id="consensus-feature-importance" class="level3">
+<h3 class="anchored" data-anchor-id="consensus-feature-importance">Consensus Feature Importance</h3>
+<p>To combine predictive strength with interpretability, we averaged the probability outputs from both models to create a composite “success potential score.” Figure Z shows the consensus feature importance across both models. Traits like theme_cosmic_rivalries_power_struggles, theme_civil_conflict, and threat_national_emergency consistently ranked near the top, pointing to a shared recognition across models that large-scale stakes and high-intensity conflict drive adaptation success. Elements such as theme_infiltration_and_deception, theme_mystery_and_investigation, and theme_weapons_and_supertech also stood out, reflecting the enduring appeal of espionage, detective-style narratives, and advanced technology in the MCU formula.</p>
+<p>By combining model outputs and aligning them with top features from each, we produced not just a ranked list of comics with the highest adaptation potential, but also a clear thematic and structural profile of what “success” tends to look like in the MCU context.</p>
 </section>
 </section>
-<section id="the-output" class="level2">
-<h2 class="anchored" data-anchor-id="the-output">The Output</h2>
-<p>Although tree-based models often dominate performance benchmarks, in this case, they proved too powerful for their own good. Random Forest and XGBoost were easily distracted by artifacts in the data and susceptible to subtle forms of leakage. Logistic regression, by contrast, struck the right balance between predictive power and explanatory value.</p>
-<p>More importantly, it helped us isolate actual narrative signals—traits that future adaptations could watch for, rather than shortcuts tied to past decisions. With this model in hand, we’re finally able to ask the question that started this whole project: what makes a comic story truly worth adapting?</p>
+<section id="final-model-recommendation" class="level2">
+<h2 class="anchored" data-anchor-id="final-model-recommendation">Final Model Recommendation</h2>
+<p>Our composite scoring system—an equal-weighted average of constrained XGBoost and logistic regression probabilities—ranked every comic in our dataset according to its potential for MCU adaptation success. While the model outputs a full ranked list, our top candidate was Agents of Atlas (2006) #5, with an XGBoost probability of 0.9988, a logistic regression probability of 1.0000, and a combined score of 0.9994.</p>
+<p>This recommendation is supported by the presence of many traits that ranked highly in our consensus feature importance analysis (Figure Z). Agents of Atlas (2006) #5 features cosmic rivalries and power struggles, civil conflict, and national emergency–level threats, all of which were among the top consensus predictors of adaptation success. It also incorporates strong elements of infiltration and deception and mystery and investigation, weaving espionage and covert operations into the plot. These thematic drivers, combined with the inclusion of advanced technology (“weapons and supertech”), a diverse team structure, and large-scale stakes, closely mirror the narrative DNA of past critically and commercially successful MCU adaptations.</p>
+<p>It’s important to stress that this result does not suggest Agents of Atlas (2006) #5 should be adapted in isolation. MCU projects almost always blend multiple comics and arcs into a single narrative. Instead, its high score reflects the fact that its narrative and structural features align strongly with those most associated with past MCU successes—making it an exemplary case study of what our models define as “adaptation-ready” storytelling.</p>
+</section>
+</section>
+<section id="discussion" class="level1">
+<h1>Discussion</h1>
+<p>Our findings demonstrate that it is possible to identify promising MCU adaptation candidates by analyzing the structural and thematic DNA of the comics themselves, well before any production decisions are made. By combining the predictive strength of a constrained XGBoost model with the interpretability of logistic regression, we were able to not only forecast which comics would most likely resonate with audiences and critics but also provide a clear rationale for those predictions. The top-ranked features from both models—such as large-scale conflict, infiltration and deception, and advanced technology—align closely with the characteristics of past successful adaptations, suggesting that these traits may form part of a repeatable formula for audience engagement.</p>
+<p>While our analysis focused on Marvel comics, the broader methodological framework has potential applications across other franchises and media formats. By quantifying the narrative elements of source material, studios and creative teams could make more informed choices about which stories to adapt, potentially increasing the likelihood of producing high-quality, commercially viable projects.</p>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<p>Despite these promising results, several limitations should be acknowledged.</p>
+<p>Scope of analysis – Our models were trained exclusively on structured metadata derived from comics, meaning that key aspects of film success, such as casting, directing, visual effects, and marketing, were not considered. While this focus was intentional, it means that the models are optimized for identifying potentially strong source material, not guaranteeing final box office or critical success.</p>
+<p>No character-level analysis – Due to time constraints, we did not perform detailed analysis at the individual character level. While our dataset includes extensive character metadata, connecting those attributes directly to adaptation outcomes would require a separate modeling pipeline. This omission leaves open questions about how specific character arcs, identities, or interpersonal dynamics might influence adaptation success.</p>
+<p>Incomplete adaptation mapping – There is no official, comprehensive list linking individual comics to their screen adaptations, and many MCU projects combine multiple arcs and issues. Our adaptation matching relied on series-level classifications and aggregated fan consensus, which introduces some uncertainty into the labeling of training data.</p>
+<p>Gaps in metadata – Some comics lacked complete theme or threat classifications, and our keyword-based extraction methods—while augmented with human review—may still have missed subtle or context-dependent traits. This is particularly true for thematic elements embedded in nuanced narrative descriptions, which may not always translate cleanly into our Boolean feature set.</p>
+<p>Bias from source coverage – All comic metadata came from Marvel.com, which, while official, has occasional omissions, inconsistent formatting, and limited archival coverage for older material. Similarly, Rotten Tomatoes ratings, while comprehensive for MCU titles, are subject to selection bias from audience reviewers.</p>
+<p>Model assumptions – Logistic regression assumes linearity in the log-odds of the predictors, while XGBoost assumes that shallow decision trees can capture the essential feature interactions. Although our results suggest these assumptions were reasonable, they inherently limit the types of relationships our models can detect.</p>
+<p>It is also worth noting that, as outlined in our Data Ethics section, this model is intended as a decision-support tool rather than an authoritative prescription for MCU adaptation choices. By grounding our features in publicly sourced metadata and maintaining a human-in-the-loop review process for AI-assisted classifications, we aimed to reduce bias and ensure that the final outputs serve as informed suggestions rather than definitive judgments.</p>
+</section>
+<section id="future-work" class="level2">
+<h2 class="anchored" data-anchor-id="future-work">Future Work</h2>
+<p>Several opportunities exist to expand and refine this research:</p>
+<p>Character-level modeling – Building a dedicated pipeline to incorporate character attributes (e.g., power sets, demographic traits, team affiliations) directly into the prediction process could reveal how individual heroes or villains influence adaptation success.</p>
+<p>Improved adaptation mapping – Collaborating with comic historians or leveraging fan-curated wikis could produce a more precise mapping of comics to their on-screen adaptations, reducing uncertainty in labels.</p>
+<p>Enhanced feature extraction – Using natural language processing (NLP) techniques, such as transformer-based language models, could allow for more nuanced detection of themes, relationships, and tone beyond simple keyword matching.</p>
+<p>Temporal and franchise-level analysis – Expanding the dataset to include non-MCU Marvel films or even adaptations from other publishers could help test whether the identified traits are universal or MCU-specific.</p>
+<p>Integration of non-comic features – Incorporating production-level data (e.g., budget, release strategy, marketing spend) alongside comic features could improve predictive accuracy for real-world performance.</p>
+<p>By addressing these avenues, future iterations of this work could provide a more holistic and precise toolkit for predicting and understanding adaptation success, potentially informing creative and business decisions in the film and television industry.</p>
 </section>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
-<p>Coming Soon</p>
+<p>Our analysis shows that it is possible to identify promising MCU adaptation candidates by analyzing the narrative DNA of the comics themselves—long before production, casting, or marketing come into play. By combining the predictive strength of a constrained XGBoost classifier with the interpretability of logistic regression, we produced a composite “success potential score” that not only forecasts which comics are most likely to resonate with audiences and critics but also explains why they do.</p>
+<p>While no model can perfectly predict adaptation success, our results reveal that certain structural and thematic patterns—such as a high number of interconnected themes, strong mentor relationships, and origin-based arcs—consistently appear in top-performing adaptations. These findings suggest a practical application for studios: using source-level metadata to guide early-stage adaptation choices, potentially increasing the likelihood of producing films and series that both honor the comics and connect with audiences.</p>
+<p>This work has clear avenues for expansion. Future research could include more comprehensive threat and theme classifications, character-level analysis, sentiment analysis of fan discussions, and integration of movie-level factors such as production budgets and release strategies. With a more complete mapping between comics and their adaptations, the models could be further refined to capture temporal dynamics—such as which themes rise or fall in popularity over time—and to test the framework on adaptations beyond Marvel, including other publishers, book-to-film projects, or game adaptations.</p>
+<p>Ultimately, our top recommendation—Agents of Atlas (2006) #5—is not about championing a single issue in isolation, but about demonstrating that data-driven methods can surface strong candidates and articulate the reasoning behind them. As the MCU continues to expand, pairing statistical modeling with narrative insight may help future adaptations recapture the consistency, depth, and emotional resonance that defined its earliest successes. In the end, the path to MCU success may be simple: focus on the stories and themes that have already proven their power in the comics—and the fans will follow.</p>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
-<p>Coming soon</p>
-<div id="refs" role="list">
-
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-ahmad2020" class="csl-entry" role="listitem">
+Ahmad, Izhar Saleem et al. 2020. <span>“A Survey on Machine Learning Techniques in Movie Revenue Prediction.”</span> <em>SN Computer Science</em> 1: 1–14.
+</div>
 </div>
 </section>
 <section id="appendix" class="level1">
@@ -1226,12 +1321,13 @@ Date the media was first released to the public.
 </tbody>
 </table>
 </details>
-<details class="accordion">
+<!-- character_ethnicities -->
+<details>
 <summary>
 <span class="icon">ℹ</span> character_ethnicities
 </summary>
 <p>
-This table contains a variety of character ethnicities and unique ids
+Lookup table of canonical ethnicity labels used by characters.
 </p>
 <table>
 <thead>
@@ -1256,7 +1352,7 @@ ethnicity_id
 Ethnicity ID
 </td>
 <td>
-Primary key; unique identifier for ethnicities.
+Primary key; unique identifier for an ethnicity.
 </td>
 </tr>
 <tr>
@@ -1267,19 +1363,19 @@ ethnicity_label
 Ethnicity Label
 </td>
 <td>
-An ethnic group EX: Indigenous / Native
+Human‑readable ethnicity name.
 </td>
 </tr>
 </tbody>
 </table>
 </details>
-TO BE CHANGED TABLES:
-<details class="accordion">
+<!-- character_power_type -->
+<details>
 <summary>
-<span class="icon">ℹ</span> character_ethnicities
+<span class="icon">ℹ</span> character_power_type
 </summary>
 <p>
-This table contains a variety of character ethnicities and unique ids
+Bridge table relating characters to their power types (many‑to‑many).
 </p>
 <table>
 <thead>
@@ -1298,35 +1394,36 @@ Description
 <tbody>
 <tr>
 <td>
-ethnicity_id
+character_id
 </td>
 <td>
-Ethnicity ID
+Character ID
 </td>
 <td>
-Primary key; unique identifier for ethnicities.
+Foreign key to <code>marvel_heroes</code>.
 </td>
 </tr>
 <tr>
 <td>
-ethnicity_label
+power_type_id
 </td>
 <td>
-Ethnicity Label
+Power Type ID
 </td>
 <td>
-An ethnic group EX: Indigenous / Native
+Foreign key to <code>power_type</code>.
 </td>
 </tr>
 </tbody>
 </table>
 </details>
-<details class="accordion">
+<!-- characters_in_movies -->
+<details>
 <summary>
-<span class="icon">ℹ</span> character_ethnicities
+<span class="icon">ℹ</span> characters_in_movies
 </summary>
 <p>
-This table contains a variety of character ethnicities and unique ids
+Bridge table indicating which characters appear in which movies/shows.
 </p>
 <table>
 <thead>
@@ -1345,35 +1442,36 @@ Description
 <tbody>
 <tr>
 <td>
-ethnicity_id
+character_id
 </td>
 <td>
-Ethnicity ID
+Character ID
 </td>
 <td>
-Primary key; unique identifier for ethnicities.
+Foreign key to <code>marvel_heroes</code>.
 </td>
 </tr>
 <tr>
 <td>
-ethnicity_label
+movie_id
 </td>
 <td>
-Ethnicity Label
+Media ID
 </td>
 <td>
-An ethnic group EX: Indigenous / Native
+Foreign key to <code>marvel_ratings</code>.
 </td>
 </tr>
 </tbody>
 </table>
 </details>
-<details class="accordion">
+<!-- characters_in_teams -->
+<details>
 <summary>
-<span class="icon">ℹ</span> character_ethnicities
+<span class="icon">ℹ</span> characters_in_teams
 </summary>
 <p>
-This table contains a variety of character ethnicities and unique ids
+Bridge table mapping characters to teams (many‑to‑many).
 </p>
 <table>
 <thead>
@@ -1392,35 +1490,36 @@ Description
 <tbody>
 <tr>
 <td>
-ethnicity_id
+character_id
 </td>
 <td>
-Ethnicity ID
+Character ID
 </td>
 <td>
-Primary key; unique identifier for ethnicities.
+Foreign key to <code>marvel_heroes</code>.
 </td>
 </tr>
 <tr>
 <td>
-ethnicity_label
+team_id
 </td>
 <td>
-Ethnicity Label
+Team ID
 </td>
 <td>
-An ethnic group EX: Indigenous / Native
+Foreign key to <code>teams</code>.
 </td>
 </tr>
 </tbody>
 </table>
 </details>
-<details class="accordion">
+<!-- comic_characters -->
+<details>
 <summary>
-<span class="icon">ℹ</span> character_ethnicities
+<span class="icon">ℹ</span> comic_characters
 </summary>
 <p>
-This table contains a variety of character ethnicities and unique ids
+Bridge table listing which characters appear in which comic issues.
 </p>
 <table>
 <thead>
@@ -1439,35 +1538,36 @@ Description
 <tbody>
 <tr>
 <td>
-ethnicity_id
+comic_id
 </td>
 <td>
-Ethnicity ID
+Comic ID
 </td>
 <td>
-Primary key; unique identifier for ethnicities.
+Foreign key to <code>comics</code>.
 </td>
 </tr>
 <tr>
 <td>
-ethnicity_label
+character_id
 </td>
 <td>
-Ethnicity Label
+Character ID
 </td>
 <td>
-An ethnic group EX: Indigenous / Native
+Foreign key to <code>marvel_heroes</code>.
 </td>
 </tr>
 </tbody>
 </table>
 </details>
-<details class="accordion">
+<!-- comic_series -->
+<details>
 <summary>
-<span class="icon">ℹ</span> character_ethnicities
+<span class="icon">ℹ</span> comic_series
 </summary>
 <p>
-This table contains a variety of character ethnicities and unique ids
+Reference table of comic series.
 </p>
 <table>
 <thead>
@@ -1486,35 +1586,36 @@ Description
 <tbody>
 <tr>
 <td>
-ethnicity_id
+series_id
 </td>
 <td>
-Ethnicity ID
+Series ID
 </td>
 <td>
-Primary key; unique identifier for ethnicities.
+Primary key; unique identifier for a series.
 </td>
 </tr>
 <tr>
 <td>
-ethnicity_label
+series_name
 </td>
 <td>
-Ethnicity Label
+Series Name
 </td>
 <td>
-An ethnic group EX: Indigenous / Native
+Title of the comic series.
 </td>
 </tr>
 </tbody>
 </table>
 </details>
-<details class="accordion">
+<!-- comic_themes -->
+<details>
 <summary>
-<span class="icon">ℹ</span> character_ethnicities
+<span class="icon">ℹ</span> comic_themes
 </summary>
 <p>
-This table contains a variety of character ethnicities and unique ids
+Bridge table linking comics to thematic categories.
 </p>
 <table>
 <thead>
@@ -1533,35 +1634,36 @@ Description
 <tbody>
 <tr>
 <td>
-ethnicity_id
+comic_id
 </td>
 <td>
-Ethnicity ID
+Comic ID
 </td>
 <td>
-Primary key; unique identifier for ethnicities.
+Foreign key to <code>comics</code>.
 </td>
 </tr>
 <tr>
 <td>
-ethnicity_label
+theme_id
 </td>
 <td>
-Ethnicity Label
+Theme ID
 </td>
 <td>
-An ethnic group EX: Indigenous / Native
+Foreign key to <code>themes</code>.
 </td>
 </tr>
 </tbody>
 </table>
 </details>
-<details class="accordion">
+<!-- comic_threats -->
+<details>
 <summary>
-<span class="icon">ℹ</span> character_ethnicities
+<span class="icon">ℹ</span> comic_threats
 </summary>
 <p>
-This table contains a variety of character ethnicities and unique ids
+Bridge table linking comics to threat levels present in the story.
 </p>
 <table>
 <thead>
@@ -1580,32 +1682,749 @@ Description
 <tbody>
 <tr>
 <td>
-ethnicity_id
+comic_id
 </td>
 <td>
-Ethnicity ID
+Comic ID
 </td>
 <td>
-Primary key; unique identifier for ethnicities.
+Foreign key to <code>comics</code>.
 </td>
 </tr>
 <tr>
 <td>
-ethnicity_label
+threat_id
 </td>
 <td>
-Ethnicity Label
+Threat ID
 </td>
 <td>
-An ethnic group EX: Indigenous / Native
+Foreign key to <code>threat_level</code>.
 </td>
 </tr>
 </tbody>
 </table>
 </details>
-</div>
-<div id="refs" role="list">
-
+<!-- comic_to_creator -->
+<details>
+<summary>
+<span class="icon">ℹ</span> comic_to_creator
+</summary>
+<p>
+Bridge table mapping comics to their creators (writers, artists, etc.).
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+comic_id
+</td>
+<td>
+Comic ID
+</td>
+<td>
+Foreign key to <code>comics</code>.
+</td>
+</tr>
+<tr>
+<td>
+creator_id
+</td>
+<td>
+Creator ID
+</td>
+<td>
+Foreign key to <code>creators</code>.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- comic_to_movie -->
+<details>
+<summary>
+<span class="icon">ℹ</span> comic_to_movie
+</summary>
+<p>
+Bridge table connecting comics with their movie/TV adaptations.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+comic_id
+</td>
+<td>
+Comic ID
+</td>
+<td>
+Foreign key to <code>comics</code>.
+</td>
+</tr>
+<tr>
+<td>
+movie_id
+</td>
+<td>
+Media ID
+</td>
+<td>
+Foreign key to <code>marvel_ratings</code>.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- creators -->
+<details>
+<summary>
+<span class="icon">ℹ</span> creators
+</summary>
+<p>
+Reference table of creators (writers, artists, etc.).
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+creator_id
+</td>
+<td>
+Creator ID
+</td>
+<td>
+Primary key; unique identifier for a creator.
+</td>
+</tr>
+<tr>
+<td>
+creator_name
+</td>
+<td>
+Creator Name
+</td>
+<td>
+Full name of the creator.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- hero_aliases -->
+<details>
+<summary>
+<span class="icon">ℹ</span> hero_aliases
+</summary>
+<p>
+Reference table of alias names used by heroes.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+alias_id
+</td>
+<td>
+Alias ID
+</td>
+<td>
+Primary key; unique identifier for an alias.
+</td>
+</tr>
+<tr>
+<td>
+alias_name
+</td>
+<td>
+Alias Name
+</td>
+<td>
+Alias used by the character (e.g., Spider‑Man).
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- hero_powers -->
+<details>
+<summary>
+<span class="icon">ℹ</span> hero_powers
+</summary>
+<p>
+Bridge table mapping characters to specific powers (many‑to‑many).
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+character_id
+</td>
+<td>
+Character ID
+</td>
+<td>
+Foreign key to <code>marvel_heroes</code>.
+</td>
+</tr>
+<tr>
+<td>
+power_id
+</td>
+<td>
+Power ID
+</td>
+<td>
+Foreign key to <code>powers</code>.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- hero_to_alias -->
+<details>
+<summary>
+<span class="icon">ℹ</span> hero_to_alias
+</summary>
+<p>
+Bridge table connecting heroes to their aliases (many‑to‑many).
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+character_id
+</td>
+<td>
+Character ID
+</td>
+<td>
+Foreign key to <code>marvel_heroes</code>.
+</td>
+</tr>
+<tr>
+<td>
+alias_id
+</td>
+<td>
+Alias ID
+</td>
+<td>
+Foreign key to <code>hero_aliases</code>.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- locations -->
+<details>
+<summary>
+<span class="icon">ℹ</span> locations
+</summary>
+<p>
+Reference table of in‑universe locations used by comics.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+location_id
+</td>
+<td>
+Location ID
+</td>
+<td>
+Primary key; unique identifier for a location.
+</td>
+</tr>
+<tr>
+<td>
+description
+</td>
+<td>
+Description
+</td>
+<td>
+Location name/description (e.g., New York, Knowhere).
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- major_event -->
+<details>
+<summary>
+<span class="icon">ℹ</span> major_event
+</summary>
+<p>
+Reference table of major Marvel events used to tag comics.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+event_id
+</td>
+<td>
+Event ID
+</td>
+<td>
+Primary key; unique identifier for a major event.
+</td>
+</tr>
+<tr>
+<td>
+description
+</td>
+<td>
+Description
+</td>
+<td>
+Event name/description (e.g., Civil War).
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- mcu_cast_raw -->
+<details>
+<summary>
+<span class="icon">ℹ</span> mcu_cast_raw
+</summary>
+<p>
+Raw helper table capturing quick character–title pairings scraped/collected for reconciliation.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+movie_title
+</td>
+<td>
+Movie/Show Title
+</td>
+<td>
+Title of the MCU movie or series.
+</td>
+</tr>
+<tr>
+<td>
+character_name
+</td>
+<td>
+Character Name
+</td>
+<td>
+Character name as it appears in the source data.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- power_type -->
+<details>
+<summary>
+<span class="icon">ℹ</span> power_type
+</summary>
+<p>
+Reference table categorizing the <em>type</em> of a character’s abilities (e.g., Tech‑based, Mutant).
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+power_type_id
+</td>
+<td>
+Power Type ID
+</td>
+<td>
+Primary key; unique identifier for a power type.
+</td>
+</tr>
+<tr>
+<td>
+description
+</td>
+<td>
+Description
+</td>
+<td>
+Label/description of the power type.
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- powers -->
+<details>
+<summary>
+<span class="icon">ℹ</span> powers
+</summary>
+<p>
+Reference table of specific powers/abilities that heroes can possess.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+power_id
+</td>
+<td>
+Power ID
+</td>
+<td>
+Primary key; unique identifier for a power.
+</td>
+</tr>
+<tr>
+<td>
+description
+</td>
+<td>
+Description
+</td>
+<td>
+Name/description of the power (e.g., Web‑Slinging).
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- species -->
+<details>
+<summary>
+<span class="icon">ℹ</span> species
+</summary>
+<p>
+Reference table of species classifications.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+species_id
+</td>
+<td>
+Species ID
+</td>
+<td>
+Primary key; unique identifier for a species.
+</td>
+</tr>
+<tr>
+<td>
+description
+</td>
+<td>
+Description
+</td>
+<td>
+Species label/description (e.g., Human, Asgardian).
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- teams -->
+<details>
+<summary>
+<span class="icon">ℹ</span> teams
+</summary>
+<p>
+Reference table of superhero/villain teams.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+team_id
+</td>
+<td>
+Team ID
+</td>
+<td>
+Primary key; unique identifier for a team.
+</td>
+</tr>
+<tr>
+<td>
+description
+</td>
+<td>
+Description
+</td>
+<td>
+Team name/description (e.g., Avengers).
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- themes -->
+<details>
+<summary>
+<span class="icon">ℹ</span> themes
+</summary>
+<p>
+Reference table of themes used to tag comics.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+theme_id
+</td>
+<td>
+Theme ID
+</td>
+<td>
+Primary key; unique identifier for a theme.
+</td>
+</tr>
+<tr>
+<td>
+description
+</td>
+<td>
+Description
+</td>
+<td>
+Theme label/description (e.g., Origin Story, Mentor).
+</td>
+</tr>
+</tbody>
+</table>
+</details>
+<!-- threat_level -->
+<details>
+<summary>
+<span class="icon">ℹ</span> threat_level
+</summary>
+<p>
+Reference table of narrative threat levels used in classification.
+</p>
+<table>
+<thead>
+<tr>
+<th>
+Variable
+</th>
+<th>
+Name
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+threat_id
+</td>
+<td>
+Threat ID
+</td>
+<td>
+Primary key; unique identifier for a threat level.
+</td>
+</tr>
+<tr>
+<td>
+description
+</td>
+<td>
+Description
+</td>
+<td>
+Threat description (e.g., Street‑Level, Planetary).
+</td>
+</tr>
+</tbody>
+</table>
+</details>
 </div>
 </section>
 </section>

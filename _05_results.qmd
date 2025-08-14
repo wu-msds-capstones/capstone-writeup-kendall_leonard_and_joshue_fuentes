@@ -1,15 +1,14 @@
 # Results
 
+Our results begin with an exploration of key trends in Marvel media reception, providing context for the predictive modeling that follows. By first examining how critic and audience scores have evolved over time, we can see where the MCU has maintained its momentum and where reception has become more volatile. These patterns not only validate the motivation for our project but also highlight the value of looking to the comics themselves for insights. This section moves from broad descriptive trends to targeted model outputs, ultimately showing how specific narrative and structural traits align with adaptation success.
+
 ## Exploratory Data Analysis
 
-To test our intuition that Marvel’s newer content hasn’t been hitting the same highs as its earlier phases, we turned to the data. The figure above visualizes Rotten Tomatoes audience scores for Marvel media over time, from 2008 through 2025.
 
-The trend is hard to miss: while early titles (roughly 2008–2018) generally received consistently high ratings—frequently in the 80–90% range—recent releases show a dramatic increase in variability. Starting around 2019, the scores become much more volatile, with several sharp dips into the 40s and 50s and far fewer guaranteed crowd-pleasers. Even well-established franchises aren't immune to this drop in reception.
+To test our intuition that Marvel’s newer content has not been hitting the same highs as its earlier phases, we turned to the data. Figure 1 visualizes Rotten Tomatoes audience scores for Marvel media over time, from 2008 through 2025.
 
-This backs up what many longtime fans (ourselves included) have been feeling: the MCU just isn’t as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. At the same time, there's been a surge in the volume of media released. With more shows and movies hitting screens each year, the range of quality—and audience response—has grown.
 
-This plot served as a useful gut-check: it confirmed that our hunch wasn’t just nostalgia talking. Something has changed in how Marvel stories are being received, and this volatility in reception helped motivate our deeper dive into the storytelling DNA of the comics themselves. If some source material leads to reliably well-received adaptations, and others don’t, then maybe the data can help us figure out the difference.
-
+The trend is hard to miss: while early titles (roughly 2008–2018) generally received consistently high ratings—frequently in the 80–90% range—recent releases show a dramatic increase in variability. Starting around 2019, the scores became much more volatile, with several sharp dips into the 40s and 50s and far fewer guaranteed crowd-pleasers. Even well-established franchises are not immune to this drop in reception.
 
 
 ```{r echo = FALSE, message = FALSE}
@@ -19,6 +18,7 @@ library(tidyverse)
 marvel_ratings<-read_csv("marvel_ratings.csv")
 ggplot(marvel_ratings, aes(x=release_date, y = audience_score))+
   geom_line()+
+geom_smooth()+
   theme_minimal()+
   labs(title = "We're Not Crazy: Marvel's Just Not the Same",
        subtitle = "Marvel Media's Audience Score Over Time",
@@ -28,58 +28,62 @@ ggplot(marvel_ratings, aes(x=release_date, y = audience_score))+
 ```
 
 
+These results back up what many longtime fans (ourselves included) have been feeling: the MCU just is not as consistent as it used to be. Audiences seem increasingly divided over the newer content, and not every experiment has paid off. At the same time, there has been a surge in the volume of media released. With more shows and movies hitting screens each year, the range of quality—and audience response—has grown.
 
 
-## Model Building
+We observed a similar pattern when looking at critic scores, as seen in Figure 3. While critic ratings historically showed less fluctuation than audience ratings, the post-2019 era still reveals a wider spread. Interestingly, the fitted trend line for critic scores slopes slightly upward in recent years, while the audience trend line slopes downward. This divergence suggests that critics and audiences may be responding differently to newer MCU content—a potential signal that what resonates with critics is not always what resonates with general audiences.
+```{r echo=FALSE, message= FALSE}
+#| fig-cap: "Figure 3: A time series graph showing the Rotten Tomatoes Critic Scores for Marvel Media over Time."
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+library(tidyverse)
+marvel_ratings<-read_csv("C:/Users/lazyp/Downloads/marvel_ratings.csv")
+ggplot(marvel_ratings, aes(x=release_date, y = critic_score))+
+  geom_line()+
+  geom_point()+
+  geom_smooth(se=FALSE)+
+  theme_minimal()+
+  labs(title = "Not in Perfect Harmony: Critics vs. Crowds",
+       subtitle = "Marvel Media's Critic Score Over Time",
+       x = "Release Date of Media",
+       y = "Rotten Tomatoes Critic Score (Percent)",
+       caption = "Data Source: Rotten Tomatoes")
+```
 
-Once we assembled our dataset, the next step was to determine which elements of comic storytelling actually correlate with a successful adaptation. To do this, we treated the task as a binary classification problem: given a comic issue’s metadata, could we predict whether it would be a strong candidate for MCU adaptation?
+Together, these patterns confirm that our hunch was not just nostalgia: something has changed in how Marvel stories are being received. This increasing variability and the critic audience split reinforce our motivation to look deeper into the storytelling DNA of the comics themselves. If certain narrative traits in the source material consistently lead to strong reception, identifying them could help explain why some adaptations resonate while others falter.
 
-We began by defining a success label using the success_score variable—a composite rating derived from Rotten Tomatoes critic and audience scores. Comics tied to MCU content with a score of 85 or higher were labeled 1 (successful); all others were labeled 0. We intentionally set a high bar here: the goal was not to capture everything that was merely “good,” but to flag only the standout stories.
+## Model Performance and Insights
+Following our exploratory analysis, we evaluated how well different modeling approaches could predict whether a comic would be a strong candidate for a successful MCU adaptation.
 
-Before training, we handled missing data conservatively. Boolean indicators such as romance, mentor, and movie_based were treated as FALSE by default; numeric features like num_themes, num_characters, and num_power_types were filled in as 0. This approach helped preserve the structure of the data while minimizing the risk of overestimating character complexity or narrative richness.
 
-### Round 1: Random Forests
-We initially trained a Random Forest classifier using the caret and randomForest packages in R. The model showed striking performance during training—an AUC close to 1.0 and high overall accuracy. But the deeper we looked, the more issues we found.
+### Constrained XGBoost
 
-Specifically, the model appeared to overfit the training data, likely memorizing correlated artifacts—like series identifiers—instead of learning generalizable narrative signals. One major source of leakage was the series_id column: if every issue in a given series shared the same success label, the model could trivially “learn” to predict success without using any true narrative signals.
 
-Even after removing series_id, we applied multiple countermeasures, including class balancing via downsampling, 5-fold cross-validation, and feature selection to eliminate redundant predictors. Despite these efforts, the model continued to overfit. It performed exceptionally well on the dominant class (successful comics) but struggled to identify false positives and failed successes, resulting in poor generalization.
+The constrained XGBoost model emerged as the strongest binary classifier, achieving 89.9% accuracy, AUC of 0.968, Kappa of 0.4473, 89.4% sensitivity, and 92.9% specificity. This configuration effectively balanced high predictive performance with reduced overfitting.
 
-A quick look at the confusion matrix and ROC curve confirmed our suspicion: the model was accurate for the wrong reasons.
 
-### Round 2: XGBoost
-Hoping to find a better balance, we turned to XGBoost, a more sophisticated gradient boosting method. We trained the model on the same set of predictors, with class balancing and regularization in place.
+Figure X shows the top 15 features ranked by “Gain,” XGBoost’s measure of how much each feature contributed to improving the model’s objective function. The most influential predictors were series_issue_count, theme_civil_conflict, num_creators, and page_count, suggesting that both the scope of a comic series and certain narrative conflicts are strong signals for adaptation success. Economic or market-related attributes such as price also ranked highly, hinting at potential links between production investment and adaptation likelihood. Additionally, thematic elements like weapons and supertech, romantic drama, and military conflict appeared in the top 15, reinforcing the importance of recognizable, high-stakes story elements in commercially viable adaptations.
 
-While XGBoost slightly improved recall for the minority class (success_label == 0) under upsampling, the class imbalance remained a significant challenge. While precision remained high, recall for the unsuccessful class stayed low, and interpretability took a hit due to the model’s complexity. 
 
-ADD MORE HERE
+### Logistic Regression
 
-### Round 3: Logistic Regression
 
-Ultimately, we landed on a logistic regression model. Before fitting the model, we ensured that binary factors were encoded as pos/neg and applied 5-fold cross-validation with upsampling to counteract the imbalance in success labels. While it didn’t dazzle with perfect accuracy, it offered several clear advantages:
+While slightly less accurate (81.2% accuracy, AUC of 0.898, 96.5% precision, 71.0% recall, Kappa of 0.425), logistic regression provided far greater interpretability. Coefficients revealed which traits were positively or negatively associated with adaptation success, allowing us to directly connect model outputs to storytelling elements.
 
-Better class balance: It recognized both successful and unsuccessful comics more fairly.
 
-More interpretable coefficients: We could identify which features actually mattered (e.g., num_themes, mentor, origin_story).
+As shown in Figure Y, the top coefficients by absolute value included theme_scientific_ethics, theme_civil_conflict, and threat_social_threat_uprising, indicating that moral dilemmas, internal societal conflicts, and large-scale uprisings are strongly tied to positive reception. Other notable features included theme_faith_and_religion, theme_coming_of_age, and theme_hero_vs_clone_doppelganger, suggesting that personal growth arcs and identity-based conflicts resonate with audiences when adapted.
 
-Fewer red flags: No sign of memorization or artifact-based prediction.
 
-In terms of metrics, the final model reached:
+### Consensus Feature Importance
+To combine predictive strength with interpretability, we averaged the probability outputs from both models to create a composite “success potential score.” Figure Z shows the consensus feature importance across both models. Traits like theme_cosmic_rivalries_power_struggles, theme_civil_conflict, and threat_national_emergency consistently ranked near the top, pointing to a shared recognition across models that large-scale stakes and high-intensity conflict drive adaptation success. Elements such as theme_infiltration_and_deception, theme_mystery_and_investigation, and theme_weapons_and_supertech also stood out, reflecting the enduring appeal of espionage, detective-style narratives, and advanced technology in the MCU formula.
 
-- Accuracy: 81.2%
 
-- Precision: 96.5%
+By combining model outputs and aligning them with top features from each, we produced not just a ranked list of comics with the highest adaptation potential, but also a clear thematic and structural profile of what “success” tends to look like in the MCU context.
 
-- Recall: 71.0%
 
-- AUC: 0.898
+## Final Model Recommendation
+Our composite scoring system—an equal-weighted average of constrained XGBoost and logistic regression probabilities—ranked every comic in our dataset according to its potential for MCU adaptation success. While the model outputs a full ranked list, our top candidate was Agents of Atlas (2006) #5, with an XGBoost probability of 0.9988, a logistic regression probability of 1.0000, and a combined score of 0.9994.
 
-- Kappa: 0.425
+This recommendation is supported by the presence of many traits that ranked highly in our consensus feature importance analysis (Figure Z). Agents of Atlas (2006) #5 features cosmic rivalries and power struggles, civil conflict, and national emergency–level threats, all of which were among the top consensus predictors of adaptation success. It also incorporates strong elements of infiltration and deception and mystery and investigation, weaving espionage and covert operations into the plot. These thematic drivers, combined with the inclusion of advanced technology (“weapons and supertech”), a diverse team structure, and large-scale stakes, closely mirror the narrative DNA of past critically and commercially successful MCU adaptations.
 
-The ROC curve looked promising—stable, clean, and free of the extreme curvature that often signals overfitting and the Kappa statistic (κ = 0.425) indicates moderate agreement between predicted and actual labels after accounting for chance agreement—an important validation that the model wasn’t simply riding the dominant class (as earlier models had done). While not perfect, this level of agreement reinforces that the model captures meaningful patterns in the data without overfitting.
-
-## The Output
-Although tree-based models often dominate performance benchmarks, in this case, they proved too powerful for their own good. Random Forest and XGBoost were easily distracted by artifacts in the data and susceptible to subtle forms of leakage. Logistic regression, by contrast, struck the right balance between predictive power and explanatory value.
-
-More importantly, it helped us isolate actual narrative signals—traits that future adaptations could watch for, rather than shortcuts tied to past decisions. With this model in hand, we’re finally able to ask the question that started this whole project: what makes a comic story truly worth adapting?
+It’s important to stress that this result does not suggest Agents of Atlas (2006) #5 should be adapted in isolation. MCU projects almost always blend multiple comics and arcs into a single narrative. Instead, its high score reflects the fact that its narrative and structural features align strongly with those most associated with past MCU successes—making it an exemplary case study of what our models define as “adaptation-ready” storytelling.
 
