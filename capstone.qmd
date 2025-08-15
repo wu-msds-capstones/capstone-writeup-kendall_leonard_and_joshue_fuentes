@@ -1,6 +1,6 @@
 ---
 title: "Marvel: Data Assembled"
-subtitle: An Analysis and Classification of Marvel Comics and Media
+subtitle: Predicting and Explaining MCU Adaptation Success from Comic Storytelling DNA
 authors:
   - Joshue Fuentes
   - Kendall Leonard
