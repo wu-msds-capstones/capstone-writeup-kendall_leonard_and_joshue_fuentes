@@ -1,0 +1,43 @@
+/* Accordion styling */
+.accordion details {
+  border: 1px solid #cce;
+  background-color: #f7faff;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 10px 15px;
+}
+
+.accordion summary {
+  font-size: 1.1em;
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.accordion .icon {
+  margin-right: 8px;
+  color: #0077cc;
+}
+
+/* Table styling */
+.accordion table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.accordion th,
+.accordion td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+}
+
+.accordion th {
+  background-color: #e8f1fc;
+  font-weight: bold;
+}
+
+.wider-iframe {
+  width: calc(100% + 200px);  /* extend 200px past the text column */
+  max-width: 1400px;          /* optional safety cap */
+  margin-left: 0;              /* don't push into the TOC */
+}

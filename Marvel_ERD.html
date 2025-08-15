@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Marvel ERD</title>
+  <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    header {
+      padding: 1rem;
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ccc;
+    }
+
+    #zoom-controls {
+      display: flex;
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+
+    #zoom-controls button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #aaa;
+      background: #eee;
+      cursor: pointer;
+    }
+
+    #diagram-container {
+      height: 80vh;
+      overflow: auto;
+    }
+
+    #diagram-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>Entity Relationship Diagram</h2>
+  </header>
+
+  <div id="zoom-controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="diagram-container">
+    <div id="diagram-wrapper"></div>
+  </div>
+
+  <script type="text/plain" id="mermaid-container">
+%%{init: {'theme': 'default', 'flowchart': {'htmlLabels': true}, 'er': { 'useMaxWidth': false }}}%%
+erDiagram
+    marvel_heroes {
+        int character_id PK
+        string civilian_name
+        boolean comedy
+        string sex
+        boolean in_movie
+        int ethnicity_id FK
+        int species_id FK
+    }
+
+    character_ethnicities {
+        int ethnicity_id PK
+        string ethnicity_label
+    }
+
+    species {
+        int species_id PK
+        string description
+    }
+
+    hero_aliases {
+        int alias_id PK
+        string alias_name
+    }
+
+    hero_to_alias {
+        int character_id FK
+        int alias_id FK
+    }
+
+    powers {
+        int power_id PK
+        string description
+    }
+
+    power_type {
+        int power_type_id PK
+        string description
+    }
+
+    character_power_type {
+        int character_id FK
+        int power_type_id FK
+    }
+
+    hero_powers {
+        int character_id FK
+        int power_id FK
+    }
+
+    teams {
+        int team_id PK
+        string description
+    }
+
+    characters_in_teams {
+        int character_id FK
+        int team_id FK
+    }
+
+    marvel_ratings {
+        int media_id PK
+        string title
+        string type
+        float critic_score
+        float audience_score
+        date release_date
+    }
+
+    characters_in_movies {
+        int character_id FK
+        int movie_id FK
+    }
+
+    comics {
+        int comic_id PK
+        int series_id FK
+        string comic_title
+        date release_date
+        int page_count
+        string rating
+        float price
+        string description
+        int threat_id FK
+        boolean used_in_movie
+        boolean movie_based
+        boolean mentor
+        boolean impactful_moment
+        boolean comedy
+        boolean cultural
+        int location_id FK
+        boolean romance
+        boolean origin_story
+        int major_event FK
+        string comic_url
+    }
+
+    comic_series {
+        int series_id PK
+        string series_name
+    }
+
+    comic_characters {
+        int comic_id FK
+        int character_id FK
+    }
+
+    comic_to_creator {
+        int comic_id FK
+        int creator_id FK
+    }
+
+    creators {
+        int creator_id PK
+        string creator_name
+    }
+
+    comic_to_movie {
+        int comic_id FK
+        int movie_id FK
+    }
+
+    comic_themes {
+        int comic_id FK
+        int theme_id FK
+    }
+
+    comic_threats {
+        int comic_id FK
+        int threat_id FK
+    }
+
+    themes {
+        int theme_id PK
+        string description
+    }
+
+    threat_level {
+        int threat_id PK
+        string description
+    }
+
+    locations {
+        int location_id PK
+        string description
+    }
+
+    major_event {
+        int event_id PK
+        string description
+    }
+
+    %% Relationships
+    marvel_heroes ||--o{ character_power_type : has
+    power_type ||--o{ character_power_type : classifies
+    marvel_heroes ||--o{ hero_powers : uses
+    powers ||--o{ hero_powers : is
+    marvel_heroes ||--o{ hero_to_alias : has
+    hero_aliases ||--o{ hero_to_alias : includes
+    marvel_heroes ||--o{ characters_in_teams : member
+    teams ||--o{ characters_in_teams : consists_of
+    marvel_heroes ||--o{ characters_in_movies : featured_in
+    marvel_ratings ||--o{ characters_in_movies : includes
+    marvel_heroes ||--o{ comic_characters : appears_in
+    comics ||--o{ comic_characters : features
+    comics ||--o{ comic_to_creator : created_by
+    creators ||--o{ comic_to_creator : contributes
+    comics ||--o{ comic_to_movie : adapted_to
+    marvel_ratings ||--o{ comic_to_movie : based_on
+    comics ||--o{ comic_themes : explores
+    themes ||--o{ comic_themes : present_in
+    comics ||--o{ comic_threats : faces
+    threat_level ||--o{ comic_threats : level
+    comics ||--o| comic_series : part_of
+    comics ||--o| locations : set_in
+    comics ||--o| major_event : involves
+    marvel_heroes }|--|| character_ethnicities : identifies_as
+    marvel_heroes }|--|| species : belongs_to
+  </script>
+
+  <script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+
+  // ——— choose your starting view ———
+  const INITIAL_ZOOM = 4;
+  const INITIAL_PAN  = { x: -1950, y: 70 };
+
+  // Render Mermaid -> inject SVG
+  const def = document.getElementById("mermaid-container").textContent;
+  const { svg } = await mermaid.render("erd", def);
+  const wrapper = document.getElementById("diagram-wrapper");
+  wrapper.innerHTML = svg;
+
+  // Optional: remove Mermaid's auto title
+  const headerText = wrapper.querySelector('svg text');
+  if (headerText && headerText.textContent.trim() === 'Entity Relationship Diagram') {
+    headerText.parentNode.removeChild(headerText);
+  }
+
+  // Init pan/zoom
+  const instance = svgPanZoom(wrapper.querySelector("svg"), {
+    zoomEnabled: true,
+    panEnabled: true,
+    controlIconsEnabled: false,
+    minZoom: 0.1,
+    maxZoom: 10
+  });
+
+  // Set the initial view
+  instance.zoom(INITIAL_ZOOM);
+  instance.pan(INITIAL_PAN);
+
+  // Expose button handlers globally
+  window.zoomIn = () => instance.zoomIn();
+  window.zoomOut = () => instance.zoomOut();
+  window.resetZoom = () => {
+    instance.zoom(INITIAL_ZOOM);
+    instance.pan(INITIAL_PAN);
+  };
+</script>
+
+
+</body>
+</html>
